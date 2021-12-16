@@ -13,23 +13,136 @@
     <meta property="og:title" content="SavikLand">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.savikland.com/">
-    <meta property="og:description" content="A simple HTML5 Template for new projects.">
+    <meta property="og:description" content="Portfolio site for Savik">
     <meta property="og:image" content="image.png">
 
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!--
+        <link rel="icon" href="/favicon.ico">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    -->    
+    
 
-    <link rel="stylesheet" href="index.css">
-
+    <link rel="stylesheet" href="/styles/index.css">
 </head>
 
-<body>
-    <iframe src="https://www.youtube.com/embed/6knE5ZBdRt8?controls=0&autoplay=1&mute=1" title="Theme Park B-Roll Footage"></iframe>
-    <header>
-        <h1>Under Construction</h1>
-    </header>
-    <script src="/index.js"></script>
+<body>    
+
+    <div class="landing">
+        <div>
+            <h1>SAVIK-LAND is currently under Construction!</h1>
+            <p>Please enjoy this interactive Toy we made special, just for you.</p>
+            <p>We even care so much, that there's a little Easter Egg in your Toy.</p>
+        </div>
+        <div style="display:flex; align-items: flex;">
+            <div class="raisable">
+                <div class="content pop-left pop-up">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div class="content pop-up">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div class="content pop-right pop-up">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>            
+        </div> 
+        
+        <div style="display:flex; align-items: flex;">
+            <div class="raisable">
+                <div class="content pop-left">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div id="business" class="content pop">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div class="content pop-right">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>            
+        </div>   
+
+        <div style="display:flex; align-items: flex;">
+            <div class="raisable">
+                <div class="content pop-left pop-down">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div class="content pop-down">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>
+            <div class="raisable">
+                <div class="content pop-right pop-down">
+                    <p></p>
+                </div>
+                <div class="shadow"></div>
+            </div>            
+        </div>  
+
+        <span style="margin-top:3em; font-size: 1.2em;">Hold mouse down on page to reset Stasis.</span>
+             
+    </div>
+    
+
+    <!-- <nav>
+        <div id="nav-bar"> 
+            <a href="#about" class="nav-item active" >About</a>
+            <a href="#develop" class="nav-item">Develop</a>
+            <a href="#design" class="nav-item">Design</a>
+        </div>        
+    </nav> -->
+
+    <!-- <aside>
+        <div id="spotify-embedded" class="open">
+            <button onclick="ToggleEmbedded()"></button>
+            <iframe src="https://open.spotify.com/embed/playlist/5Qi0vGdB6oFS56nvhpXDrY?utm_source=generator" width="250px" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+    </aside> -->
+
+    <!-- <div id="page">
+        <div id="about" class="page-section">
+            <div class="pg-s-header">
+                About Header
+            </div>
+            <img class="pg-s-image" src="https://via.placeholder.com/512x512?text=About+Placeholder+Image"/>
+            <h1 class="pg-s-title">About Title</h1>
+            <div class="pg-s-badges">
+                About Badges
+            </div>
+            <div class="pg-s-description"></div>
+            <p class="pg-s-footer">About Footer</p>
+        </div>
+        <div id="about" class="page-section">
+
+
+        </div>
+        <div id="about" class="page-section">
+
+
+        </div>
+    </div> -->
+    
+
+    <script src="/scripts/jquery-3.6.0.min.js" ></script>
+    <script src="/scripts/index.js"></script>
 </body>
 
 </html>
