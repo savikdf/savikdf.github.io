@@ -1,7 +1,7 @@
-:root{
+:root {
     --page-color: #fdfbf6;
     --page-seam-color: #e1e4e6;
-    --page-shadow-color: #e7d3c2;
+    --page-shadow-color: #e7d2c2;
     --page-bold-color: #585858;
     --theme-color: #fdfbf6;
     --theme-accent-color: #ffcd94;
@@ -9,62 +9,46 @@
 
 html {
     scroll-behavior: smooth;
-    background-color: var(--page-color);
+    background-color: red;
     overflow-x: hidden;
-    font-family: 'Courier New', monospace;
+    font-family: 'Futura', monospace;
 }
 
-*{
+* {
     padding: 0px;
     margin: 0px;
     outline: none;
     color: black;
 }
 
-.landing{
-    z-index: -10;
+h1, h2, h2 {
+    cursor: default;
+}
+
+main {
+    display: grid;
+    row-gap: 0em;
+    width: 100%;
+}
+
+section {
+    background-color: var(--page-color);
+    margin-bottom: 2em 0;
+}
+
+section.landing {
+    z-index: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-    /* background: url(https://picsum.photos/1920/1080); */
-    background-color: transparent;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     height: 100vh;
     width: 100%;
-    outline: 1px solid red;
-    color: grey;
+    color: black;
 }
 
-.landing > *{
-    color: inherit;
-}
-
-.landing > div:first-child{
-    font-size: 1.5rem;
-    margin-bottom: 3em;
-}
-
-#spotify-embedded > iframe{
-    position: fixed;
-    bottom: 0px;
-    left: 10px;
-}
-
-#spotify-embedded.open > iframe{
-    outline: 3px solid var(--theme-accent-color);
-}
-
-#page{
-    display: grid;
-    row-gap: 2em;
-    width: 100%;
-}
-
-.page-section{
+section.page-section {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -74,25 +58,34 @@ html {
         "pg-s-description"
         "pg-s-footer"
     ;
-    background-color: rgba(0,0,0,0.6);
-    width: 80%;
-    min-height: 300px;
-    margin: auto;
+    width: 100%;
+    padding: 2em 5em;
+    min-height: 200px;
 }
 
-.raisable{
-    position: relative;    
+.raisable {
+    position: relative;
     border-radius: 15px;
     height: 200px;
     width: 200px;
-    margin: 5px;
+    margin: 1.5em;
     transition: 1s;
 }
 
-.raisable > .content{
+.raisable.small {
+    height: 75px;
+    width: 75px;
+}
+
+.raisable.large {
+    height: 400px;
+    width: 400px;
+}
+
+.raisable>.content {
     z-index: 1;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     height: calc(100% - 4em);
     width: calc(100% - 4em);
@@ -102,24 +95,24 @@ html {
     background-color: var(--theme-color);
     overflow: hidden;
     transition: 250ms, outline ease-out 100ms;
-    box-shadow: 3px 3px var(--page-shadow-color);
+    box-shadow: 2px 2px var(--page-shadow-color);
 }
 
-.raisable > .content:before{
+.raisable>.content:before {
+    /* Savik land text on card */
     content: 'SAVIKLAND \00a9';
     text-align: center;
-    text-shadow: 0 0 4px rgba(255, 255, 255, 0.39);
+    text-shadow: 0 0 5px var(--page-color);
     font-size: 0.9em;
-    color: black;
-    opacity: 0.5;
+    color: var(--page-seam-color);
     display: block;
     position: absolute;
-    border-radius: 15px;   
+    border-radius: 15px;
     right: 0.5em;
-    bottom: 0.3em;  
+    bottom: 0.2em;
 }
 
-.raisable > .shadow{
+.raisable>.shadow {
     opacity: 0;
     z-index: 0;
     width: 100%;
@@ -127,13 +120,21 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 15px;    
-    background-color: var(--page-shadow-color);    
+    border-radius: 15px;
+    background-color: var(--page-shadow-color);
     transition: filter 200ms, opacity 250ms ease-in-out, box-shadow 100ms ease-in;
     filter: blur(0);
 }
 
-.raisable.raised > .content::after{
+.raisable.raised>.content {
+    /* above shadow cast layer */
+    z-index: 2;
+    transform: scale(1.1);
+}
+
+.raisable.raised>.content::after {
+    /* Stasis effect, set to 0 opacity */
+    z-index: -1;
     content: '';
     display: block;
     position: absolute;
@@ -143,53 +144,150 @@ html {
     left: 0.1em;
     right: 0.1em;
     bottom: 0.1em;
-    outline: 2px dashed var(--page-bold-color);
-    outline-offset: 10px;   
     opacity: 0;
     transition: 50ms;
 }
 
-.raisable.raised.stasis > .content::after{
+.raisable.raised.stasis>.content::after {
+    /* Stasis effect enable */
     opacity: 1;
 }
 
-.raisable.raised > .shadow {
+.raisable.raised>.shadow {
     /* shadow cast layer */
     opacity: 0.75;
-    display: block;    
-    filter: blur(6px);
+    display: block;
+    /* filter: blur(10px); */
 }
 
-.raisable.raised > .content{
-    /* above shadow cast layer */
+
+.raisable-text {
+    display: flex;
+    position: relative;
+    width: auto;
+    height: 200px;
+    font-size: 10rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 250ms, text-shadow 200ms;
+}
+
+.raisable-text>* {
+    font-size: inherit;
+    font-weight: inherit;
+    text-transform: inherit;
+    transition: inherit;
+}
+
+.raisable-text>.content {
+    z-index: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 15px;
+    color: var(--page-color);
+    text-shadow: 
+        2px 2px 0px var(--page-seam-color),
+        2px 0px 0px var(--page-seam-color),
+        2px -2px 0px var(--page-seam-color),
+        0px 2px 0px var(--page-seam-color),
+        0px 0px 0px var(--page-seam-color),
+        0px -2px 0px var(--page-seam-color),
+        -2px 2px 0px var(--page-seam-color),
+        -2px 0px 0px var(--page-seam-color),
+        -2px -2px 0px var(--page-seam-color)
+    ;
+/* -webkit-text-stro;
+    /* -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--page-seam-color); */
+}
+
+.raisable-text>.shadow {
+    z-index: 0;
+    opacity: 0;
+    position: absolute;
+    display: block;
+    margin: auto;
+    color: var(--page-shadow-color);
+    filter: blur(0px);
+}
+
+
+.raisable-text.raised>.content {
     z-index: 2;
-    transform: scale(1.1);
+    color: var(--theme-accent-color)
+    /* transform: scale(1.1); */
 }
 
-.raisable.raised > .content.pop{
-    transform: scale(1.2);
+.raisable-text.raised>.shadow {
+    opacity: 1;
+    /* filter: blur(10px); */
 }
 
-.raisable.raised > .content.pop-left{
-    left: -3em;
-    right: 3em;
+
+
+.raisable.raised>.pop, .raisable-text.raised>.pop {
+    /* transform: scale(1.2); */
 }
 
-.raisable.raised > .content.pop-right{
-    left: 3em;
-    right: -3em;
+.raisable.raised>.pop-left, .raisable-text.raised>.pop-left {
+    left: -2rem;
+    right: 2rem;
 }
 
-.raisable.raised > .content.pop-up{
-    top: -3em;
-    bottom: 3em;
+.raisable.raised>.pop-right, .raisable-text.raised>.pop-right {
+    left: 10px;
+    right: -10px;
 }
 
-.raisable.raised > .content.pop-down{
-    top: 3em;
-    bottom: -3em;
+.raisable.raised>.pop-up, .raisable-text.raised>.pop-up {
+    top: -10px;
+    bottom: 10px;
 }
 
-.business{
-    background: url(/images/business.gif) no-repeat center;
+.raisable.raised>.pop-down, .raisable-text.raised>.pop-down {
+    top: 2rem;
+    bottom: -2rem;
+}
+
+.raisable-text.raised>.pop-left {    
+
+}
+
+.raisable-text.raised>.pop-right{
+    
+}
+
+.raisable-text.raised>.pop-right.pop-up {
+    text-shadow: 
+    -1px 1px 1px var(--page-seam-color),
+    -2px 2px 1px var(--page-seam-color),
+    -3px 3px 1px var(--page-seam-color),
+    -4px 4px 1px var(--page-seam-color),
+    -5px 5px 1px var(--page-seam-color),
+    -6px 6px 1px var(--page-seam-color),
+    -7px 7px 1px var(--page-seam-color),
+    -8px 8px 1px var(--page-seam-color),
+    -9px 9px 1px var(--page-seam-color),
+    -10px 10px 1px var(--page-seam-color);
+}
+
+.raisable-text.raised>.pop-up {
+    text-shadow: 
+    0 1px 1px var(--page-seam-color),
+    0 2px 1px var(--page-seam-color),
+    0 2px 1px var(--page-seam-color),
+    0 4px 1px var(--page-seam-color),
+    0 5px 1px var(--page-seam-color),
+    0 6px 1px var(--page-seam-color),
+    0 7px 1px var(--page-seam-color),
+    0 8px 1px var(--page-seam-color),
+    0 9px 1px var(--page-seam-color),
+    0 10px 1px var(--page-seam-color);
+}
+
+.raisable-text.raised>.pop-down {
+
 }
