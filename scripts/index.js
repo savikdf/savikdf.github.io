@@ -8,7 +8,7 @@ var $window = $(window);
 var GlobalModule = (function () {
     // private members
     let mouseHoldTimer = 0;
-    const stasisTimerLimit = 500;
+    const timerLimit = 500;
 
     // Public Method
     function InitPage() {
@@ -47,30 +47,33 @@ var GlobalModule = (function () {
     function _setStyling() {
         console.log("Setting Jquery Styling on Page");
 
-        
-    }
+       
 
-    // Private Method
+        //timing func
+        // const interval = setInterval(function() {
+        //     $(".timed-raise").each(function(){
+        //         $(this).toggleClass('raised');
+        //     });
+        //   }, 1000);         
+        //  clearInterval(interval);
+        
+    }    
+
     function _setJqueryEvents() {
         console.log("Setting Jquery Events on Page");
 
 
-        $(document)
-            .on('mousedown', function (e) {
-                if ($(e.target).parent().hasClass('raisable')) {
-                    return
-                }
-                mouseHoldTimer = setTimeout(function () {
-                    $('.stasis').removeClass('stasis');
-                    $('.raised').not('.stuck').removeClass('raised');
-                    $('#business').removeClass('business')
-                }, stasisTimerLimit);
-            })
-            .on('mouseup', function () {
-                clearTimeout(mouseHoldTimer);
-            });
+        $(document).on('mousedown', function (e) {
+            mouseHoldTimer = setTimeout(function () {
+                //call functions on the user holding mouse down for x length of time
 
-        $('.raisable, .raisable-text').on('mouseenter', function () {
+            }, timerLimit);
+        }).on('mouseup', function () {
+            clearTimeout(mouseHoldTimer);
+        });
+
+        //mouse enter and leave triggers
+        $('.raisable').on('mouseenter', function () {
             if (!$(this).hasClass('raised')) {
                 $(this).toggleClass('raised');
             }
@@ -80,17 +83,68 @@ var GlobalModule = (function () {
             }
         });
 
+        //raisable text styles
+        $('.raisable-text').on('mouseenter', function () {
+            
+            if (!$(this).hasClass('raised')) {
+                //raise
+                $(this).toggleClass('raised');
+
+                const text = $(this).find('.content')[0];   
+                if(!$(text).hasClass('shelf')){
+                    return;
+                }      
+                const shadowLength = 20;
+                const unit = 'px';
+                let xAmp = 0, yAmp = 0;
+                let shadowStyle = '';
+    
+                if($(text).hasClass('pop-up')){
+                    yAmp = 1;
+                }else if($(text).hasClass('pop-down')){
+                    yAmp = -1;
+                }
+    
+                if($(text).hasClass('pop-right')){
+                    xAmp = -1;
+                }else if($(text).hasClass('pop-left')){
+                    xAmp = 1;
+                }
+    
+                for(let i = 0; i < shadowLength; i ++){
+                    shadowStyle += i == 0 ? "" : ",";
+                    shadowStyle += `${i * xAmp}${unit} ${i * yAmp}${unit} #c15`;
+                }
+                // shadowStyle+='!important;';
+                text.style.textShadow=shadowStyle;  
+            }
+
+        }).on('mouseleave', function(){
+            if(!$(this).hasClass('stasis') && $(this).hasClass('raised')){
+                //drop
+                $(this).toggleClass('raised');
+
+                const text = $(this).find('.content')[0];   
+                if(!$(text).hasClass('shelf')){
+                    return;
+                }      
+                text.style.textShadow='';  
+            }
+        });
+
+        //stasis on click
         $('.raisable, .raisable-text').on('click', function () {
             if ($(this).hasClass('raised')) {
                 $(this).toggleClass('stasis');
             }
 
-            if ($('.stasis').length == 9) {
-                $('#business').addClass('business');
+            if($('.stasis').length == 2){
+                setTimeout(function(){alert("Under construction, come back later!");}, 1000);
             }
         });
-    }
+    } 
 
+    
     // public members, exposed with return statement
     return {
         InitPage: InitPage,

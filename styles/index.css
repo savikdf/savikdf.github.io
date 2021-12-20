@@ -5,6 +5,8 @@
     --page-bold-color: #585858;
     --theme-color: #fdfbf6;
     --theme-accent-color: #ffcd94;
+
+    --the-magic-stuff: #c15;
 }
 
 html {
@@ -188,6 +190,7 @@ section.page-section {
     right: 0;
     border-radius: 15px;
     color: var(--page-color);
+    /* this is to have the stroked text */
     text-shadow: 
         2px 2px 0px var(--page-seam-color),
         2px 0px 0px var(--page-seam-color),
@@ -210,84 +213,61 @@ section.page-section {
     position: absolute;
     display: block;
     margin: auto;
-    color: var(--page-shadow-color);
+    color: var(--the-magic-stuff);
     filter: blur(0px);
 }
 
 
 .raisable-text.raised>.content {
     z-index: 2;
-    color: var(--theme-accent-color)
+    color: var(--theme-accent-color);
     /* transform: scale(1.1); */
 }
 
 .raisable-text.raised>.shadow {
     opacity: 1;
-    /* filter: blur(10px); */
+    filter: blur(8px);
+}
+
+.raisable-text.raised.stasis>.content, .raisable-text.raised.stasis>.shadow {
+    text-transform:lowercase;
 }
 
 
-
-.raisable.raised>.pop, .raisable-text.raised>.pop {
-    /* transform: scale(1.2); */
+/* floating style */
+.raisable.raised>.pop {
+    transform: scale(1.2);
 }
-
 .raisable.raised>.pop-left, .raisable-text.raised>.pop-left {
     left: -2rem;
     right: 2rem;
 }
-
 .raisable.raised>.pop-right, .raisable-text.raised>.pop-right {
-    left: 10px;
-    right: -10px;
+    left: 2rem;
+    right: -2rem;
 }
-
 .raisable.raised>.pop-up, .raisable-text.raised>.pop-up {
-    top: -10px;
-    bottom: 10px;
+    top: -2rem;
+    bottom: 2rem;
 }
-
 .raisable.raised>.pop-down, .raisable-text.raised>.pop-down {
     top: 2rem;
     bottom: -2rem;
 }
-
-.raisable-text.raised>.pop-left {    
-
+/* shelf style */
+.raisable-text.raised>.pop-left.shelf {
+    left: -20px;
+    right: 20px;
 }
-
-.raisable-text.raised>.pop-right{
-    
+.raisable-text.raised>.pop-right.shelf {
+    left: 20px;
+    right: -20px;
 }
-
-.raisable-text.raised>.pop-right.pop-up {
-    text-shadow: 
-    -1px 1px 1px var(--page-seam-color),
-    -2px 2px 1px var(--page-seam-color),
-    -3px 3px 1px var(--page-seam-color),
-    -4px 4px 1px var(--page-seam-color),
-    -5px 5px 1px var(--page-seam-color),
-    -6px 6px 1px var(--page-seam-color),
-    -7px 7px 1px var(--page-seam-color),
-    -8px 8px 1px var(--page-seam-color),
-    -9px 9px 1px var(--page-seam-color),
-    -10px 10px 1px var(--page-seam-color);
+.raisable-text.raised>.pop-up.shelf {
+    top: -20px;
+    bottom: 20px;
 }
-
-.raisable-text.raised>.pop-up {
-    text-shadow: 
-    0 1px 1px var(--page-seam-color),
-    0 2px 1px var(--page-seam-color),
-    0 2px 1px var(--page-seam-color),
-    0 4px 1px var(--page-seam-color),
-    0 5px 1px var(--page-seam-color),
-    0 6px 1px var(--page-seam-color),
-    0 7px 1px var(--page-seam-color),
-    0 8px 1px var(--page-seam-color),
-    0 9px 1px var(--page-seam-color),
-    0 10px 1px var(--page-seam-color);
-}
-
-.raisable-text.raised>.pop-down {
-
+.raisable-text.raised>.pop-down.shelf {
+    top: 20px;
+    bottom: -20px;
 }
