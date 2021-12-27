@@ -1,11 +1,11 @@
 window.onload = () => {
     console.log('Welcome to SavikLand.com, Enjoy your stay!');
-    GlobalModule.InitPage();
+ JqueryModule.InitPage();
 };
 
 var $window = $(window);
 
-var GlobalModule = (function () {
+var JqueryModule = (function () {
     // private members
     let mouseHoldTimer = 0;
     const timerLimit = 500;
@@ -62,7 +62,6 @@ var GlobalModule = (function () {
     function _setJqueryEvents() {
         console.log("Setting Jquery Events on Page");
 
-
         $(document).on('mousedown', function (e) {
             mouseHoldTimer = setTimeout(function () {
                 //call functions on the user holding mouse down for x length of time
@@ -83,39 +82,38 @@ var GlobalModule = (function () {
             }
         });
 
-        //raisable text styles
+        //raisable text styles - mouseEnter and mouseLeave based
         $('.raisable-text').on('mouseenter', function () {
             
             if (!$(this).hasClass('raised')) {
                 //raise
                 $(this).toggleClass('raised');
 
-                const text = $(this).find('.content')[0];   
-                if(!$(text).hasClass('shelf')){
-                    return;
-                }      
+                const text = $(this).find('.content')[0];
                 const shadowLength = 20;
                 const unit = 'px';
                 let xAmp = 0, yAmp = 0;
                 let shadowStyle = '';
     
+                //setting our directional amplifiers
                 if($(text).hasClass('pop-up')){
-                    yAmp = 1;
+                    yAmp = 1;                    
                 }else if($(text).hasClass('pop-down')){
                     yAmp = -1;
                 }
-    
                 if($(text).hasClass('pop-right')){
                     xAmp = -1;
                 }else if($(text).hasClass('pop-left')){
                     xAmp = 1;
                 }
-    
-                for(let i = 0; i < shadowLength; i ++){
-                    shadowStyle += i == 0 ? "" : ",";
-                    shadowStyle += `${i * xAmp}${unit} ${i * yAmp}${unit} #c15`;
+
+                const colors = ['c15'];
+                let randomColor = colors[Math.floor(Math.random()*colors.length)];
+
+                for(let i = 1; i < shadowLength; i ++){
+                    shadowStyle += i == 1 ? "" : ",";
+                    shadowStyle += `${i * xAmp}${unit} ${i * yAmp}${unit} #${randomColor}`;
                 }
-                // shadowStyle+='!important;';
                 text.style.textShadow=shadowStyle;  
             }
 
@@ -124,23 +122,20 @@ var GlobalModule = (function () {
                 //drop
                 $(this).toggleClass('raised');
 
-                const text = $(this).find('.content')[0];   
-                if(!$(text).hasClass('shelf')){
-                    return;
-                }      
+                const text = $(this).find('.content')[0];  
                 text.style.textShadow='';  
             }
         });
 
-        //stasis on click
+        //raisable-text stasis on click
         $('.raisable, .raisable-text').on('click', function () {
             if ($(this).hasClass('raised')) {
                 $(this).toggleClass('stasis');
             }
 
-            if($('.stasis').length == 2){
-                setTimeout(function(){alert("Under construction, come back later!");}, 1000);
-            }
+            // if($('.stasis').length == 2){
+            //     setTimeout(function(){alert("Under construction, come back later!");}, 1000);
+            // }
         });
     } 
 

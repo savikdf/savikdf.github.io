@@ -1,273 +1,324 @@
 :root {
-    --page-color: #fdfbf6;
-    --page-seam-color: #e1e4e6;
-    --page-shadow-color: #e7d2c2;
-    --page-bold-color: #585858;
-    --theme-color: #fdfbf6;
-    --theme-accent-color: #ffcd94;
+  --page-color: #fdfbf6;
+  --page-seam-color: #e1e4e6;
+  --page-shadow-color: #e7d2c2;
+  --page-bold-color: #585858;
+  --theme-color: #ff9f00;
+  --theme-accent-color: #ffcd94;
 
-    --the-magic-stuff: #c15;
+  --the-orange-stuff: #ff9f00;
+  --the-pink-stuff: #c15;
+  --the-green-stuff: #3ea;
+  --the-blue-stuff: #70baff;
+  --the-yellow-stuff: #fed715;
+
+  --shadow-intensity: 0.15;
+  --text-stroke: 2px 2px 0px var(--page-seam-color),
+    2px 0px 0px var(--page-seam-color), 2px -2px 0px var(--page-seam-color),
+    0px 2px 0px var(--page-seam-color), 0px 0px 0px var(--page-seam-color),
+    0px -2px 0px var(--page-seam-color), -2px 2px 0px var(--page-seam-color),
+    -2px 0px 0px var(--page-seam-color), -2px -2px 0px var(--page-seam-color);
 }
 
 html {
-    scroll-behavior: smooth;
-    background-color: red;
-    overflow-x: hidden;
-    font-family: 'Futura', monospace;
+  scroll-behavior: smooth;
+  background-color: var(--the-orange-stuff);
+  width: 100%!important;
+  overflow-x: hidden;
+  font-family: "Futura", monospace;
 }
 
 * {
-    padding: 0px;
-    margin: 0px;
-    outline: none;
-    color: black;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+  color: black;
 }
 
-h1, h2, h2 {
-    cursor: default;
+h1,
+h2,
+h2 {
+  cursor: default;
 }
 
 main {
-    display: grid;
-    row-gap: 0em;
-    width: 100%;
+  display: grid;
+  row-gap: 0em;
+  width: 100%;
 }
 
-section {
-    background-color: var(--page-color);
-    margin-bottom: 2em 0;
+.skip-nav{
+  position: absolute;
+  transform: translateY(-120%);
+  margin-left: 10px;
+  padding: 1rem;
+  border-radius: 0 0 15px 15px;
+  transition: transform 250ms ease-out;
+  background-color: var(--theme-accent-color);
 }
 
-section.landing {
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 100vh;
-    width: 100%;
-    color: black;
-}
-
-section.page-section {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "pg-s-header"
-        "pg-s-image pg-s-title"
-        "pg-s-image pg-s-badges"
-        "pg-s-description"
-        "pg-s-footer"
-    ;
-    width: 100%;
-    padding: 2em 5em;
-    min-height: 200px;
+.skip-nav:is(:focus, :hover){
+  transform: translateY(0);
 }
 
 .raisable {
-    position: relative;
-    border-radius: 15px;
-    height: 200px;
-    width: 200px;
-    margin: 1.5em;
-    transition: 1s;
+  position: relative;
+  border-radius: 15px;
+  height: 200px;
+  width: 200px;
+  margin: 1.5em;
+  transition: 1s;
 }
 
 .raisable.small {
-    height: 75px;
-    width: 75px;
+  height: 75px;
+  width: 75px;
 }
 
 .raisable.large {
-    height: 400px;
-    width: 400px;
+  height: 400px;
+  width: 400px;
 }
 
-.raisable>.content {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: calc(100% - 4em);
-    width: calc(100% - 4em);
-    padding: 2em;
-    outline: 2px solid var(--page-seam-color);
-    border-radius: 15px;
-    background-color: var(--theme-color);
-    overflow: hidden;
-    transition: 250ms, outline ease-out 100ms;
-    box-shadow: 2px 2px var(--page-shadow-color);
+.raisable > .content {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 4em);
+  width: calc(100% - 4em);
+  padding: 2em;
+  outline: 2px solid var(--page-seam-color);
+  border-radius: 15px;
+  background-color: var(--page-color);
+  overflow: hidden;
+  transition: 250ms, outline ease-out 100ms;
+  box-shadow: 2px 2px var(--page-shadow-color);
 }
 
-.raisable>.content:before {
-    /* Savik land text on card */
-    content: 'SAVIKLAND \00a9';
-    text-align: center;
-    text-shadow: 0 0 5px var(--page-color);
-    font-size: 0.9em;
-    color: var(--page-seam-color);
-    display: block;
-    position: absolute;
-    border-radius: 15px;
-    right: 0.5em;
-    bottom: 0.2em;
+.raisable > .content:before {
+  /* Savik land text on card */
+  content: "SAVIKLAND \00a9";
+  text-align: center;
+  text-shadow: 0 0 5px var(--page-color);
+  font-size: 0.9em;
+  color: var(--page-seam-color);
+  display: block;
+  position: absolute;
+  border-radius: 15px;
+  right: 0.5em;
+  bottom: 0.2em;
 }
 
-.raisable>.shadow {
-    opacity: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 15px;
-    background-color: var(--page-shadow-color);
-    transition: filter 200ms, opacity 250ms ease-in-out, box-shadow 100ms ease-in;
-    filter: blur(0);
+.raisable > .shadow {
+  opacity: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  background-color: rgba(0,0,0, var(--shadow-intensity));
+  transition: filter 200ms, opacity 250ms ease-in-out, box-shadow 100ms ease-in;
+  filter: blur(0);
 }
 
-.raisable.raised>.content {
-    /* above shadow cast layer */
-    z-index: 2;
-    transform: scale(1.1);
+.raisable.raised > .content {
+  /* above shadow cast layer */
+  z-index: 2;
+  transform: scale(1.1);
 }
 
-.raisable.raised>.content::after {
-    /* Stasis effect, set to 0 opacity */
-    z-index: -1;
-    content: '';
-    display: block;
-    position: absolute;
-    border: 2px dashed var(--page-seam-color);
-    border-radius: 15px;
-    top: 0.1em;
-    left: 0.1em;
-    right: 0.1em;
-    bottom: 0.1em;
-    opacity: 0;
-    transition: 50ms;
+.raisable.raised > .content::after {
+  /* Stasis effect, set to 0 opacity */
+  z-index: -1;
+  content: "";
+  display: block;
+  position: absolute;
+  border: 2px dashed var(--page-seam-color);
+  border-radius: 15px;
+  top: 0.1em;
+  left: 0.1em;
+  right: 0.1em;
+  bottom: 0.1em;
+  opacity: 0;
+  transition: 50ms;
 }
 
-.raisable.raised.stasis>.content::after {
-    /* Stasis effect enable */
-    opacity: 1;
+.raisable.raised.stasis > .content::after {
+  /* Stasis effect enable */
+  opacity: 1;
 }
 
-.raisable.raised>.shadow {
-    /* shadow cast layer */
-    opacity: 0.75;
-    display: block;
-    /* filter: blur(10px); */
+.raisable.raised > .shadow {
+  /* shadow cast layer */
+  opacity: 0.75;
+  display: block;
+  filter: blur(10px);
 }
-
 
 .raisable-text {
-    display: flex;
-    position: relative;
-    width: auto;
-    height: 200px;
-    font-size: 10rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: 250ms, text-shadow 200ms;
+  display: flex;
+  position: relative;
+  width: auto;
+  height: 10rem;
+  font-size: 10rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 
+    text-shadow 250ms, 
+    transform 250ms, 
+    color 250ms ease-out,
+    filter 250ms ease-out,
+    -webkit-filter 250ms ease-out,
+    opacity 250ms ease-in-out;
 }
 
-.raisable-text>* {
-    font-size: inherit;
-    font-weight: inherit;
-    text-transform: inherit;
-    transition: inherit;
+.raisable-text > * {
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  transition: inherit;
 }
 
-.raisable-text>.content {
-    z-index: 1;
-    position: relative;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    border-radius: 15px;
-    color: var(--page-color);
-    /* this is to have the stroked text */
-    text-shadow: 
-        2px 2px 0px var(--page-seam-color),
-        2px 0px 0px var(--page-seam-color),
-        2px -2px 0px var(--page-seam-color),
-        0px 2px 0px var(--page-seam-color),
-        0px 0px 0px var(--page-seam-color),
-        0px -2px 0px var(--page-seam-color),
-        -2px 2px 0px var(--page-seam-color),
-        -2px 0px 0px var(--page-seam-color),
-        -2px -2px 0px var(--page-seam-color)
-    ;
-/* -webkit-text-stro;
-    /* -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--page-seam-color); */
+.raisable-text > .content {
+  z-index: 1;
+  position: relative;
+  transform: translate(0, 0);
+  bottom: 0;
+  right: 0;
+  border-radius: 15px;  
+  color: var(--page-color);
+  text-shadow: var(--text-stroke);
 }
 
-.raisable-text>.shadow {
-    z-index: 0;
-    opacity: 0;
-    position: absolute;
-    display: block;
-    margin: auto;
-    color: var(--the-magic-stuff);
-    filter: blur(0px);
+.raisable-text > .shadow {
+  z-index: 0;
+  opacity: 0;
+  position: absolute;
+  display: block;
+  margin: auto;
+  color: var(--the-pink-stuff);
+  filter: blur(0px);
+}
+
+.raisable-text.raised > .content {
+  z-index: 2;
+  color: var(--theme-accent-color);
+}
+
+.raisable-text.raised > .shadow {
+  opacity: 1;
+  filter: blur(8px);
+}
+
+.raisable-text.raised.stasis > .content,
+.raisable-text.raised.stasis > .shadow {
+/* nothing yet. */
+}
+
+/* raisable pop styles ---------------------------------------------------*/
+.raisable.raised > .pop-up {
+  transform: translateY(-2rem);
+}
+.raisable.raised > .pop-up.pop-right {
+  transform: translate(2rem, -2rem);
+}
+.raisable.raised > .pop-up.pop-left {
+  transform: translate(-2rem, -2rem);
+}
+
+.raisable.raised > .pop-down {
+  transform: translateY(2rem);
+}
+.raisable.raised > .pop-down.pop-right {
+  transform: translate(2rem, 2rem);
+}
+.raisable.raised > .pop-down.pop-left {
+  transform: translate(-2rem, 2rem);
+}
+
+/* raisable-text pop styles ----------------------------------------------*/
+.raisable-text.raised > .pop-up {
+  transform: translateY(-20px);
+}
+.raisable-text.raised > .pop-up.pop-right {
+  transform: translate(20px, -20px);
+}
+.raisable-text.raised > .pop-up.pop-left {
+  transform: translate(-20px, -20px);
+}
+.raisable-text.raised > .pop-down {
+  transform: translateY(20px);
+}
+.raisable-text.raised > .pop-down.pop-right {
+  transform: translate(20px, 20px);
+}
+.raisable-text.raised > .pop-down.pop-left {
+  transform: translate(-20px, 20px);
 }
 
 
-.raisable-text.raised>.content {
-    z-index: 2;
-    color: var(--theme-accent-color);
-    /* transform: scale(1.1); */
+/* Section Layout----------------------------------- */
+
+section {
+  position: relative;
+  width: 100%;
+  background-color: var(--page-color);
+  margin-bottom: 2em 0;
 }
 
-.raisable-text.raised>.shadow {
-    opacity: 1;
-    filter: blur(8px);
+section.landing {
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100%;
 }
 
-.raisable-text.raised.stasis>.content, .raisable-text.raised.stasis>.shadow {
-    text-transform:lowercase;
+section:not(.landing) {  
+  width: 100%;
+  min-height: 200px;
 }
 
+section > .card{
+  position: relative;
+  max-width: 80%;
+  border: 5px solid var(--theme-color);
+  margin: 2em auto;
+  padding: 2em;
+}
 
-/* floating style */
-.raisable.raised>.pop {
-    transform: scale(1.2);
+.card{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "image"
+    "title"
+    "badges"
+    "description"
+    "footer";
 }
-.raisable.raised>.pop-left, .raisable-text.raised>.pop-left {
-    left: -2rem;
-    right: 2rem;
+
+.card > .card-header{
+  grid-area: header;
 }
-.raisable.raised>.pop-right, .raisable-text.raised>.pop-right {
-    left: 2rem;
-    right: -2rem;
+.card > .card-image{
+  grid-area: image;
+  width: 200px;
+  height: 200px;
 }
-.raisable.raised>.pop-up, .raisable-text.raised>.pop-up {
-    top: -2rem;
-    bottom: 2rem;
+.card > .card-badges{
+  grid-area: badges;
 }
-.raisable.raised>.pop-down, .raisable-text.raised>.pop-down {
-    top: 2rem;
-    bottom: -2rem;
+.card > .card-description{
+  grid-area: badges;
 }
-/* shelf style */
-.raisable-text.raised>.pop-left.shelf {
-    left: -20px;
-    right: 20px;
-}
-.raisable-text.raised>.pop-right.shelf {
-    left: 20px;
-    right: -20px;
-}
-.raisable-text.raised>.pop-up.shelf {
-    top: -20px;
-    bottom: 20px;
-}
-.raisable-text.raised>.pop-down.shelf {
-    top: 20px;
-    bottom: -20px;
+.card > .card-footer{
+  grid-area: footer;
 }
