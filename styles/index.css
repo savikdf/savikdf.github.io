@@ -278,6 +278,11 @@ section.landing {
   flex-wrap: wrap;
   height: 100vh;
   width: 100%;
+  /* background-image: url(/images/landing-background-savik.png);
+  background-repeat: no-repeat;
+  aspect-ratio: 1/1;
+  background-size: 30%;
+  background-position: right bottom; */
 }
 
 section:not(.landing) {  
@@ -321,4 +326,14 @@ section > .card{
 }
 .card > .card-footer{
   grid-area: footer;
+}
+
+.construction--message{
+    margin-top: 2em;
+    font-size: 2rem;
+    color: var(--the-pink-stuff);
+    outline: 3px solid var(--the-pink-stuff);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--page-shadow-color);
 }
