@@ -19,26 +19,6 @@ var JqueryModule = (function () {
 
     function _setWindowScrollEvents(){        
         $window.on('scroll', function () {
-            let scroll_offset_multiplier = .10;
-            let top_of_element = 0;
-            let bottom_of_element = 0;            
-            let bottom_of_screen = $window.scrollTop() + $window.innerHeight();
-            let top_of_screen = $window.scrollTop();
-
-            $('.js-scroll-activated').each(function(){
-                top_of_element = $(this).offset().top;
-                bottom_of_element = $(this).offset().top + $(this).outerHeight();  
-                
-                if ((bottom_of_screen > top_of_element) 
-                    && (top_of_screen < bottom_of_element)){
-                    // the element is visible, do something
-                    $(this).addClass('raised');
-                } else {
-                    // the element is not visible, do something else
-                    $(this).removeClass('raised');
-                }
-                
-            });
 
 
         });
@@ -82,53 +62,53 @@ var JqueryModule = (function () {
             }
         });
 
-        //raisable text styles - mouseEnter and mouseLeave based
-        $('.raisable-text').on('mouseenter', function () {
+        // //raisable text styles - mouseEnter and mouseLeave based
+        // $('.raisable-text').on('mouseenter', function () {
             
-            if (!$(this).hasClass('raised')) {
-                //raise
-                $(this).toggleClass('raised');
+        //     if (!$(this).hasClass('raised')) {
+        //         //raise
+        //         $(this).toggleClass('raised');
 
-                const text = $(this).find('.content')[0];
-                const shadowLength = 20;
-                const unit = 'px';
-                let xAmp = 0, yAmp = 0;
-                let shadowStyle = '';
+        //         const text = $(this).find('.content')[0];
+        //         const shadowLength = 20;
+        //         const unit = 'px';
+        //         let xAmp = 0, yAmp = 0;
+        //         let shadowStyle = '';
     
-                //setting our directional amplifiers
-                if($(text).hasClass('pop-up')){
-                    yAmp = 1;                    
-                }else if($(text).hasClass('pop-down')){
-                    yAmp = -1;
-                }
-                if($(text).hasClass('pop-right')){
-                    xAmp = -1;
-                }else if($(text).hasClass('pop-left')){
-                    xAmp = 1;
-                }
+        //         //setting our directional amplifiers
+        //         if($(text).hasClass('pop-up')){
+        //             yAmp = 1;                    
+        //         }else if($(text).hasClass('pop-down')){
+        //             yAmp = -1;
+        //         }
+        //         if($(text).hasClass('pop-right')){
+        //             xAmp = -1;
+        //         }else if($(text).hasClass('pop-left')){
+        //             xAmp = 1;
+        //         }
 
-                const colors = ['c15'];
-                let randomColor = colors[Math.floor(Math.random()*colors.length)];
+        //         const colors = ['c15'];
+        //         let randomColor = colors[Math.floor(Math.random()*colors.length)];
 
-                for(let i = 1; i < shadowLength; i ++){
-                    shadowStyle += i == 1 ? "" : ",";
-                    shadowStyle += `${i * xAmp}${unit} ${i * yAmp}${unit} #${randomColor}`;
-                }
-                text.style.textShadow=shadowStyle;  
-            }
+        //         for(let i = 1; i < shadowLength; i ++){
+        //             shadowStyle += i == 1 ? "" : ",";
+        //             shadowStyle += `${i * xAmp}${unit} ${i * yAmp}${unit} #${randomColor}`;
+        //         }
+        //         text.style.textShadow=shadowStyle;  
+        //     }
 
-        }).on('mouseleave', function(){
-            if(!$(this).hasClass('stasis') && $(this).hasClass('raised')){
-                //drop
-                $(this).toggleClass('raised');
+        // }).on('mouseleave', function(){
+        //     if(!$(this).hasClass('stasis') && $(this).hasClass('raised')){
+        //         //drop
+        //         $(this).toggleClass('raised');
 
-                const text = $(this).find('.content')[0];  
-                text.style.textShadow='';  
-            }
-        });
+        //         const text = $(this).find('.content')[0];  
+        //         text.style.textShadow='';  
+        //     }
+        // });
 
-        //raisable-text stasis on click
-        $('.raisable, .raisable-text').on('click', function () {
+        //raisable stasis on click
+        $('.raisable').on('click', function () {
             if ($(this).hasClass('raised')) {
                 $(this).toggleClass('stasis');
             }
