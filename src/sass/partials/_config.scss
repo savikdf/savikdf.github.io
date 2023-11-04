@@ -1,0 +1,11 @@
+$max-content-width: 1200px;
+$min-content-width: 450px;
+
+$scrollbar-width: 15px;
+
+$anim-speed: 250ms;
+
+$breakpoints: (
+  'small'  : 767px,
+  'large' : 992px,
+) !default;
