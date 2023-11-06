@@ -6,7 +6,7 @@ const sass = require('gulp-sass')(require('sass'));
 gulp.task('sass', function(done){
 
     gulp.src('src/sass/**/*.scss')
-      .pipe(sass({outputStyle: 'compressed'})) // Using gulp-sass
+      .pipe(sass({outputStyle: 'compressed'}))
       .pipe(gulp.dest('src/dist'))
 
       done();
