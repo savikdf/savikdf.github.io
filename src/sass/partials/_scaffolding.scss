@@ -32,7 +32,7 @@ main {
     width: calc(100vw - $scrollbar-width - calc(2 * $main-content-padding));
     column-gap: 0px;
     row-gap: 0px;
-    padding: 0px $main-content-padding;
+    padding: 20px $main-content-padding;
 }
 
 // Sections =====
@@ -45,20 +45,23 @@ section {
     // @include break-up('small'){
 
     // }
-    &>.container {
+
+    .container {
         max-width: $max-content-width;
         background-color: eggshell;
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url(https://picsum.photos/600/600);
+        // background-image: url(https://picsum.photos/600/600);
         border-radius: 15px;
         outline: 2px solid $color-theme;
         min-height: 400px;
         position: relative;
+        overflow: hidden;
+        padding: 10px 20px;
 
-        &.hero {
-            background-image: url(../../../images/landing-background-savik.png);
-            background-position: top;
+        &--hero {
+            @extend .container;
+            background-image: none;
             height: 600px;
             width: 100%;
             height: 90dvh;
@@ -72,32 +75,51 @@ section {
                 background-size: 75%;
                 background-position-x: right;
             }
-
-            &>.title {
-                // @include flex-center;
-                flex-direction: column;
-                color: #333;
-
-                &>h1 {
-                    font-size: 60px;
+            .hero{
+                &__title {
+                    // @include flex-center;
+                    flex-direction: column;
+                    color: #333;
+    
+                    h1 {
+                        font-family: Hiragino Maru Gothic ProN;
+                        font-size: 60px;
+                    }
                 }
-            }
-
-            &>.hook-line {
-                color: $color-theme;
-                position: absolute;
-                width: 100%;
-                height: 10dvh;
-                bottom: -10dvh;
-
-                p {
+    
+                &__hook-line {
+                    color: $color-theme;
+                    position: absolute;
                     width: 100%;
-                    text-align: right;
-                    font-size: 40px;
-                    text-transform: uppercase;
-                    font-weight: bold;
+                    bottom: 0;
+                    left: 20px;
+    
+                    p {
+                        width: 100%;
+                        text-align: left;
+                        font-size: 40px;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+                }
+    
+                &__image{
+                    position: absolute;
+                    bottom:-10px;
+                    right: 0;
+                    aspect-ratio: 1;
+                    height: 100%;    
                 }
             }
+            
+            
+        }
+
+        &--work{
+            @extend .container;
+
+            display: none; //todo delete this 
+            background-image: none;
         }
     }
 }
