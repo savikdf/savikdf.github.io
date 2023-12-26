@@ -29,96 +29,150 @@ html {
 main {
     @include flex-center;
     flex-direction: column;
-    width: calc(100vw - $scrollbar-width - calc(2 * $main-content-padding));
+    width: calc(100vw - $scrollbar-width);
     column-gap: 0px;
     row-gap: 0px;
-    padding: 20px $main-content-padding;
+    background-color: $color-page;
+    overflow: hidden;
 }
 
 // Sections =====
 section {
     width: 100%;
-    padding: 0px;
+    padding: 20px $main-content-padding;
     position: relative;
     @include flex-center;
-    margin-bottom: 20px;
+    background-color: $color-page;
+
+    &#hero {
+        padding: 0px !important;
+        $effect-height: 200px;
+
+        &:before {
+
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: -$effect-height;
+            left: 50%;
+            height: $effect-height;
+            width: 75%;
+            transform-origin: top left;
+            transform: rotateZ(-15deg);
+            background-color: $color-theme;
+        }
+
+        &+section {
+            overflow: hidden;
+            //todo delete this temp stuff
+            height: 1000px;
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: -#{$effect-height};
+                left: -28%;
+                height: $effect-height;
+                width: 75%;
+                transform-origin: top right;
+                transform: rotateZ(-15deg);
+                background-color: $color-theme;
+            }
+        }
+    }
+
+    &#work {
+        display: none;
+    }
+
     // @include break-up('small'){
 
     // }
 
     .container {
         max-width: $max-content-width;
-        background-color: eggshell;
         background-size: cover;
         background-repeat: no-repeat;
         // background-image: url(https://picsum.photos/600/600);
         border-radius: 15px;
-        outline: 2px solid $color-theme;
         min-height: 400px;
         position: relative;
         overflow: hidden;
         padding: 10px 20px;
 
-        &--hero {
-            @extend .container;
-            background-image: none;
-            height: 600px;
-            width: 100%;
-            height: 90dvh;
-            margin-bottom: 10dvh;
-            outline: none;
-            border-bottom: 5px solid $color-theme;
-            border-radius: 0px;
+        &:is(:focus, :hover, :focus-visible) {
+            outline: 2px solid $color-theme;
+        }
 
-            @include break-up('large'){
-                background-position: top;
-                background-size: 75%;
-                background-position-x: right;
+        &--hero {
+            background-image: none;
+            background-color: transparent;
+            height: 80dvh !important;
+            width: 100%;
+            max-width: none;
+            height: 90dvh;
+            outline: none;
+            // border-bottom: 50px solid $color-theme;
+            border-radius: 0px;
+            padding: 0px;
+
+            &:is(:focus, :hover, :focus-visible) {
+                outline: none;
             }
-            .hero{
+
+            // @include break-up('large'){
+            //     background-position: top;
+            //     background-size: 75%;
+            //     background-position-x: right;
+            // }
+            .hero {
                 &__title {
-                    // @include flex-center;
+                    position: fixed;
+                    width: 100%;
+                    top: 0px;
+                    text-align: center;
                     flex-direction: column;
                     color: #333;
-    
+
                     h1 {
                         font-family: Hiragino Maru Gothic ProN;
                         font-size: 60px;
                     }
                 }
-    
+
                 &__hook-line {
                     color: $color-theme;
                     position: absolute;
                     width: 100%;
-                    bottom: 0;
+                    bottom: 0px;
                     left: 20px;
-    
+
                     p {
                         width: 100%;
                         text-align: left;
-                        font-size: 40px;
+                        font-size: 50px;
+                        line-height: 50px;
                         text-transform: uppercase;
                         font-weight: bold;
                     }
                 }
-    
-                &__image{
-                    position: absolute;
-                    bottom:-10px;
-                    right: 0;
+
+                &__image {
+                    position: fixed;
+                    top: 0px;
+                    right: -20px;
                     aspect-ratio: 1;
-                    height: 100%;    
+                    width: 50%;
                 }
             }
-            
-            
+
+
         }
 
-        &--work{
+        &--work {
             @extend .container;
 
-            display: none; //todo delete this 
             background-image: none;
         }
     }
