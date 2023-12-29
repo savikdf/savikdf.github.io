@@ -43,47 +43,39 @@ section {
     position: relative;
     @include flex-center;
     background-color: $color-page;
+    z-index: var(--layer-var);
+    transition: opacity 1000ms ease-in-out;
+    opacity: 0;
 
-    &#hero {
-        padding: 0px !important;
-        $effect-height: 200px;
-
-        &:before {
-
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: -$effect-height;
-            left: 50%;
-            height: $effect-height;
-            width: 75%;
-            transform-origin: top left;
-            transform: rotateZ(-15deg);
-            background-color: $color-theme;
-        }
-
-        &+section {
-            overflow: hidden;
-            //todo delete this temp stuff
-            height: 1000px;
-
-            &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: -#{$effect-height};
-                left: -28%;
-                height: $effect-height;
-                width: 75%;
-                transform-origin: top right;
-                transform: rotateZ(-15deg);
-                background-color: $color-theme;
-            }
+    &.section{
+        &--visible{
+            opacity: 1;
         }
     }
 
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        left: 70%;
+        width: 30%;
+        height: 100%;
+        background-color: $color-theme;
+    }
+
+    &:nth-child(2n){
+        &:before {
+            left: 0;
+        }
+    }
+
+    &#hero {
+        padding: 0px !important;
+    } 
+
     &#work {
-        display: none;
+        //display: none;
     }
 
     // @include break-up('small'){
@@ -92,17 +84,23 @@ section {
 
     .container {
         max-width: $max-content-width;
-        background-size: cover;
-        background-repeat: no-repeat;
         // background-image: url(https://picsum.photos/600/600);
         border-radius: 15px;
-        min-height: 400px;
         position: relative;
         overflow: hidden;
         padding: 10px 20px;
 
         &:is(:focus, :hover, :focus-visible) {
             outline: 2px solid $color-theme;
+        }
+
+        &__image{
+            position: fixed;
+            aspect-ratio: 1;
+            left: 0px;
+            height: auto;
+            bottom: 0;
+            transform: translateY(-50%);
         }
 
         &--hero {
