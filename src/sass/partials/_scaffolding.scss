@@ -44,12 +44,17 @@ section {
     @include flex-center;
     background-color: $color-page;
     z-index: var(--layer-var);
-    transition: opacity 1000ms ease-in-out;
-    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+    margin: 0px 100px;
 
-    &.section{
-        &--visible{
+
+    &.section--visible{
+        $scroll-percent: var(--scroll-percent);
+
+        .section-image{
             opacity: 1;
+            //todo fix this
+            top: $scroll-percent;            
         }
     }
 
@@ -68,6 +73,12 @@ section {
         &:before {
             left: 0;
         }
+
+        .section-image{
+            transform: scale(-1, 1);     
+            left: 0px;
+            right: auto;       
+        }
     }
 
     &#hero {
@@ -81,6 +92,30 @@ section {
     // @include break-up('small'){
 
     // }
+
+    .section-image{
+        position: absolute;
+        right: 0px;
+        left: auto;
+        top: 0px;
+        height: 100%;
+        max-height: 400px;
+        aspect-ratio: 1;
+        transition: opacity 500ms ease-in-out;
+        opacity: 0;       
+
+        &--hero{
+            position: fixed;
+            right: -20px;
+            left: auto;
+            top: auto!important;
+            width: 50%;
+            height: auto;
+            max-height: none;
+            opacity: 1;
+
+        }
+    }
 
     .container {
         max-width: $max-content-width;
@@ -105,11 +140,10 @@ section {
 
         &--hero {
             background-image: none;
-            background-color: transparent;
-            height: 80dvh !important;
+            // background-color: transparent;
+            height: max(700px, 80dvh)!important;
             width: 100%;
             max-width: none;
-            height: 90dvh;
             outline: none;
             // border-bottom: 50px solid $color-theme;
             border-radius: 0px;
@@ -154,14 +188,6 @@ section {
                         text-transform: uppercase;
                         font-weight: bold;
                     }
-                }
-
-                &__image {
-                    position: fixed;
-                    top: 0px;
-                    right: -20px;
-                    aspect-ratio: 1;
-                    width: 50%;
                 }
             }
 

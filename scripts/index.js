@@ -3,68 +3,114 @@ window.onload = () => {
 };
 
 
+var sectionModule = (function(){
+  let config = {
+      sectionInViewClass: "section--visible",
+      scrollTrackingDataAttribute: "data-section-visible",
+      observers: [],
+      visibleSections: [],
+  }
+  //init
+  function initialize(){
+      let sections = [...document.querySelectorAll('main > section')];
+      if (sections == null && sections.length == 0)
+          return;
 
-  var sectionModule = (function(){
-    let config = {
-        sectionInViewClass : "section--visible",
-    };
+      //z-indexing
+      sections.forEach((section, index) => {
+        section.style.setProperty("--layer-var", (index + 1) * 5); //steps of 5
+      });
 
-    //handlers
-    function onEnter(element){
-        if(!element.classList.contains(config.sectionInViewClass))
-            element.classList.add(config.sectionInViewClass);
-    };
-    function onExit(element){
-        element.classList.remove(config.sectionInViewClass);
-    }
-    //helpers
-    function observeElement(element, onEnterCallback, onExitCallback) {
-        const observer = new IntersectionObserver((entries) => {
+      initializeIntersectionObservers(sections);
+      initializeScrollObserver();
+  }
+
+  function initializeIntersectionObservers(sections){
+      let observers = [];
+      sections.forEach((section, index) => {
+          observers.push(observeElement(section, onEnter, onExit));
+      });
+      config.observers = observers;
+  }
+
+  function initializeScrollObserver() {
+      window.addEventListener('scroll', onScroll);
+  }
+
+  //handlers/callbacks
+  function onEnter(section){
+      if (!section.classList.contains(config.sectionInViewClass)) {
+        section.classList.add(config.sectionInViewClass);
+        section.setAttribute(config.scrollTrackingDataAttribute, null);
+        config.visibleSections.push(section);
+      }
+  }
+
+  function onExit(section){
+    section.classList.remove(config.sectionInViewClass);
+    section.removeAttribute(config.scrollTrackingDataAttribute);
+    section.style.removeProperty("--scroll-percent");
+    removeElementFromArray(config.visibleSections, section);
+  }
+
+  function onScroll() {
+    // const sections = document.querySelectorAll(`[${config.scrollTrackingDataAttribute}]`);
+    console.log(config.visibleSections);
+        config.visibleSections.forEach((section) => {
+        const boundingBox = section.getBoundingClientRect();
+        const percentageVisible = (boundingBox.height + boundingBox.top) / boundingBox.height * 100;
+        onScrollPercentage(section, percentageVisible);
+
+
+        // const isElementTopAboveViewport = boundingBox.top < 0;
+        // const isElementTopBelowViewport = boundingBox.top + boundingBox.height > 0;
+
+        // if (isElementTopAboveViewport && isElementTopBelowViewport) {
+            
+        // }
+    });
+  }
+
+  //helpers
+  function observeElement(element, onEnterCallback, onExitCallback) {
+      const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // Element has entered the viewport
-              if (onEnterCallback && typeof onEnterCallback === 'function') {
-                onEnterCallback(element);
+              if (entry.isIntersecting) {
+                  // Element has entered the viewport
+                  if (onEnterCallback && typeof onEnterCallback === 'function') {
+                      onEnterCallback(element);
+                  }
+              } else {
+                  // Element has exited the viewport
+                  if (onExitCallback && typeof onExitCallback === 'function') {
+                      onExitCallback(element);
+                  }
               }
-            } else {
-              // Element has exited the viewport
-              if (onExitCallback && typeof onExitCallback === 'function') {
-                onExitCallback(element);
-              }
-            }
           });
-        });
-      
-        observer.observe(element);
-      
-        // Return the observer in case you need to disconnect it later
-        return observer;
+      });
+
+      observer.observe(element);
+
+      // Return the observer in case you need to disconnect it later
+      return observer;
+  }  
+
+  function onScrollPercentage(section, percentageVisible) {
+      let styleValue = Math.round((percentageVisible + Number.EPSILON) * 100) / 100;
+      //console.log({section, percentageVisible, styleValue});
+      section.style.setProperty("--scroll-percent", `${styleValue}px`);
+  }
+
+  function removeElementFromArray(array, elementToRemove) {
+    const index = array.indexOf(elementToRemove);
+    if (index !== -1) {
+        array.splice(index, 1);
     }
-      
-    //init
-    function initialize(){
-        let sections = [...document.querySelectorAll('main > section')];
-        if(sections == null && sections.length == 0)
-            return;
+}
 
-        const _ = this;
-        console.log(_);
-
-        //start from bottom
-        // sections = sections.reverse();
-        let observers = [];
-        sections.forEach((section, index) => {
-            section.style.setProperty("--layer-var", (index + 1) * 5); //steps of 5
-            observers.push(observeElement(section, onEnter, onExit));
-        });
-        console.log(observers);
-        
-    };
-
-    //revealing modular pattern
-    return{
-        init: initialize,
-    };
+  return {
+      init: initialize,
+  };
 })().init();
 
 
