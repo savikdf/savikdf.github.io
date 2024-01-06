@@ -7,6 +7,7 @@ gulp.task('sass', function(done){
 
     gulp.src('src/sass/**/*.scss')
       .pipe(sass({outputStyle: 'compressed'}))
+      .on('error', swallowError)
       .pipe(gulp.dest('src/dist'))
 
       done();
@@ -21,9 +22,15 @@ gulp.task('sass', function(done){
 
 //         done();
 // });
+function swallowError (error) {
 
+  // If you want details of the error in the console
+  console.log(error.toString())
 
-gulp.task('watch', function(done){
+  this.emit('end')
+}
+
+gulp.task('default', function(done){
     gulp.watch('src/sass/**/*.scss', gulp.series('sass') )
     // gulp.watch('public/javascripts/**/*.js', gulp.series('scripts') )
     done();

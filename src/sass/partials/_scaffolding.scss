@@ -1,203 +1,200 @@
 // Scrollbar =====
 ::-webkit-scrollbar {
-    width: 15px;
-    transition: background-color 250ms ease-in-out
+  width: 15px;
+  transition: background-color 250ms ease-in-out;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #fdfbf6
+  background-color: #fdfbf6;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #ff9f00
+  border-radius: 10px;
+  background-color: #ff9f00;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #ff9f00
+  background-color: #ff9f00;
 }
 
 // Content Area =====
 html {
-    scroll-behavior: smooth;
-    background-color: $color-page;
-    width: 100% !important;
-    overflow-x: hidden;
-    font-family: "Futura", monospace;
+  scroll-behavior: smooth;
+  background-color: $color-page;
+  width: 100% !important;
+  overflow-x: hidden;
+  font-family: "Futura", monospace;
 }
 
 main {
-    @include flex-center;
-    flex-direction: column;
-    width: calc(100vw - $scrollbar-width);
-    column-gap: 0px;
-    row-gap: 0px;
-    background-color: $color-page;
-    overflow: hidden;
+  @include flex-center;
+  flex-direction: column;
+  width: calc(100vw - $scrollbar-width);
+  column-gap: 0px;
+  row-gap: 0px;
+  background-color: $color-page;
+  overflow: hidden;
 }
 
 // Sections =====
 section {
-    width: 100%;
-    padding: 20px $main-content-padding;
-    position: relative;
-    @include flex-center;
-    background-color: $color-page;
-    z-index: var(--layer-var);
-    transition: opacity 250ms ease-in-out;
-    margin: 0px 100px;
+  width: 100%;
+  padding: 20px $main-content-padding;
+  position: relative;
+  @include flex-center;
+  background-color: $color-page;
+  z-index: var(--layer-var);
+  transition: opacity 250ms ease-in-out;
+  //margin: 0px 100px;
 
-
-    &.section--visible{
-        $scroll-percent: var(--scroll-percent);
-
-        .section-image{
-            opacity: 1;
-            //todo fix this
-            top: $scroll-percent;            
-        }
+  &.section--visible {
+    .section-image {
+      opacity: 1;
+      //todo fix this
+      $total-height: var(--total-height); //1000
+      $scroll-val: var(--scroll-val);   //50
+      //1000 at 50 = 500.
+      //1000 at 0 = 0
+      //1000 at 100 = 1000
+        $dakine: calc(calc(#{$scroll-val} / 100) * #{$total-height});
+      transform: translateY(calc(#{$dakine} * 1px * 0.3));
     }
+  }
 
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 70%;
+    width: 30%;
+    height: 100%;
+    background-color: $color-theme;
+  }
+
+  &:nth-child(2n) {
     &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 0px;
-        left: 70%;
-        width: 30%;
-        height: 100%;
-        background-color: $color-theme;
+      left: 0;
     }
 
-    &:nth-child(2n){
-        &:before {
-            left: 0;
-        }
-
-        .section-image{
-            transform: scale(-1, 1);     
-            left: 0px;
-            right: auto;       
-        }
+    .section-image {
+      //   transform: scale(-1, 1);
+      left: 0px;
+      right: auto;
     }
+  }
 
-    &#hero {
-        padding: 0px !important;
-    } 
+  &#hero {
+    padding: 0px !important;
+  }
 
-    &#work {
-        //display: none;
+  // @include break-up('small'){
+
+  // }
+
+  .section-image {
+    position: absolute;
+    right: 0px;
+    left: auto;
+    top: 0px;
+    height: 100%;
+    max-height: 400px;
+
+    // transition: top 50ms ease-in-out, opacity 500ms ease-in-out;
+    // opacity: 0;
+
+    &--hero {
+      position: fixed;
+      right: -20px;
+      left: auto;
+      top: auto !important;
+      transform: none !important;
+      width: 50%;
+      height: auto;
+      max-height: none;
+      opacity: 1;
     }
+  }
 
-    // @include break-up('small'){
+  .container {
+    max-width: $max-content-width;
+    // background-image: url(https://picsum.photos/600/600);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
 
+    // &:is(:focus, :hover, :focus-visible) {
+    //     outline: 2px solid $color-theme;
     // }
 
-    .section-image{
-        position: absolute;
-        right: 0px;
-        left: auto;
-        top: 0px;
-        height: 100%;
-        max-height: 400px;
-        aspect-ratio: 1;
-        transition: opacity 500ms ease-in-out;
-        opacity: 0;       
-
-        &--hero{
-            position: fixed;
-            right: -20px;
-            left: auto;
-            top: auto!important;
-            width: 50%;
-            height: auto;
-            max-height: none;
-            opacity: 1;
-
-        }
+    &__image {
+      position: fixed;
+      aspect-ratio: 1;
+      left: 0px;
+      height: auto;
+      bottom: 0;
+      transform: translateY(-50%);
     }
 
-    .container {
-        max-width: $max-content-width;
-        // background-image: url(https://picsum.photos/600/600);
-        border-radius: 15px;
-        position: relative;
-        overflow: hidden;
-        padding: 10px 20px;
+    &--hero {
+      background-image: none;
+      // background-color: transparent;
+      height: max(700px, 80dvh) !important;
+      width: 100%;
+      max-width: none;
+      outline: none;
+      // border-bottom: 50px solid $color-theme;
+      border-radius: 0px;
+      padding: 0px;
 
-        &:is(:focus, :hover, :focus-visible) {
-            outline: 2px solid $color-theme;
+      // &:is(:focus, :hover, :focus-visible) {
+      //     outline: none;
+      // }
+
+      // @include break-up('large'){
+      //     background-position: top;
+      //     background-size: 75%;
+      //     background-position-x: right;
+      // }
+      .hero {
+        &__title {
+          position: fixed;
+          width: 100%;
+          top: 0px;
+          text-align: center;
+          flex-direction: column;
+          color: #333;
+
+          h1 {
+            font-family: Hiragino Maru Gothic ProN;
+            font-size: 60px;
+          }
         }
 
-        &__image{
-            position: fixed;
-            aspect-ratio: 1;
-            left: 0px;
-            height: auto;
-            bottom: 0;
-            transform: translateY(-50%);
-        }
+        &__hook-line {
+          color: $color-theme;
+          position: absolute;
+          width: 100%;
+          bottom: 0px;
+          left: 20px;
 
-        &--hero {
-            background-image: none;
-            // background-color: transparent;
-            height: max(700px, 80dvh)!important;
+          p {
             width: 100%;
-            max-width: none;
-            outline: none;
-            // border-bottom: 50px solid $color-theme;
-            border-radius: 0px;
-            padding: 0px;
-
-            &:is(:focus, :hover, :focus-visible) {
-                outline: none;
-            }
-
-            // @include break-up('large'){
-            //     background-position: top;
-            //     background-size: 75%;
-            //     background-position-x: right;
-            // }
-            .hero {
-                &__title {
-                    position: fixed;
-                    width: 100%;
-                    top: 0px;
-                    text-align: center;
-                    flex-direction: column;
-                    color: #333;
-
-                    h1 {
-                        font-family: Hiragino Maru Gothic ProN;
-                        font-size: 60px;
-                    }
-                }
-
-                &__hook-line {
-                    color: $color-theme;
-                    position: absolute;
-                    width: 100%;
-                    bottom: 0px;
-                    left: 20px;
-
-                    p {
-                        width: 100%;
-                        text-align: left;
-                        font-size: 50px;
-                        line-height: 50px;
-                        text-transform: uppercase;
-                        font-weight: bold;
-                    }
-                }
-            }
-
-
+            text-align: left;
+            font-size: 50px;
+            line-height: 50px;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
         }
-
-        &--work {
-            @extend .container;
-
-            background-image: none;
-        }
+      }
     }
+
+    &--work {
+      @extend .container;
+
+      background-image: none;
+    }
+  }
 }
