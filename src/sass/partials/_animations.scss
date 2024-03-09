@@ -1,0 +1,18 @@
+.anim {
+  &--in-and-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 250ms ease-in-out, transform 500ms ease-in-out;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
+@mixin anim--in-and-up{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

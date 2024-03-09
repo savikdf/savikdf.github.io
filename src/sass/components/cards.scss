@@ -1,0 +1,13 @@
+.card-grid{
+    $gap-val: 20px; 
+
+    // outline: 2px solid red;
+    display: grid;
+    gap: $gap-val;
+
+    .card{  
+        // outline: 1px solid pink;
+        // max-width: calc(50% - calc($gap-val * 2));
+    }
+
+}

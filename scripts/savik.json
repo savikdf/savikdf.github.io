@@ -1,0 +1,50 @@
+{
+    "jobs": [
+      {
+        "company": "Bank of Hawaii",
+        "position": "Application Developer",
+        "location": "Honolulu, Hawaii",
+        "dates": "AUG '22 – Present",
+        "responsibilities": [
+          "Developed and maintained content for the main company website using Episerver CMS and the .NET Framework.",
+          "Implemented development and architecture standards for back-end Unit Testing using the Microsoft Fakes Framework for .NET Applications.",
+          "Maintained and upgraded existing Full Stack .NET Web Applications."
+        ]
+      },
+      {
+        "company": "Hawaii Medical Service Association (HMSA) via TEKsystems",
+        "position": "Software Engineer — Senior Software Engineer",
+        "location": "Honolulu, Hawaii",
+        "dates": "APR '18 – JUL '22",
+        "responsibilities": [
+          "Led agile development teams on multiple projects creating Full Stack .NET Web Applications, RESTful Web APIs, and SSIS Packages while practicing Test Driven Development.",
+          "Developed solutions for Federal Compliance by creating a .NET MVC Web App with an internal Admin Portal, Reporting Feature, and Backend Automation using .NET Framework.",
+          "Designed and built common business data models and RESTful .NET Web APIs sourced from a SQL DB to act as a data source for company-wide applications.",
+          "Developed a data extract solution utilizing a modular version of the Microsoft memory cache library (similar to Redis) using .NET Web APIs as part of a Mainframe shutdown related migration.",
+          "Developed automated Information Directory PDF generation process using .NET, Microsoft Service Bus, and Adobe InDesign Server."
+        ]
+      },
+      {
+        "company": "Willis Towers Watson",
+        "position": ".NET Developer",
+        "location": "Minneapolis, Minnesota",
+        "dates": "DEC '16 – SEP '17",
+        "responsibilities": [
+          "Performed Full Stack .NET duties on an agile team to maintain and upgrade existing MVC Web Applications and implement new clients on templated Web Applications.",
+          "Developed internal C# pension calculator libraries using the .NET Framework on multiple client integrations.",
+          "Worked with Data Analysts to maintain data integrity using SSMS on SQL Server databases and also to create test cases for specific pension-related logic."
+        ]
+      },
+      {
+        "company": "Activision",
+        "position": "Lead Quality Assurance Tester",
+        "location": "Minneapolis, Minnesota",
+        "dates": "MAY '16 – AUG '16",
+        "responsibilities": [
+          "Tested pre-release video games and verified functionality, data content, performance, 1st Party (Sony, Microsoft, Nintendo) compliance, usability/playability, and hardware/software compatibility.",
+          "Collaborated with cross-platform teams to provide feedback on product features in response to content updates."
+        ]
+      }
+    ]
+  }
+  
