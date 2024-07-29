@@ -1,13 +1,15 @@
 {
+    "name": ["Savik","Daniel","Fraguela"],
+    "tagLine": "[todo: insert tagline]",
     "jobs": [
       {
         "company": "Bank of Hawaii",
-        "position": "Application Developer",
+        "position": "Software Engineer",
         "location": "Honolulu, Hawaii",
-        "dates": "AUG '22 – Present",
+        "dates": "AUG '22 – AUG '24",
         "responsibilities": [
-          "Developed and maintained content for the main company website using Episerver CMS and the .NET Framework.",
-          "Implemented development and architecture standards for back-end Unit Testing using the Microsoft Fakes Framework for .NET Applications.",
+          "Designed, developed, and maintained content for the company's main website utilizing Episerver CMS and the .NET Framework, enhancing site functionality and user experience.",
+          "Established and enforced development and architecture standards for back-end unit testing with the Microsoft Fakes Framework, significantly improving code quality and reliability for .NET applications",
           "Maintained and upgraded existing Full Stack .NET Web Applications."
         ]
       },

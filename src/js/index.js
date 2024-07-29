@@ -12,6 +12,7 @@ var sectionModule = (function () {
   };
   //init
   function initialize() {
+    return;
     let sections = [...document.querySelectorAll("main > section")];
     if (sections == null && sections.length == 0) return;
 
@@ -130,8 +131,8 @@ var siteDataModule = (function(){
   let config = {
     projectCardTemplate: `
       <div class="card">
-        <h2><span>{num}</span>{company}</h2>
-        <i>{position}</i>
+        <h2 class="card__header"><span>{num}</span>{company}</h2>
+        <p class="card__role">{position}</p>
         {responsibilities}
       </div>
       `,

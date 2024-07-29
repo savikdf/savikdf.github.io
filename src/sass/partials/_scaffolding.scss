@@ -28,17 +28,17 @@ section {
   background-color: $color-page;
   z-index: var(--layer-var);  
 
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 80%;
-    width: 20%;
-    height: 100%;
-    background-color: $color-theme;
-  }
+  // &:before {
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   top: 0px;
+  //   bottom: 0px;
+  //   left: 80%;
+  //   width: 20%;
+  //   height: 100%;
+  //   background-color: $color-theme;
+  // }
 
   &:nth-child(2n) {
     &:before {

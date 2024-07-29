@@ -1,13 +1,55 @@
 .card-grid{
-    $gap-val: 20px; 
-
-    // outline: 2px solid red;
-    display: grid;
-    gap: $gap-val;
-
-    .card{  
-        // outline: 1px solid pink;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    $gap: 10px;
+    gap: $gap calc(2 * #{$gap});
+    
+    .card{
+        position: inherit;
+        border-radius: 30px;
+        //outline: 1px solid $color-theme;
+        //box-shadow: 0px 5px 0px $color-theme;
+        max-width: calc(50% - $gap);
+        padding: 20px;
         // max-width: calc(50% - calc($gap-val * 2));
+
+        *{
+            margin-bottom: 20px;
+        }
+
+        &__header{
+            font-size: 2rem;
+            margin-bottom: 15px;
+            span{
+                padding-right: 10px;
+                font-size: 1.6rem;
+                color: #80808050;
+            }
+
+            // span{
+            //     position: absolute;
+            //     inset: 0 0 auto auto;
+            //     color: white;
+
+            //     &::before{
+            //         display: block;
+            //         position: absolute;
+            //         inset: 0;
+            //         content: '';
+            //         aspect-ratio: 1/1;
+            //         height: 100%;
+            //         background-color: red;
+            //     }
+            // }
+        }
+        
+        &__role{
+            padding-left: 20px;
+        }
+
+       
     }
 
 }
