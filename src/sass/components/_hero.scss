@@ -1,0 +1,55 @@
+#hero{
+    height: 90vh;
+    border-bottom: 2px dashed red;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: visible;
+        padding-bottom: 40vh;
+    }
+
+    h1{
+        font-family: dino;
+        font-size: 10rem;
+        line-height: 10rem;
+    }
+
+    sub{
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .head{
+        display: none!important;
+        
+        width: 100%;
+        height: 30px;
+        outline: 1px solid blue;
+        overflow: visible;
+        display: flex;
+        justify-content: space-between;
+
+        .eye{
+            border: 1px solid red;
+            height: 50px;
+            width: 50px;
+            display: inline-block;
+            position: relative;
+
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                inset: 0px;
+                left: var(--hor-offset);
+                height: 50px;
+                width:50px;
+                background-color: blue;
+                border-radius: 50%;
+            }
+        }
+    }
+   
+}

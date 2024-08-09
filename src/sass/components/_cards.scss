@@ -5,12 +5,11 @@
     flex-wrap: wrap;
     $gap: 10px;
     gap: $gap calc(2 * #{$gap});
-    
+
     .card{
         position: inherit;
         border-radius: 30px;
-        //outline: 1px solid $color-theme;
-        //box-shadow: 0px 5px 0px $color-theme;
+        outline: 1px solid $color-theme;
         max-width: calc(50% - $gap);
         padding: 20px;
         // max-width: calc(50% - calc($gap-val * 2));
