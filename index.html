@@ -22,6 +22,10 @@
     -->
 
     <link rel="stylesheet" href="/src/dist/main.css">
+
+    <!--SWIPER-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -40,55 +44,34 @@
         </section>
     </header>
 
-    <main>  
+    <main>
         <div id="debug-menu">
             <p>Mouse Info:</p>
             <span id="debug-mousePercent"></span>
             <span id="debug-mouseOn"></span>
             <span id="debug-mouseInactiveTimer"></span>
 
-        </div>     
+        </div>
+
         <section>
-            <div id="job-cards" class="container card-grid">
-
-            </div>
-        </section>
-
-        <section id="test-x">
-            <img class="section-image" src="./images/landing-background-savik.webp" alt="Savik presenting the website"
-                role="display">
             <div class="container">
-                <!-- <img class="container__image" src="./images/nicholas-cage.webp" alt="Nicholas Cage" role="display"> -->
+                <div class="card-swiper swiper">
+                    <div id="job-cards" class="swiper-wrapper">
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis laboriosam dolor optio alias
-                    repudiandae? Molestias libero voluptatem quam praesentium fugiat dolore aliquid, hic eligendi,
-                    quidem repellendus sed aut esse assumenda.</p>
-                </br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis laboriosam dolor optio alias
-                    repudiandae? Molestias libero voluptatem quam praesentium fugiat dolore aliquid, hic eligendi,
-                    quidem repellendus sed aut esse assumenda.</p>
-                </br>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis laboriosam dolor optio alias
-                    repudiandae? Molestias libero voluptatem quam praesentium fugiat dolore aliquid, hic eligendi,
-                    quidem repellendus sed aut esse assumenda.</p>
-                </br>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis laboriosam dolor optio alias
-                    repudiandae? Molestias libero voluptatem quam praesentium fugiat dolore aliquid, hic eligendi,
-                    quidem repellendus sed aut esse assumenda.</p>
-                </br>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis laboriosam dolor optio alias
-                    repudiandae? Molestias libero voluptatem quam praesentium fugiat dolore aliquid, hic eligendi,
-                    quidem repellendus sed aut esse assumenda.</p>
+                    </div>
+                    <div class="card-nav card-nav__prev swiper-button-prev"></div>
+                    <div class="card-nav card-nav__next swiper-button-next"></div>
+                </div>
             </div>
         </section>
+
+        <!-- <section>
+            <div id="job-cards" class="container card-grid"> </div>
+        </section> -->
 
     </main>
 
     <!-- <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script> -->
-    <!-- <script src="/scripts/jquery-3.6.0.min.js"></script> -->
     <script src="/src/js/index.js"></script>
 
 </body>

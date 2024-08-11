@@ -198,7 +198,7 @@ SL_eventsModule = {
 
   doTimer: function(){
     const _ = SL_eventsModule;
-    console.log("doing timer")
+    //console.log("doing timer")
     _.config.timer_noMouseMovementDelta = Date.now() - _.config.timer_noMouseMovementStart; // milliseconds elapsed since start
     _.config.timer_noMouseMovement = Math.floor(_.config.timer_noMouseMovementDelta / 1000); // in seconds
     document.getElementById('debug-mouseInactiveTimer').textContent = _.config.timer_noMouseMovement;
@@ -210,16 +210,38 @@ SL_siteDataModule = {
   config : {
     cardSectionId: "job-cards",
     projectCardTemplate: `
-      <div class="card">
-        <h2 class="card__header"><span>{num}</span>{company}</h2>
+      <div class="card swiper-slide">
+        <h2 class="card__header">{company}</h2>
         <p class="card__role">{position}</p>
-        {responsibilities}
+        <ul class="card__list">
+          {responsibilities}
+        </ul>
       </div>
       `,
+    cardSwiperConfig: {
+      slidesPerView: 2,
+      spaceBetween: "0px",
+      // Optional parameters
+      direction: 'horizontal',
+      loop: false,
+      autoPlay: false,
+      navigation: {
+        nextEl: '.card-nav__next',
+        prevEl: '.card-nav__prev',
+        disabledClass: 'card-nav--disabled'
+      },
+     
+      // And if we need scrollbar
+      // scrollbar: {
+      //   el: '.swiper-scrollbar',
+      // },
+    },
+    cardSwiper: null,
   },
   init: function() {
     const _ = this;
     _.refreshProjectCards();
+    _.initCardSwiper();
   },
 
   refreshProjectCards: function(){
@@ -239,6 +261,11 @@ SL_siteDataModule = {
         .catch(error => {
           console.error('Error refreshing Project Cards', error);
         });
+  },
+  initCardSwiper: function(){
+    const _ = this;
+    const cardSwiper = new Swiper('.card-swiper', _.config.cardSwiperConfig);
+    _.config.cardSwiper = cardSwiper;
   },
   eyeTrack: function(){
     let eyes = [...document.querySelectorAll('.eye')];
@@ -267,13 +294,13 @@ SL_siteDataModule = {
       .replace("{responsibilities}", _.generateProjectItemList(job.responsibilities));
   },
   generateProjectItemList: function(items){
-    let result = '<ul>'
+    let result = '';
 
     items.forEach((item, i) => {
       result += `<li>${item}</li>`
     });
 
-    return result + '</ul>'
+    return result;
   },
 }
 

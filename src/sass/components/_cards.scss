@@ -1,54 +1,93 @@
 .card-grid{
+    $diameter : 50px;
+
     position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     $gap: 10px;
     gap: $gap calc(2 * #{$gap});
+    padding-top: calc($diameter / 2)!important;
 
-    .card{
-        position: inherit;
-        border-radius: 30px;
-        outline: 1px solid $color-theme;
-        max-width: calc(50% - $gap);
-        padding: 20px;
-        // max-width: calc(50% - calc($gap-val * 2));
+    
 
-        *{
-            margin-bottom: 20px;
-        }
+}
 
-        &__header{
-            font-size: 2rem;
-            margin-bottom: 15px;
-            span{
-                padding-right: 10px;
-                font-size: 1.6rem;
-                color: #80808050;
-            }
+.card{
+    position: inherit;
+    overflow: visible;
+    padding: 20px;
 
-            // span{
-            //     position: absolute;
-            //     inset: 0 0 auto auto;
-            //     color: white;
-
-            //     &::before{
-            //         display: block;
-            //         position: absolute;
-            //         inset: 0;
-            //         content: '';
-            //         aspect-ratio: 1/1;
-            //         height: 100%;
-            //         background-color: red;
-            //     }
-            // }
-        }
-        
-        &__role{
-            padding-left: 20px;
-        }
-
-       
+    *{
+        margin-bottom: 20px;
     }
 
+    &__header{
+        font-size: 2rem;
+        margin-bottom: 15px;
+        span{
+            padding-right: 10px;
+            font-size: 1.6rem;
+            color: #80808050;
+        }
+
+        // span{
+        //     position: absolute;
+        //     inset: 0 0 auto auto;
+        //     color: white;
+
+        //     &::before{
+        //         display: block;
+        //         position: absolute;
+        //         inset: 0;
+        //         content: '';
+        //         aspect-ratio: 1/1;
+        //         height: 100%;
+        //         background-color: red;
+        //     }
+        // }
+    }
+    
+    &__role{
+    }
+
+    &__list{
+        display: none;
+    }
+   
+}
+
+.card-swiper{
+    overflow: visible;
+
+    .swiper-wrapper{
+
+        .card{
+            height: auto;
+            outline: 2px dashed $color-theme;
+        }
+    }
+
+    .card-nav{
+        position: absolute;
+        top: 50%;
+        outline: 2px dashed $color-theme;
+        background-color: $color-page;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: 300ms;
+
+        &__next{
+            right: 0px;
+        }
+        &__prev{
+            left: 0px;
+        }
+
+        &--disabled{
+            opacity: 0;
+        }
+    }
+    
 }
