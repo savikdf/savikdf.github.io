@@ -211,6 +211,7 @@ SL_siteDataModule = {
     cardSectionId: "job-cards",
     projectCardTemplate: `
       <div class="card swiper-slide">
+        <img class="card__logo" src="{logoUrl}"/>
         <h2 class="card__header">{company}</h2>
         <p class="card__role">{position}</p>
         <ul class="card__list">
@@ -219,16 +220,24 @@ SL_siteDataModule = {
       </div>
       `,
     cardSwiperConfig: {
-      slidesPerView: 2,
+      slidesPerView: 3,
       spaceBetween: "0px",
       // Optional parameters
       direction: 'horizontal',
       loop: false,
       autoPlay: false,
+      centeredSlides: true,
+      keyboard: {
+        enabled: true,
+      },
       navigation: {
         nextEl: '.card-nav__next',
         prevEl: '.card-nav__prev',
         disabledClass: 'card-nav--disabled'
+      },
+      a11y: {
+        prevSlideMessage: 'Previous slide',
+        nextSlideMessage: 'Next slide',
       },
      
       // And if we need scrollbar
@@ -290,6 +299,7 @@ SL_siteDataModule = {
     return _.config.projectCardTemplate
       .replace("{num}", index)
       .replace("{company}", job.company)
+      .replace("{logoUrl}", job.logoUrl)
       .replace("{position}", job.position)
       .replace("{responsibilities}", _.generateProjectItemList(job.responsibilities));
   },

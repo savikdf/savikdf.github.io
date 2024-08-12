@@ -8,18 +8,27 @@
     $gap: 10px;
     gap: $gap calc(2 * #{$gap});
     padding-top: calc($diameter / 2)!important;
-
-    
-
 }
 
 .card{
-    position: inherit;
+    position: relative;
     overflow: visible;
-    padding: 20px;
+    padding: 15px;
+    border: 5px solid $color-theme;
+    display: flex!important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    *{
-        margin-bottom: 20px;
+    &.swiper-slide-active{
+        border-bottom: 5px solid $color-page;
+    }
+
+    &__logo{
+        display: none;
+        position: absolute;
+        width: calc(30% - 10px);
+        background-color: $color-work-boh;
     }
 
     &__header{
@@ -60,11 +69,25 @@
 .card-swiper{
     overflow: visible;
 
+    &::after{   
+        content:'';
+        background-image: url(/images/nicholas-cage.webp);
+        color: $color-page;
+        font-size: 4rem;
+        display: block;
+        position: absolute;
+        top:0px;
+        height: 100%;
+        width: 33%;
+        //transform: translateX(-100%);
+        background-color: $color-theme;
+        z-index: 5;
+    }
+
     .swiper-wrapper{
 
-        .card{
+        .swiper-slide{
             height: auto;
-            outline: 2px dashed $color-theme;
         }
     }
 

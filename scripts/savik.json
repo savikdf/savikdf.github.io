@@ -4,6 +4,8 @@
     "jobs": [
       {
         "company": "Bank of Hawaii",
+        "companyLong": "Bank of Hawaii",
+        "logoUrl": "/images/bank_of_hawaii_logo.webp",
         "position": "Software Engineer",
         "location": "Honolulu, Hawaii",
         "dates": "AUG '22 – AUG '24",
@@ -14,7 +16,8 @@
         ]
       },
       {
-        "company": "Hawaii Medical Service Association (HMSA) via TEKsystems",
+        "company": "Hawaii Medical Service Association",
+        "companyLong": "Hawaii Medical Service Association (HMSA) via TEKsystems",
         "position": "Software Engineer — Senior Software Engineer",
         "location": "Honolulu, Hawaii",
         "dates": "APR '18 – JUL '22",
@@ -27,7 +30,8 @@
         ]
       },
       {
-        "company": "Willis Towers Watson",
+        "company": "WTW",
+        "companyLong": "Willis Towers Watson",
         "position": ".NET Developer",
         "location": "Minneapolis, Minnesota",
         "dates": "DEC '16 – SEP '17",
