@@ -9,6 +9,8 @@
 
 img{
     aspect-ratio: 1;
+    object-fit: contain;
+    background-repeat: no-repeat;
 }
 
 ul{ 
@@ -20,12 +22,6 @@ ul{
 */
 *, *::before, *::after {
     box-sizing: border-box;
-  }
-  /*
-    2. Remove default margin
-  */
-  * {
-    margin: 0;
   }
   /*
     Typographic tweaks!

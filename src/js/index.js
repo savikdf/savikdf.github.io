@@ -208,11 +208,14 @@ SL_eventsModule = {
 
 SL_siteDataModule = {
   config : {
+    jsonData: {},
     cardSectionId: "job-cards",
+    cardDescId: "job-cards__desc",
     projectCardTemplate: `
-      <div class="card swiper-slide">
-        <img class="card__logo" src="{logoUrl}"/>
-        <h2 class="card__header">{company}</h2>
+      <div class="card swiper-slide" data-img="{logoUrl}">
+        <a href="{website}" target="_blank" title="{company} Website">
+          <h3 class="card__header">{company}</h3>
+        </a>
         <p class="card__role">{position}</p>
         <ul class="card__list">
           {responsibilities}
@@ -247,34 +250,62 @@ SL_siteDataModule = {
     },
     cardSwiper: null,
   },
-  init: function() {
+  init: async function() {
     const _ = this;
-    _.refreshProjectCards();
-    _.initCardSwiper();
+  
+    _.memoizeJson()
+      .then(() => _.refreshProjectCards())
+      .then(() => {
+        _.config.cardSwiper = _.initCardSwiper();
+        console.log( _.config.cardSwiper);
+      });
   },
 
-  refreshProjectCards: function(){
+  memoizeJson: async function(){
     const _ = this;
-    fetch('../../scripts/savik.json')
-        .then(response => response.json())
-        .then(resumeData => {
-          let cards = [];
+    await fetch('/scripts/savik.json')
+      .then(response => response.json())
+      .then(jsonData => {
+        SL_siteDataModule.config.jsonData = jsonData;
+      })
+      .catch(error => {
+        console.error('Error refreshing Project Cards', error);
+      });
+  },
+  refreshProjectCards: function(){
+    const _ = this;   
+    let cards = [];
 
-          resumeData.jobs.forEach((job, index) => {
-            cards.push(_.generateProjectCard(job, index + 1));            
-          });
+    _.config.jsonData.jobs.forEach((job, index) => {
+      cards.push(_.generateProjectCard(job, index + 1));            
+    });
 
-          let insertDiv = document.getElementById(_.config.cardSectionId);
-          insertDiv.innerHTML = cards.join('');
-        })
-        .catch(error => {
-          console.error('Error refreshing Project Cards', error);
-        });
+    let insertDiv = document.getElementById(_.config.cardSectionId);
+    insertDiv.innerHTML = cards.join('');  
   },
   initCardSwiper: function(){
     const _ = this;
     const cardSwiper = new Swiper('.card-swiper', _.config.cardSwiperConfig);
-    _.config.cardSwiper = cardSwiper;
+    cardSwiper.on('slideChange', SL_siteDataModule.handleSLideChange);
+
+    return cardSwiper;
+  },
+  //handlers
+  handleSLideChange: function(swiper){
+    const _ = SL_siteDataModule;
+    _.updateSwiperImg(swiper);
+  },
+
+  //effects
+  updateSwiperImg: function(swiper){
+    const _ = SL_siteDataModule;
+    const activeSlide = swiper.slides[swiper.activeIndex];
+
+    const imageUrl = activeSlide.dataset.img;
+    if(imageUrl){
+      const cardDescContainer = document.getElementById(_.config.cardDescId);
+      swiper.el.style.setProperty('--bg-img', `url(${imageUrl})`);
+    }
   },
   eyeTrack: function(){
     let eyes = [...document.querySelectorAll('.eye')];
@@ -296,12 +327,15 @@ SL_siteDataModule = {
   // generators 
   generateProjectCard: function(job, index){
     const _ = this;
-    return _.config.projectCardTemplate
-      .replace("{num}", index)
-      .replace("{company}", job.company)
-      .replace("{logoUrl}", job.logoUrl)
-      .replace("{position}", job.position)
-      .replace("{responsibilities}", _.generateProjectItemList(job.responsibilities));
+    var keys = Object.keys(job);
+    let result = _.config.projectCardTemplate;
+
+    //generation uses the JSON keys to find what part of the template to swap out for actual data
+    keys.forEach(key => {
+      result = result.replaceAll(`{${key}}`, job[key]);
+    });
+
+    return result;
   },
   generateProjectItemList: function(items){
     let result = '';

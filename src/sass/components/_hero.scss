@@ -1,6 +1,12 @@
 #hero{
-    height: 90vh;
-    border-bottom: 2px dashed red;
+    height: 100dvh;
+    min-height: 18rem;;
+    //border-bottom: 2px dashed red;
+    background-image: url(/images/cowboy.PNG);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position-x: 0px;
+    background-position-y: 100%;
 
     .container{
         display: flex;
@@ -11,14 +17,16 @@
     }
 
     h1{
+        display: contents;
         font-family: dino;
-        font-size: 10rem;
+        font-size: 6rem;
         line-height: 10rem;
-    }
-
-    sub{
-        font-size: 1rem;
+        overflow-wrap: anywhere;
         text-align: center;
+
+        @include break-up('small'){
+            color: red;
+        }
     }
 
     .head{        

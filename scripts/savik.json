@@ -6,6 +6,7 @@
         "company": "Bank of Hawaii",
         "companyLong": "Bank of Hawaii",
         "logoUrl": "/images/bank_of_hawaii_logo.webp",
+        "website": "https://www.boh.com",
         "position": "Software Engineer",
         "location": "Honolulu, Hawaii",
         "dates": "AUG '22 – AUG '24",
@@ -16,8 +17,9 @@
         ]
       },
       {
-        "company": "Hawaii Medical Service Association",
+        "company": "HMSA",
         "companyLong": "Hawaii Medical Service Association (HMSA) via TEKsystems",
+        "website": "https://www.hmsa.com",
         "position": "Software Engineer — Senior Software Engineer",
         "location": "Honolulu, Hawaii",
         "dates": "APR '18 – JUL '22",
@@ -32,6 +34,7 @@
       {
         "company": "WTW",
         "companyLong": "Willis Towers Watson",
+        "website": "https://www.wtwco.com",
         "position": ".NET Developer",
         "location": "Minneapolis, Minnesota",
         "dates": "DEC '16 – SEP '17",
@@ -43,6 +46,7 @@
       },
       {
         "company": "Activision",
+        "website": "https://www.activision.com",
         "position": "Lead Quality Assurance Tester",
         "location": "Minneapolis, Minnesota",
         "dates": "MAY '16 – AUG '16",

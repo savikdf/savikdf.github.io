@@ -165,3 +165,44 @@ section {
     }
   }
 }
+
+//column layouts ======
+.two-col{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;  
+  grid-template-areas: "col1 col2";
+
+  .col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    grid-area: col1;
+    //outline: 2px dashed $color-theme;
+
+    & + .col{
+      grid-area: col2;
+    }
+
+    img{
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid $color-theme;
+      outline: 2px solid $color-theme;
+      outline-offset: 5px;
+    }
+  }
+
+  &--lrg-one{
+    grid-template-columns: auto calc(33% - 5px);
+  }
+
+}
+
+#about{
+  background-color: $color-theme-dark;
+  color: white;
+}

@@ -34,8 +34,7 @@
         <a class="skip-nav">Skip To Footer</a>
         <section id="hero">
             <div class="container">
-                <h1>SAVIKLAND</h1>
-                <sub>Just another Dev</sub>
+                <h1>SAVIK</h1><h1>LAND</h1>
                 <div class="head">
                     <span class="eye" style="--hor-offset: 50px"></span>
                     <span class="eye" style="--hor-offset: 50px"></span>
@@ -53,14 +52,35 @@
 
         </div>
 
-        <section>
+        <section id="about">
             <div class="container">
-                <div class="card-swiper swiper">
+                <div class="two-col two-col--lrg-one">
+                    <div class="col">
+                        <h2>About Me</h2>
+                        <p>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quod fuga, sunt quas recusandae dolorem suscipit sed corporis molestias illum, quidem culpa, qui odio laborum repellat natus? Nemo, perspiciatis itaque?
+                        </p>
+                    </div>
+                   
+                    <div class="col">
+                        <img src="/images/savik.jpg" class="col" loading="lazy"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="jobs">
+            <div class="container">
+                <h2>Professional Journey</h2>
+                <div class="card-swiper swiper" style="--bg-img: url(/images/nicholas-cage.webp);"> <!--in js: swiper.el-->
                     <div id="job-cards" class="swiper-wrapper">
 
                     </div>
                     <div class="card-nav card-nav__prev swiper-button-prev"></div>
                     <div class="card-nav card-nav__next swiper-button-next"></div>
+                </div>
+                <div id="job-cards__desc" class="card-desc" data-activeIndex="1">
+                    description goes here
                 </div>
             </div>
         </section>
