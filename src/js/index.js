@@ -140,7 +140,7 @@ SL_eventsModule = {
     //external
     document.addEventListener("mousemove", SL_siteDataModule.eyeTrack);
 
-    setInterval(_.doTimer, 1000); // update about every second
+    //setInterval(_.doTimer, 1000); // update about every second
   },
 
   //handlers
@@ -181,6 +181,7 @@ SL_eventsModule = {
     if(event.keyCode == _.config.debugKeyCode){
       _.config.debugEnabled = !_.config.debugEnabled;
       document.getElementById('debug-menu').dataset.debugEnabled = _.config.debugEnabled;
+      document.querySelector('html').dataset.debugEnabled = _.config.debugEnabled;
     }
 
   },
@@ -209,21 +210,21 @@ SL_eventsModule = {
 SL_siteDataModule = {
   config : {
     jsonData: {},
-    cardSectionId: "job-cards",
-    cardDescId: "job-cards__desc",
-    projectCardTemplate: `
-      <div class="card swiper-slide" data-img="{logoUrl}">
+    jobSwiperSelector: "#job__swiper",
+    jobDescSwiperSelector: "#job__swiper--desc",
+    jobSlideContainerSelector: "#job__slide",
+    jobDescContainerSelector: "#job__slide--desc",
+    // job swiper
+    jobSlideTemplate: `
+      <div class="job job__slide swiper-slide" data-img="{imageUrl}">
         <a href="{website}" target="_blank" title="{company} Website">
-          <h3 class="card__header">{company}</h3>
+          <h3 class="job__header">{company}</h3>
         </a>
-        <p class="card__role">{position}</p>
-        <ul class="card__list">
-          {responsibilities}
-        </ul>
-      </div>
-      `,
-    cardSwiperConfig: {
+        <p class="job__position">{position}</p>
+      </div>`,
+    jobSwiperConfig: {
       slidesPerView: 3,
+      grabCursor: true,
       spaceBetween: "0px",
       // Optional parameters
       direction: 'horizontal',
@@ -234,9 +235,9 @@ SL_siteDataModule = {
         enabled: true,
       },
       navigation: {
-        nextEl: '.card-nav__next',
-        prevEl: '.card-nav__prev',
-        disabledClass: 'card-nav--disabled'
+        nextEl: '.job__nav--next',
+        prevEl: '.job__nav--prev',
+        disabledClass: 'card__nav--disabled'
       },
       a11y: {
         prevSlideMessage: 'Previous slide',
@@ -248,48 +249,92 @@ SL_siteDataModule = {
       //   el: '.swiper-scrollbar',
       // },
     },
-    cardSwiper: null,
+    jobSwiper: null,
+    //job desc swiper
+    jobDescSlideTemplate:`
+      <div class="jobDesc swiper-slide">
+        <h3 class="jobDesc__header">{companyLong}</h3>
+        <p class="jobDesc__location"><i class="fa-solid fa-location-dot"></i> {location}</p>
+        <div class="jobDesc__dates">
+          <i class="fa-solid fa-calendar-days"></i> {startDate} <i class="fa-solid fa-arrow-right-long"></i> {endDate}
+        </div>
+        <ul class="jobDesc__list">
+          {responsibilities}
+        </ul>
+      </div>`,
+    jobDescSwiperConfig: {
+      slidesPerView: 1,
+      allowSlideNext: false,
+      allowSlidePrev: false,
+      effect:"fade",
+      spaceBetween: "0px",
+      // Optional parameters
+      direction: 'horizontal',
+      loop: false,
+      autoPlay: false,
+      centeredSlides: true,
+      keyboard: {
+        enabled: false,
+      },
+      // scrollbar: {
+      //   el: '.swiper-scrollbar',
+      // },
+    },
+    jobDescSwiper: null,
   },
+
+  //Initializations
   init: async function() {
     const _ = this;
   
+    //store json data into _.config
     _.memoizeJson()
-      .then(() => _.refreshProjectCards())
       .then(() => {
-        _.config.cardSwiper = _.initCardSwiper();
-        console.log( _.config.cardSwiper);
+        //create markup for swiper to use
+        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobSlideContainerSelector, _.config.jobSlideTemplate);
+        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobDescContainerSelector, _.config.jobDescSlideTemplate);
+      })
+      .then(() => {
+        //create swipers
+        _.initJobSwipers();
       });
   },
-
   memoizeJson: async function(){
     const _ = this;
     await fetch('/scripts/savik.json')
       .then(response => response.json())
       .then(jsonData => {
-        SL_siteDataModule.config.jsonData = jsonData;
+        _.config.jsonData = jsonData;
       })
       .catch(error => {
         console.error('Error refreshing Project Cards', error);
       });
   },
-  refreshProjectCards: function(){
-    const _ = this;   
-    let cards = [];
+  initJobSwipers: function(){
+    const _ = this;
+    const jobSwiper = new Swiper(_.config.jobSwiperSelector, _.config.jobSwiperConfig);
+    const jobDescSwiper = new Swiper(_.config.jobDescSwiperSelector, _.config.jobDescSwiperConfig);
 
-    _.config.jsonData.jobs.forEach((job, index) => {
-      cards.push(_.generateProjectCard(job, index + 1));            
+    jobSwiper.on('slideChange', SL_siteDataModule.handleSLideChange);
+
+    // jobDescSwiper.params.control = jobSwiper;
+    jobSwiper.controller.control = jobDescSwiper;
+
+    _.config.jobSwiper = jobSwiper;
+    _.config.jobDescSwiper = jobDescSwiper;
+  },
+  createAndInsertSlides: function(jsonData, insertElementSelector, template){
+    const _ = this;   
+    let slides = [];
+
+    jsonData.forEach(item => {
+      slides.push(_.generateTemplate(template, item));            
     });
 
-    let insertDiv = document.getElementById(_.config.cardSectionId);
-    insertDiv.innerHTML = cards.join('');  
+    let insertDiv = document.querySelector(insertElementSelector);
+    insertDiv.innerHTML = slides.join('');  
   },
-  initCardSwiper: function(){
-    const _ = this;
-    const cardSwiper = new Swiper('.card-swiper', _.config.cardSwiperConfig);
-    cardSwiper.on('slideChange', SL_siteDataModule.handleSLideChange);
 
-    return cardSwiper;
-  },
   //handlers
   handleSLideChange: function(swiper){
     const _ = SL_siteDataModule;
@@ -324,20 +369,25 @@ SL_siteDataModule = {
     });
   },
 
-  // generators 
-  generateProjectCard: function(job, index){
+  //generators 
+  generateTemplate: function(template, obj){
     const _ = this;
-    var keys = Object.keys(job);
-    let result = _.config.projectCardTemplate;
+    var keys = Object.keys(obj);
+    let result = template;
 
     //generation uses the JSON keys to find what part of the template to swap out for actual data
     keys.forEach(key => {
-      result = result.replaceAll(`{${key}}`, job[key]);
+      let value = obj[key];
+      if(Array.isArray(value)){
+        result = result.replaceAll(`{${key}}`, _.generateList(value));
+      }else{
+        result = result.replaceAll(`{${key}}`, value);
+      }
     });
 
     return result;
   },
-  generateProjectItemList: function(items){
+  generateList: function(items){
     let result = '';
 
     items.forEach((item, i) => {

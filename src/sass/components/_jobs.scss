@@ -1,0 +1,147 @@
+#jobs {
+  .job {
+    &__swiper {
+      overflow: hidden;
+
+      &::after {
+        content: "";
+        background-image: var(--bg-img);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        color: $color-page;
+        font-size: 4rem;
+        display: block;
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        width: calc(33% + 5px);
+        //transform: translateX(-100%);
+        background-color: $color-theme-dark;
+        border: 5px solid $color-theme;
+        z-index: 5;
+      }
+
+      &--desc{
+        border: 5px solid $color-theme;
+      }
+    }
+
+    &__slide {
+      height: auto;
+      position: relative;
+      overflow: visible;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 30dvh !important;
+      padding: 15px;
+      border: 5px solid $color-theme;
+      background-color: $color-page;
+
+      &.swiper-slide-active {
+        background-color: $color-theme;
+        transition: background-color 500ms ease-in-out;
+      }
+    }
+
+    &__nav {
+      $diameter: 40px;
+
+      position: absolute;
+      background-color: $color-theme-dark;
+      top: auto;
+      bottom: 10px;
+      width: $diameter;
+      height: $diameter;
+      border-radius: 50%;
+      transition: 300ms;
+
+      &::after {
+        color: white;
+      }
+
+      &--next {
+        right: 10px;
+        &::after {
+          font: var(--fa-font-solid);
+          content: "\f061";
+        }
+      }
+      &--prev {
+        left: 10px;
+        box-shadow: 0 0 3px $color-page;
+        &::after {
+          font: var(--fa-font-solid);
+          content: "\f060";
+        }
+      }
+
+      &--disabled {
+        opacity: 0;
+      }
+    }
+
+    &__logo {
+      display: none;
+      position: absolute;
+      width: calc(30% - 10px);
+    }
+
+    &__header {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    &__position {
+      font-style: italic;
+    }
+
+    &__list {
+      display: none;
+    }
+  }
+
+  .jobDesc{
+    height: 50dvh !important;
+    background-color: $color-page;
+    padding: 20px;
+
+    [class*="fa-"]{
+        font-size: 1.2rem;
+    }
+
+    &__header{
+        font-size: 2rem;
+    }
+
+    &__location{
+        margin-bottom: 10px;
+    }
+
+    &__dates{
+        margin-bottom: 20px;
+    }
+
+    &__list{        
+        list-style: none;
+
+        li{ 
+            margin-left: 1.2rem;
+            margin-bottom: 10px;
+            position: relative;
+
+            &::before{
+                content: "\f058"; // Specify the content
+                font: var(--fa-font-solid); // Use the specific font
+                position: absolute;
+                font-size: 1.2rem;
+                left: -22px; 
+                top: 4px;
+            }
+        }
+    }
+  }
+}
