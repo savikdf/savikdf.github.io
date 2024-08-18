@@ -226,6 +226,24 @@ SL_siteDataModule = {
       slidesPerView: 3,
       grabCursor: true,
       spaceBetween: "0px",
+      effect: "creative",
+      speed: 300,
+      creativeEffect: {
+        limitProgress: 2,
+        prev: {
+          shadow: true,
+          translate: ["-70%", 0, -50],
+          scale: 0.79,
+          //rotate: [0, 0, -90],
+        },
+        next: {
+          shadow: true,
+          translate: ["70%", 0, -50],
+          scale: 0.79,
+          //opacity: 0.5,
+          rotate: [0, 0, 0],
+        },
+      },
       // Optional parameters
       direction: 'horizontal',
       loop: false,
@@ -243,7 +261,7 @@ SL_siteDataModule = {
         prevSlideMessage: 'Previous slide',
         nextSlideMessage: 'Next slide',
       },
-     
+      
       // And if we need scrollbar
       // scrollbar: {
       //   el: '.swiper-scrollbar',

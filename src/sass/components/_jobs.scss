@@ -3,27 +3,7 @@
     &__swiper {
       overflow: hidden;
 
-      &::after {
-        content: "";
-        background-image: var(--bg-img);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        color: $color-page;
-        font-size: 4rem;
-        display: block;
-        position: absolute;
-        top: 0px;
-        height: 100%;
-        width: calc(33% + 5px);
-        //transform: translateX(-100%);
-        background-color: $color-theme-dark;
-        border: 5px solid $color-theme;
-        z-index: 5;
-      }
-
-      &--desc{
-        border: 5px solid $color-theme;
+      &--desc {
       }
     }
 
@@ -44,6 +24,27 @@
         background-color: $color-theme;
         transition: background-color 500ms ease-in-out;
       }
+
+    //   &:first-of-type {
+    //     &::after {
+    //       content: "";
+    //       background-image: var(--bg-img);
+    //       background-position: center;
+    //       background-size: contain;
+    //       background-repeat: no-repeat;
+    //       color: $color-page;
+    //       font-size: 4rem;
+    //       display: block;
+    //       position: absolute;
+    //       top: 0px;
+    //       height: 100%;
+    //       width: calc(33% + 5px);
+    //       //transform: translateX(-100%);
+    //       background-color: $color-theme-dark;
+    //       border: 5px solid $color-theme;
+    //       z-index: 5;
+    //     }
+    //   }
     }
 
     &__nav {
@@ -104,44 +105,44 @@
     }
   }
 
-  .jobDesc{
+  .jobDesc {
     height: 50dvh !important;
     background-color: $color-page;
     padding: 20px;
 
-    [class*="fa-"]{
-        font-size: 1.2rem;
+    [class*="fa-"] {
+      font-size: 1.2rem;
     }
 
-    &__header{
-        font-size: 2rem;
+    &__header {
+      font-size: 2rem;
     }
 
-    &__location{
+    &__location {
+      margin-bottom: 10px;
+    }
+
+    &__dates {
+      margin-bottom: 20px;
+    }
+
+    &__list {
+      list-style: none;
+
+      li {
+        margin-left: 1.2rem;
         margin-bottom: 10px;
-    }
+        position: relative;
 
-    &__dates{
-        margin-bottom: 20px;
-    }
-
-    &__list{        
-        list-style: none;
-
-        li{ 
-            margin-left: 1.2rem;
-            margin-bottom: 10px;
-            position: relative;
-
-            &::before{
-                content: "\f058"; // Specify the content
-                font: var(--fa-font-solid); // Use the specific font
-                position: absolute;
-                font-size: 1.2rem;
-                left: -22px; 
-                top: 4px;
-            }
+        &::before {
+          content: "\f058"; // Specify the content
+          font: var(--fa-font-solid); // Use the specific font
+          position: absolute;
+          font-size: 1.2rem;
+          left: -22px;
+          top: 4px;
         }
+      }
     }
   }
 }
