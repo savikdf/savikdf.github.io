@@ -356,7 +356,7 @@ SL_siteDataModule = {
   //handlers
   handleSLideChange: function(swiper){
     const _ = SL_siteDataModule;
-    _.updateSwiperImg(swiper);
+    //_.updateSwiperImg(swiper);
   },
 
   //effects

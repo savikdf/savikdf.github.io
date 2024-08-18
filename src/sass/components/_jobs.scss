@@ -25,26 +25,29 @@
         transition: background-color 500ms ease-in-out;
       }
 
-    //   &:first-of-type {
-    //     &::after {
-    //       content: "";
-    //       background-image: var(--bg-img);
-    //       background-position: center;
-    //       background-size: contain;
-    //       background-repeat: no-repeat;
-    //       color: $color-page;
-    //       font-size: 4rem;
-    //       display: block;
-    //       position: absolute;
-    //       top: 0px;
-    //       height: 100%;
-    //       width: calc(33% + 5px);
-    //       //transform: translateX(-100%);
-    //       background-color: $color-theme-dark;
-    //       border: 5px solid $color-theme;
-    //       z-index: 5;
-    //     }
-    //   }
+      &:first-of-type {
+        &::after {
+          content: "";
+          background-image: var(--bg-img);
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          color: $color-page;
+          font-size: 4rem;
+          display: block;
+          position: absolute;
+          inset: 0px;
+          height: 100%;
+          width: calc(100% - 5px);
+          transform: translateX(0px), scaleX(-1);
+          opacity: 0;
+          transition: transform 3000ms ease-in-out, opacity 3000ms ease-in-out;
+        }
+        &.swiper-slide-active::after {
+          opacity: 1;
+          transform: translateX(calc(-100% - 5px));
+        }
+      }
     }
 
     &__nav {
