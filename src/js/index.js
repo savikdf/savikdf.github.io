@@ -223,32 +223,31 @@ SL_siteDataModule = {
         <p class="job__position">{position}</p>
       </div>`,
     jobSwiperConfig: {
-      slidesPerView: 3,
+      slidesPerView: 2,
       grabCursor: true,
       spaceBetween: "0px",
+      direction: 'horizontal',
+      centeredSlides: false,
       effect: "creative",
-      speed: 300,
       creativeEffect: {
         limitProgress: 2,
         prev: {
-          shadow: true,
           translate: ["-70%", 0, -50],
           scale: 0.79,
-          //rotate: [0, 0, -90],
         },
         next: {
-          shadow: true,
           translate: ["70%", 0, -50],
           scale: 0.79,
-          //opacity: 0.5,
           rotate: [0, 0, 0],
         },
       },
-      // Optional parameters
-      direction: 'horizontal',
-      loop: false,
-      autoPlay: false,
-      centeredSlides: true,
+      breakpoints:{
+        767: {
+          slidesPerView: 3,
+          centeredSlides: true,
+        }
+
+      },    
       keyboard: {
         enabled: true,
       },
@@ -285,6 +284,9 @@ SL_siteDataModule = {
       allowSlideNext: false,
       allowSlidePrev: false,
       effect:"fade",
+      fadeEffect: {
+        crossFade: true
+      },
       spaceBetween: "0px",
       // Optional parameters
       direction: 'horizontal',
