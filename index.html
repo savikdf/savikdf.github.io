@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>SavikLand</title>
     <meta name="description" content="SavikLand.com, where dreams come true">
     <meta name="author" content="Savik Fraguela">
@@ -13,6 +10,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.savikland.com/">
     <meta property="og:description" content="Portfolio site for Savik">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <!-- <meta property="og:image" content="image.png"> -->
 
     <!--
@@ -21,6 +21,7 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     -->
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/src/dist/main.css">
 
     <!--SWIPER-->
@@ -28,9 +29,8 @@
     <link href="/src/dist/vendor/swiper/swiper.css" rel="stylesheet">
 
     <!--FA-->
-    <link href="/src/dist/vendor/font-awesome/css/all.min.css" rel="stylesheet">
     <script src="/src/dist/vendor/font-awesome/js/all.min.js"></script>
-
+    <link href="/src/dist/vendor/font-awesome/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -39,7 +39,8 @@
         <a class="skip-nav">Skip To Footer</a>
         <section id="hero">
             <div class="container">
-                <h1>SAVIK</h1><h1>LAND</h1>
+                <h1>SAVIK</h1>
+                <h1>LAND</h1>
                 <div class="head">
                     <span class="eye" style="--hor-offset: 50px"></span>
                     <span class="eye" style="--hor-offset: 50px"></span>
@@ -63,12 +64,14 @@
                     <div class="col">
                         <h2>About Me</h2>
                         <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quod fuga, sunt quas recusandae dolorem suscipit sed corporis molestias illum, quidem culpa, qui odio laborum repellat natus? Nemo, perspiciatis itaque?
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quod fuga, sunt quas recusandae
+                            dolorem suscipit sed corporis molestias illum, quidem culpa, qui odio laborum repellat
+                            natus? Nemo, perspiciatis itaque?
                         </p>
                     </div>
-                   
+
                     <div class="col">
-                        <img src="/images/savik.jpg" class="col" loading="lazy"/>
+                        <img src="/images/savik.jpg" class="col" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -83,11 +86,15 @@
         <section id="jobs">
             <div class="container">
                 <h2>Professional History</h2>
-                <div id="job__swiper" class="job__swiper swiper" style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
-                  
+                <div id="job__swiper" class="job__swiper swiper"
+                    style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
+
                     <div id="job__slide" class="swiper-wrapper">
                         <!-- js inserts here -->
                     </div>
+
+                    <!-- If we need pagination -->
+                    <!-- <div class="job__pagination swiper-pagination"></div> -->
 
                     <div class="job__nav job__nav--prev swiper-button-prev"></div>
                     <div class="job__nav job__nav--next swiper-button-next"></div>

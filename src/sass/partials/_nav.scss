@@ -10,3 +10,7 @@
         transform: translateY(0);
     }
 }
+
+*:focus-visible, *:focus{
+    outline: 2px solid red;
+}

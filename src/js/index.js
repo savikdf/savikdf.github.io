@@ -9,6 +9,9 @@ SL_sectionModule = {
     observer_even: null,
     observer_odd: null,
     visibleSections: [],
+    aboutSection: document.getElementById("about"),
+    jobSection: document.getElementById("jobs"),
+    projectsSection: document.getElementById("projects"),
   },
 
   init: function() {
@@ -124,6 +127,8 @@ SL_eventsModule = {
     mouseXPercent: 0.01,
     mouseYPercent: 0.01,
     scrollbarLenience: -15,
+    accordionContainerSelector: '[data-accordion]',
+    accordions: [],
     isMouseOnPage: false,
     timer_noMouseMovement: 0.00,
     timer_noMouseMovementStart: null,
@@ -132,15 +137,65 @@ SL_eventsModule = {
 
   init: function(){
     const _ = this;
-    //internal
+
+    _.initAccordions();
     document.addEventListener("mousemove", SL_eventsModule.handleMouseMove);
     document.addEventListener("mouseenter", SL_eventsModule.handleMouseEnter);
     document.addEventListener("mouseleave", SL_eventsModule.handleMouseLeave);
     document.addEventListener("keydown", SL_eventsModule.handleKeyDown);
     //external
     document.addEventListener("mousemove", SL_siteDataModule.eyeTrack);
-
+    
     //setInterval(_.doTimer, 1000); // update about every second
+  },
+  initAccordions(scope = null){
+    const _ = this;
+
+    if(scope == null){
+      scope = document.body;
+    }
+
+    console.log("init accordions in this section:", scope);
+
+    const accordions = scope.querySelectorAll(_.config.accordionContainerSelector);
+    accordions.forEach(accordion => {
+      const button = accordion.querySelector('[data-accordion-button]');
+      //setup: id="accordion-header-1" aria-expanded="true" aria-controls="accordion-panel-1"
+      const panel = accordion.querySelector('[data-accordion-panel]');
+      //setup: id="accordion-panel-1" aria-labelledby="accordion-header-1"
+
+      if(button == undefined || panel == undefined){
+        console.log("Accordion initialization failed for: ", {accordion, button, panel});
+        return;
+      }
+
+      //console.log("Accordion initialization for: ", {accordion, button, panel});
+      let accordionIndex = _.config.accordions.length;
+      let buttonId = `accordion-btn-${accordionIndex}`;
+      let panelId = `accordion-panel-${accordionIndex}`;
+
+      //set up panel
+      panel.setAttribute("aria-hidden", true);
+      panel.classList.remove("open");
+      panel.id = panelId;
+      panel.setAttribute("aria-labelledby", buttonId);
+
+      //set up button
+      button.setAttribute("aria-expanded", false);
+      button.id = buttonId;
+      button.setAttribute("tabindex", "0");
+      button.setAttribute("aria-controls", panelId);
+
+
+      button.addEventListener("click", SL_eventsModule.handleAccordionTrigger);
+
+      button.addEventListener("keydown", SL_eventsModule.handleAccordionTrigger);
+
+      //add to config for easy tracking/ debugging
+      _.config.accordions.push(accordion);
+      return;
+    });
+
   },
 
   //handlers
@@ -196,6 +251,29 @@ SL_eventsModule = {
     _.config.isMouseOnPage = false;
     document.getElementById("debug-mouseOn").textContent = _.config.isMouseOnPage;
   },
+  handleAccordionTrigger: function(event){
+    //keypress wasn't a space or enter, ignore
+    if (event instanceof KeyboardEvent){
+      if(event.code !== "Enter" && event.code !== "Space"){
+        return;
+      }
+    }
+
+    const button = event.target;
+    const panel = document.querySelector(`#${button.getAttribute('aria-controls')}`);
+    
+    button.classList.toggle("expanded");
+    panel.classList.toggle("open");
+
+    if (button.classList.contains("expanded")) {
+      button.setAttribute("aria-expanded", true);
+      panel.setAttribute("aria-hidden", false);
+    }
+    else {
+      button.setAttribute("aria-expanded", false);
+      panel.setAttribute("aria-hidden", true);
+    }
+  },
 
   doTimer: function(){
     const _ = SL_eventsModule;
@@ -223,20 +301,22 @@ SL_siteDataModule = {
         <p class="job__position">{position}</p>
       </div>`,
     jobSwiperConfig: {
-      slidesPerView: 2,
+      slidesPerView: 1,
       grabCursor: true,
       spaceBetween: "0px",
       direction: 'horizontal',
       centeredSlides: false,
+      loop: false,
+      //loopPreventsSlide: false,
       effect: "creative",
       creativeEffect: {
         limitProgress: 2,
         prev: {
-          translate: ["-70%", 0, -50],
+          translate: ["-80%", 0, -500],
           scale: 0.79,
         },
         next: {
-          translate: ["70%", 0, -50],
+          translate: ["80%", 0, -500],
           scale: 0.79,
           rotate: [0, 0, 0],
         },
@@ -250,21 +330,17 @@ SL_siteDataModule = {
       },    
       keyboard: {
         enabled: true,
+        onlyInViewport: true,
       },
       navigation: {
         nextEl: '.job__nav--next',
         prevEl: '.job__nav--prev',
-        disabledClass: 'card__nav--disabled'
+        disabledClass: 'job__nav--disabled'
       },
       a11y: {
         prevSlideMessage: 'Previous slide',
         nextSlideMessage: 'Next slide',
       },
-      
-      // And if we need scrollbar
-      // scrollbar: {
-      //   el: '.swiper-scrollbar',
-      // },
     },
     jobSwiper: null,
     //job desc swiper
@@ -275,9 +351,16 @@ SL_siteDataModule = {
         <div class="jobDesc__dates">
           <i class="fa-solid fa-calendar-days"></i> {startDate} <i class="fa-solid fa-arrow-right-long"></i> {endDate}
         </div>
-        <ul class="jobDesc__list">
-          {responsibilities}
-        </ul>
+        
+        <div data-accordion>
+          <h4 data-accordion-button>Responsibilities</h4>
+          <div data-accordion-panel>
+           <ul class="jobDesc__list">
+            {responsibilities}
+            </ul>
+          </div>
+        </div>
+       
       </div>`,
     jobDescSwiperConfig: {
       slidesPerView: 1,
@@ -291,6 +374,7 @@ SL_siteDataModule = {
       // Optional parameters
       direction: 'horizontal',
       loop: false,
+      //loopPreventsSlide: false,
       autoPlay: false,
       centeredSlides: true,
       keyboard: {
@@ -317,6 +401,7 @@ SL_siteDataModule = {
       .then(() => {
         //create swipers
         _.initJobSwipers();
+        SL_eventsModule.initAccordions(SL_sectionModule.config.jobSection)
       });
   },
   memoizeJson: async function(){
@@ -444,3 +529,4 @@ MainModule = {
   },
 };
 MainModule.init();
+//initAccordions(document.body);

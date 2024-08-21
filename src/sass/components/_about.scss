@@ -30,10 +30,10 @@
           }
       
           img{
+            aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid $color-theme;
-            outline: 2px solid $color-theme;
+            border: 5px solid $color-theme;
             outline-offset: 5px;
             max-width: 250px;
           }

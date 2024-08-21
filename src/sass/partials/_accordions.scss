@@ -1,0 +1,35 @@
+*[data-accordion]{
+    position: relative;
+
+    *[data-accordion-button]{
+        width: 100%;
+        background-color: $color-page;
+        transition: background-color 250ms ease-in-out;
+        padding-left: 20px;
+
+        &::after {
+            background-color: red;
+            height: 20px;
+            position: absolute;
+            left: 0;
+            font: var(--fa-font-solid);
+            content: "\2b";
+          }
+
+        &:hover, &:active{
+            background-color: $color-theme-light;
+        }
+    }
+
+    *[data-accordion-panel]{
+        width: 100%;
+        overflow: hidden;
+        transition: height 250ms ease-in-out;
+
+        &[aria-hidden='true']{
+            height: 0px;
+        }
+
+    }
+
+}
