@@ -1,0 +1,13 @@
+#projects {
+  background-color: $color-theme;
+  background-image: url(/images/landing-background-savik-flip.webp);
+  //background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 30%;
+  background-position-y: 100px;
+  background-position-x: calc(100%);
+  min-height: 400px;
+
+  .container {
+  }
+}

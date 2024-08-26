@@ -54,6 +54,7 @@ section {
   @include anim--in-and-up;
 
   width: 100%;
+  min-height: 300px;
   padding: 20px $main-content-padding;
   position: relative;
   background-color: $color-page;
@@ -122,19 +123,7 @@ section {
     overflow: hidden;
     padding: 10px 20px;
 
-    // &:is(:focus, :hover, :focus-visible) {
-    //     outline: 2px solid $color-theme;
-    // }
-
-    &__image {
-      position: fixed;
-      aspect-ratio: 1;
-      left: 0px;
-      height: auto;
-      bottom: 0;
-      transform: translateY(-50%);
-    }
-
+    
     &--hero {
       background-image: none;
       // background-color: transparent;
@@ -189,10 +178,5 @@ section {
       }
     }
 
-    &--work {
-      @extend .container;
-
-      background-image: none;
-    }
   }
 }

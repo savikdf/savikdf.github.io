@@ -1,44 +1,51 @@
-#about{
-    background-color: $color-theme-dark;
-    color: white;
-    padding: 40px 10px;
-    // border-radius: 200px;
+#about {
+  background-color: $color-theme-dark;
+  color: white;
+  padding: 40px 10px;
 
-    .two-col{
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, 1fr);
-        grid-column-gap: 10px;
-        grid-row-gap: 0px;  
-        grid-template-areas: "col1" "col2";
-      
-        @include break-up('small'){
-            grid-template-columns: auto calc(33% - 5px);
-            grid-template-rows: 1fr;
-            grid-template-areas: "col1 col2";
-        }
+  // .two-col > .col--stacked{
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: flex-start;
+  //   align-items: center;
 
-        .col{
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          grid-area: col1;
+  //   .name{
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: flex-start;
+  //     align-items: flex-start;
+  //     padding-left: 10px;
 
-          & + .col{
-            grid-area: col2;
-          }
-      
-          img{
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid $color-theme;
-            outline-offset: 5px;
-            max-width: 250px;
-          }
-        }
-      
-      }
+  //     p{ 
+  //       display: flex;
+  //       justify-content: center;
+  //       align-items: center;
+  
+  //       // &:nth-child(1){
+  //       //   margin-left: -60px;
+  //       // }
+  
+  //       // &:nth-child(3){
+  //       //   margin-left: -130px;
+  //       // }
+  //       // &:nth-child(4){
+  //       //   margin-left: -90px;
+  //       // }
+  
+  //       // &:nth-child(5){
+  //       //   margin-left: -120px;
+  //       // }
+  
+  //       span{
+  //         font-weight: bold;
+  //         margin-right: 10px;
+  //         font-size: 2rem;
+  //         color: $color-theme;
+  //       }
+  //     }
+  //   }
 
+    
+  // }
+  
 }

@@ -1,8 +1,5 @@
 #jobs {
-    // background-image: url(/images/landing-background-savik-flip.webp);
-    // background-position: bottom right;
-    // background-repeat: no-repeat;
-    // background-size: 18%;
+    
     .container{
         &::after{
             // line underneath section
@@ -40,7 +37,7 @@
       //transition: background-color 2000ms linear;
 
         @include break-up('small'){
-            height: 250px;
+            height: 150px;
         }
 
       &.swiper-slide-active {
@@ -129,12 +126,6 @@
         }
     }
 
-    &__logo {
-      display: none;
-      position: absolute;
-      width: calc(30% - 10px);
-    }
-
     &__header {
       font-size: 2rem;
       margin-bottom: 15px;
@@ -144,10 +135,6 @@
     &__position {
       font-style: italic;
       text-align: center;
-    }
-
-    &__list {
-      display: none;
     }
   }
 
@@ -183,8 +170,7 @@
           content: "\f058"; // Specify the content
           font: var(--fa-font-solid); // Use the specific font
           position: absolute;
-          font-size: 1.2rem;
-          left: -22px;
+          left: -20px;
           top: 4px;
         }
       }

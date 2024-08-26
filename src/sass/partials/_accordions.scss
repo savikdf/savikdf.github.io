@@ -1,35 +1,50 @@
-*[data-accordion]{
+*[data-accordion] {
+  position: relative;
+
+  *[data-accordion-button] {
     position: relative;
+    width: 100%;
+    background-color: $color-page;
+    transition: background-color 250ms ease-in-out, height 500ms ease-in-out;
+    padding-left: 20px;
 
-    *[data-accordion-button]{
-        width: 100%;
-        background-color: $color-page;
-        transition: background-color 250ms ease-in-out;
-        padding-left: 20px;
-
-        &::after {
-            background-color: red;
-            height: 20px;
-            position: absolute;
-            left: 0;
-            font: var(--fa-font-solid);
-            content: "\2b";
-          }
-
-        &:hover, &:active{
-            background-color: $color-theme-light;
-        }
+    &[aria-expanded="false"]{
+        height: 25px;
     }
 
-    *[data-accordion-panel]{
-        width: 100%;
-        overflow: hidden;
-        transition: height 250ms ease-in-out;
+    &[aria-expanded="true"] {
+      margin-bottom: 20px;
 
-        &[aria-hidden='true']{
-            height: 0px;
-        }
-
+      &::after {
+        content: "\f068";
+      }
     }
 
+    &::after {
+      //background-color: red;
+      height: 20px;
+      line-height: 20px;
+      position: absolute;
+      left: 0;
+      top: calc(50% - 8px);
+
+      font: var(--fa-font-solid);
+      content: "\2b";
+    }
+  }
+
+  *[data-accordion-panel] {
+    width: 100%;
+    overflow: hidden;
+    padding-left: 20px;
+    transition: height 250ms ease-in-out;
+
+    &[aria-hidden="true"] {
+      height: 0px;
+    }
+
+    &[aria-hidden="false"]{
+        //height: var(--og-height);
+    }
+  }
 }

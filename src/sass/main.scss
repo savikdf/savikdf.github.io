@@ -1,3 +1,4 @@
+// main
 @import './partials/nuke';
 @import './partials/config';
 @import './partials/mixins';
@@ -7,6 +8,19 @@
 @import './partials/scrollbar';
 @import './partials/accordions';
 
+// sections
 @import './components/hero';
+@import './components/projects';
 @import './components/about';
 @import './components/jobs';
+
+// blocks
+@import './components/2col';
+
+#easter-egg{
+
+    &__onepiece{
+        text-decoration: none;
+        font-weight: bold;
+    }
+}

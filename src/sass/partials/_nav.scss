@@ -1,16 +1,30 @@
 .skip-nav {
     position: absolute;
+    z-index: 100;
     transform: translateY(-120%);
     margin-left: 10px;
     padding: 1rem;
     border-radius: 0 0 15px 15px;
     transition: transform $anim-speed ease-out;
+    background-color: $color-theme;
+    color: $color-theme-dark;
+    font-weight: bold;
+    text-decoration: underline;
 
-    &:is(:focus, :hover) {
+    &:is(:focus, :hover, :focus-visible) {
         transform: translateY(0);
     }
 }
 
-*:focus-visible, *:focus{
-    outline: 2px solid red;
+button:is(:active, :focus, :focus-visible, :hover),
+*.btn:is(:active, :focus, :focus-visible, :hover){
+    cursor: pointer;
+
+    &::before{
+        content: '';
+        display: block;
+        position: absolute;
+        inset: -5px;
+        outline: 2px solid $color-theme-light;
+    }
 }

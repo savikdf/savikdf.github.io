@@ -36,7 +36,7 @@
 <body>
     <header>
         <!-- Skip Link -->
-        <a class="skip-nav">Skip To Footer</a>
+        <a tabindex="0" class="skip-nav">Skip To Footer</a>
         <section id="hero">
             <div class="container">
                 <h1>SAVIK</h1>
@@ -60,28 +60,39 @@
 
         <section id="about">
             <div class="container">
+                <h2>About Me</h2>
+
                 <div class="two-col">
                     <div class="col">
-                        <h2>About Me</h2>
+                       
                         <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quod fuga, sunt quas recusandae
-                            dolorem suscipit sed corporis molestias illum, quidem culpa, qui odio laborum repellat
-                            natus? Nemo, perspiciatis itaque?
+                             <!-- <a id="easter-egg__onepiece" href="https://www.google.com/search?q=onepiece" target="_blank">D</a>  -->
+                            Welcome to SavikLand! I'm your host, Savik-- a software engineer with a love for creating all kinds of software, from video games to business applications. I enjoy solving problems and making technology work better for everyone.
                         </p>
                     </div>
 
-                    <div class="col">
+                    <div class="col"> <!--col--stacked-->
                         <img src="/images/savik.jpg" class="col" loading="lazy" />
+                        <!-- <div class="name">
+                            <p><span>S</span>ome guy that knows a little about coding</p>
+                            <p><span>A</span>lso knows quite a bit about making games</p>
+                            <p><span>V</span>ery experienced at .NET</p>
+                            <p><span>I</span>nconspicuously good looking</p>
+                            <p><span>K</span>eep on scrolling to find out more!</p>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- <section id="projects">
+        <section id="projects">
             <div class="container">
                 <h2>Projects</h2>
+                <div id="projects-container">
+                    <!-- js inserts here -->
+                </div>
             </div>
-        </section> -->
+        </section>
 
         <section id="jobs">
             <div class="container">

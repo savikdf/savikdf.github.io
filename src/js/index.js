@@ -175,16 +175,21 @@ SL_eventsModule = {
       let panelId = `accordion-panel-${accordionIndex}`;
 
       //set up panel
+
       panel.setAttribute("aria-hidden", true);
       panel.classList.remove("open");
       panel.id = panelId;
       panel.setAttribute("aria-labelledby", buttonId);
+      //panel.style.setProperty("--og-height", `${panel.getBoundingClientRect().height}px`);
 
       //set up button
       button.setAttribute("aria-expanded", false);
       button.id = buttonId;
       button.setAttribute("tabindex", "0");
       button.setAttribute("aria-controls", panelId);
+      if(!button.classList.contains("btn")){
+        button.classList.add("btn");
+      }
 
 
       button.addEventListener("click", SL_eventsModule.handleAccordionTrigger);
