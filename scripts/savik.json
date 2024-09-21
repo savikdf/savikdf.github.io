@@ -3,6 +3,19 @@
     "tagLine": "[todo: insert tagline]",
     "jobs": [
       {
+        "company": "Data Zoo",
+        "companyLong": "Data Zoo",
+        "imageUrl": "/images/nicholas-cage.webp",
+        "website": "https://www.boh.com",
+        "position": "Software Engineer",
+        "location": "Honolulu, Hawaii",
+        "startDate": "2024-9-01",
+        "endDate": "PRESENT",
+        "responsibilities": [
+          "TBD"
+        ]
+      },
+      {
         "company": "Bank of Hawaii",
         "companyLong": "Bank of Hawaii",
         "imageUrl": "/images/nicholas-cage.webp",

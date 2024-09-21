@@ -175,7 +175,6 @@ SL_eventsModule = {
       let panelId = `accordion-panel-${accordionIndex}`;
 
       //set up panel
-
       panel.setAttribute("aria-hidden", true);
       panel.classList.remove("open");
       panel.id = panelId;
@@ -264,22 +263,27 @@ SL_eventsModule = {
       }
     }
 
-    const button = event.target;
-    const panel = document.querySelector(`#${button.getAttribute('aria-controls')}`);
-    
-    button.classList.toggle("expanded");
-    panel.classList.toggle("open");
-
-    if (button.classList.contains("expanded")) {
-      button.setAttribute("aria-expanded", true);
-      panel.setAttribute("aria-hidden", false);
-    }
-    else {
-      button.setAttribute("aria-expanded", false);
-      panel.setAttribute("aria-hidden", true);
-    }
+    const _ = SL_eventsModule;
+    let accordion = event.target.closest('[data-accordion]');
+    _.toggleAccordion(accordion);
   },
 
+  toggleAccordion: function(accordion, isOpen = null){
+    const button = accordion.querySelector('[data-accordion-button]');
+    if(!button)
+      return;
+
+    const panel = accordion.querySelector(`#${button.getAttribute('aria-controls')}`);
+    //use supplied desired state, if null infer from button state
+    if(isOpen == null){
+      button.classList.toggle("expanded");
+      panel.classList.toggle("open");
+    }
+    isOpen = isOpen ?? button.classList.contains("expanded");
+    button.setAttribute("aria-expanded", isOpen);
+    panel.setAttribute("aria-hidden", !isOpen);
+    
+  },
   doTimer: function(){
     const _ = SL_eventsModule;
     //console.log("doing timer")
@@ -448,6 +452,22 @@ SL_siteDataModule = {
   //handlers
   handleSLideChange: function(swiper){
     const _ = SL_siteDataModule;
+    const i = swiper.activeIndex; //can't get the index we were last at, so just do adjacents
+    const descPrev = _.config.jobDescSwiper.slides[Math.max(0,i-1)];
+    const descNext = _.config.jobDescSwiper.slides[Math.min(swiper.slides.length, i+1)];
+
+    if(descPrev || descNext){
+      let accordionPrev = descPrev?.querySelector('[data-accordion]');
+      let accordionNext = descNext?.querySelector('[data-accordion]');
+
+      if(accordionPrev)
+        SL_eventsModule.toggleAccordion(accordionPrev, isOpen = false);
+      
+      if(accordionNext)
+        SL_eventsModule.toggleAccordion(accordionNext, isOpen = false);
+
+    }
+
     //_.updateSwiperImg(swiper);
   },
 
@@ -478,7 +498,7 @@ SL_siteDataModule = {
       eye.style.setProperty("--hor-offset", `${offset}px`);
     });
   },
-
+  
   //generators 
   generateTemplate: function(template, obj){
     const _ = this;
