@@ -13,7 +13,16 @@ html {
 
     *{
       outline: 1px solid red!important;
+
+      @include break-up('small'){
+        outline: 1px solid green!important;
+      }
+      @include break-up('large'){
+        outline: 1px solid blue!important;
+      }
     }
+
+    
   }
 
   #debug-menu{
@@ -60,37 +69,20 @@ section {
   background-color: $color-page;
   z-index: var(--layer-var);  
 
-  // &:before {
-  //   content: "";
-  //   display: block;
-  //   position: absolute;
-  //   top: 0px;
-  //   bottom: 0px;
-  //   left: 80%;
-  //   width: 20%;
-  //   height: 100%;
-  //   background-color: $color-theme;
+  // ::selection {
+  //   background: $color-theme-dark;
+  //   color: $color-theme;
   // }
 
-  &:nth-child(2n) {
-    &:before {
-      left: 0;
-    }
+  &.section--dark{
+    background-color: $color-theme-dark; 
+    color: white;
 
-    // .section-image {
-    //   //   transform: scale(-1, 1);
-    //   left: 0px;
-    //   right: auto;
+    // ::selection {
+    //   background: $color-theme;
+    //   color: $color-theme-dark;
     // }
   }
-
-  &#hero {
-    padding: 0px !important;
-  }
-
-  // @include break-up('small'){
-
-  // }
 
   .section-image {
     position: absolute;
@@ -176,6 +168,11 @@ section {
           }
         }
       }
+    }
+
+    h2{
+      font-size: 2rem;
+    
     }
 
   }

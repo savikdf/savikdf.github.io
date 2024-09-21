@@ -36,7 +36,7 @@
   *[data-accordion-panel] {
     width: 100%;
     overflow: hidden;
-    padding-left: 20px;
+    //padding-left: 20px;
     transition: height 250ms ease-in-out;
 
     &[aria-hidden="true"] {

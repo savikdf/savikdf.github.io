@@ -144,7 +144,11 @@ SL_eventsModule = {
     document.addEventListener("mouseleave", SL_eventsModule.handleMouseLeave);
     document.addEventListener("keydown", SL_eventsModule.handleKeyDown);
     //external
-    document.addEventListener("mousemove", SL_siteDataModule.eyeTrack);
+    //document.addEventListener("mousemove", SL_siteDataModule.eyeTrack); //scrapped
+    //touches
+    document.addEventListener('touchstart', SL_siteDataModule.handleTouchEvent);
+    document.addEventListener('touchmove', SL_siteDataModule.handleTouchEvent);
+    document.addEventListener('touchend', SL_siteDataModule.handleTouchEvent);
     
     //setInterval(_.doTimer, 1000); // update about every second
   },
@@ -267,7 +271,11 @@ SL_eventsModule = {
     let accordion = event.target.closest('[data-accordion]');
     _.toggleAccordion(accordion);
   },
-
+  handleTouchEvent: function(event){
+    const activeTouches = event.touches.length;
+    SL_siteDataModule.config.debugEnabled = activeTouches >= 3;
+  },
+  
   toggleAccordion: function(accordion, isOpen = null){
     const button = accordion.querySelector('[data-accordion-button]');
     if(!button)
@@ -331,7 +339,7 @@ SL_siteDataModule = {
         },
       },
       breakpoints:{
-        767: {
+        767: { //really 782??? wtf
           slidesPerView: 3,
           centeredSlides: true,
         }
@@ -355,9 +363,9 @@ SL_siteDataModule = {
     //job desc swiper
     jobDescSlideTemplate:`
       <div class="jobDesc swiper-slide">
-        <h3 class="jobDesc__header">{companyLong}</h3>
-        <p class="jobDesc__location"><i class="fa-solid fa-location-dot"></i> {location}</p>
-        <div class="jobDesc__dates">
+        <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
+        <p class="jobDesc__location swiper-no-swiping"><i class="fa-solid fa-location-dot"></i> {location}</p>
+        <div class="jobDesc__dates swiper-no-swiping">
           <i class="fa-solid fa-calendar-days"></i> {startDate} <i class="fa-solid fa-arrow-right-long"></i> {endDate}
         </div>
         
@@ -482,23 +490,7 @@ SL_siteDataModule = {
       swiper.el.style.setProperty('--bg-img', `url(${imageUrl})`);
     }
   },
-  eyeTrack: function(){
-    let eyes = [...document.querySelectorAll('.eye')];
-    if(document.hidden || SL_eventsModule.config.timer_noMouseMovement > 2){
-      //return to default state, no longer watching mouse
-      // eye.forEach(eye => {
-      //   eye.style.setProperty("--hor-offset",  )
-      // });
 
-      return;
-    }
-
-    eyes.forEach(eye => {
-      let offset = (SL_eventsModule.config.mouseXPercent * 100) - 50; //minus 50 to have the baseline as the middle of the screen
-      eye.style.setProperty("--hor-offset", `${offset}px`);
-    });
-  },
-  
   //generators 
   generateTemplate: function(template, obj){
     const _ = this;

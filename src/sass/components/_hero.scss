@@ -1,25 +1,53 @@
 #hero{
-    height: 400px;
+    height: 90vh;
+    //padding: 0px!important;
+    background:  url('/images/nicholas-cage.webp') , url('/images/temp01.png');
+    background-repeat: no-repeat;
+    background-position-y: 82vh, center;
+    background-position-x: 75vw, center;
+    background-size: 10vh, cover;
+    background-attachment: fixed, scroll;
 
     .container{
         display: flex;
         flex-direction: column;
         justify-content: center;
         overflow: visible;
+        margin-bottom: 20vh;
     }
 
     h1{
-        display: contents;
+        //display: contents;
         font-family: dino;
-        font-size: 6rem;
-        line-height: 10rem;
+        font-size: 2.9rem;
         overflow-wrap: anywhere;
         text-align: center;
+        text-shadow: 2px 2px 4px $color-theme;
+        color: $color-theme-dark;
 
         @include break-up('small'){
+            font-size: 5.8rem;
+        }
+
+        @include break-up('large'){
             font-size: 10rem;
         }
+        // animation: hover 2s infinite ease-in-out;
+        // @keyframes hover {
+        //     0%, 100% {
+        //         color: $color-theme-dark;
+        //         //transform: translateY(0);
+        //         text-shadow: 0 0 0 transparent;
+        //     }
+        //     50% {
+        //         color: transparent;
+        //         //transform: translateY(-10px);
+        //         text-shadow: 0 0 0 $color-theme;
+
+        //     }
+        // }
     }
+  
 
     .head{        
         display: none!important;

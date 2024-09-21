@@ -147,7 +147,11 @@
     }
 
     &__header {
-      font-size: 2rem;
+      font-size: 1.4rem;
+
+      @include break-up('small'){
+        font-size: 2rem;
+      }
     }
 
     &__location {
