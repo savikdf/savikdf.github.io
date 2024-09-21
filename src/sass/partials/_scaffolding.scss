@@ -64,10 +64,15 @@ section {
 
   width: 100%;
   min-height: 300px;
-  padding: 20px $main-content-padding;
+  padding: 0px;
   position: relative;
   background-color: $color-page;
   z-index: var(--layer-var);  
+
+  @include break-up('small'){
+    padding: 20px $main-content-padding;
+
+  }
 
   // ::selection {
   //   background: $color-theme-dark;
@@ -113,8 +118,12 @@ section {
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-    padding: 10px 20px;
+    padding: 10px 5px;
 
+    @include break-up('small'){
+      padding: 10px 20px;
+
+    }
     
     &--hero {
       background-image: none;
