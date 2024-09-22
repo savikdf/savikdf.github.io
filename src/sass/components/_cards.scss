@@ -1,0 +1,21 @@
+.card-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 30px;
+    column-gap: 20px;
+
+    @include break-up('large'){
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card{
+        display: inline-block;
+        $border-width: 2px;
+        height: 300px;
+        width: 100%;
+        border-radius: 15px;
+        border: $border-width solid $color-theme-accent;
+        box-shadow: 5px 5px 0 $color-theme-accent;
+    }
+}

@@ -22,18 +22,15 @@
 
       & + .col{
         grid-area: col2;
-        // @include break-up('small'){
-        //   width: calc(30vw - 5px);
-        // }
       }
   
       img{
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: 50%;
-        border: 5px solid $color-theme;
+        border: 5px solid $color-theme-light;
         outline-offset: 5px;
-        max-width: 250px;
+        width: min(250px, 100%);
       }
     }
   

@@ -127,8 +127,7 @@ SL_eventsModule = {
     mouseXPercent: 0.01,
     mouseYPercent: 0.01,
     scrollbarLenience: -15,
-    accordionContainerSelector: '[data-accordion]',
-    accordions: [],
+    
     isMouseOnPage: false,
     timer_noMouseMovement: 0.00,
     timer_noMouseMovementStart: null,
@@ -138,7 +137,6 @@ SL_eventsModule = {
   init: function(){
     const _ = this;
 
-    _.initAccordions();
     document.addEventListener("mousemove", SL_eventsModule.handleMouseMove);
     document.addEventListener("mouseenter", SL_eventsModule.handleMouseEnter);
     document.addEventListener("mouseleave", SL_eventsModule.handleMouseLeave);
@@ -151,59 +149,6 @@ SL_eventsModule = {
     document.addEventListener('touchend', SL_siteDataModule.handleTouchEvent);
     
     //setInterval(_.doTimer, 1000); // update about every second
-  },
-  initAccordions(scope = null){
-    const _ = this;
-
-    if(scope == null){
-      scope = document.body;
-    }
-
-    console.log("init accordions in this section:", scope);
-
-    const accordions = scope.querySelectorAll(_.config.accordionContainerSelector);
-    accordions.forEach(accordion => {
-      const button = accordion.querySelector('[data-accordion-button]');
-      //setup: id="accordion-header-1" aria-expanded="true" aria-controls="accordion-panel-1"
-      const panel = accordion.querySelector('[data-accordion-panel]');
-      //setup: id="accordion-panel-1" aria-labelledby="accordion-header-1"
-
-      if(button == undefined || panel == undefined){
-        console.log("Accordion initialization failed for: ", {accordion, button, panel});
-        return;
-      }
-
-      //console.log("Accordion initialization for: ", {accordion, button, panel});
-      let accordionIndex = _.config.accordions.length;
-      let buttonId = `accordion-btn-${accordionIndex}`;
-      let panelId = `accordion-panel-${accordionIndex}`;
-
-      //set up panel
-      panel.setAttribute("aria-hidden", true);
-      panel.classList.remove("open");
-      panel.id = panelId;
-      panel.setAttribute("aria-labelledby", buttonId);
-      //panel.style.setProperty("--og-height", `${panel.getBoundingClientRect().height}px`);
-
-      //set up button
-      button.setAttribute("aria-expanded", false);
-      button.id = buttonId;
-      button.setAttribute("tabindex", "0");
-      button.setAttribute("aria-controls", panelId);
-      if(!button.classList.contains("btn")){
-        button.classList.add("btn");
-      }
-
-
-      button.addEventListener("click", SL_eventsModule.handleAccordionTrigger);
-
-      button.addEventListener("keydown", SL_eventsModule.handleAccordionTrigger);
-
-      //add to config for easy tracking/ debugging
-      _.config.accordions.push(accordion);
-      return;
-    });
-
   },
 
   //handlers
@@ -259,38 +204,9 @@ SL_eventsModule = {
     _.config.isMouseOnPage = false;
     document.getElementById("debug-mouseOn").textContent = _.config.isMouseOnPage;
   },
-  handleAccordionTrigger: function(event){
-    //keypress wasn't a space or enter, ignore
-    if (event instanceof KeyboardEvent){
-      if(event.code !== "Enter" && event.code !== "Space"){
-        return;
-      }
-    }
-
-    const _ = SL_eventsModule;
-    let accordion = event.target.closest('[data-accordion]');
-    _.toggleAccordion(accordion);
-  },
   handleTouchEvent: function(event){
     const activeTouches = event.touches.length;
     SL_siteDataModule.config.debugEnabled = activeTouches >= 3;
-  },
-  
-  toggleAccordion: function(accordion, isOpen = null){
-    const button = accordion.querySelector('[data-accordion-button]');
-    if(!button)
-      return;
-
-    const panel = accordion.querySelector(`#${button.getAttribute('aria-controls')}`);
-    //use supplied desired state, if null infer from button state
-    if(isOpen == null){
-      button.classList.toggle("expanded");
-      panel.classList.toggle("open");
-    }
-    isOpen = isOpen ?? button.classList.contains("expanded");
-    button.setAttribute("aria-expanded", isOpen);
-    panel.setAttribute("aria-hidden", !isOpen);
-    
   },
   doTimer: function(){
     const _ = SL_eventsModule;
@@ -299,7 +215,6 @@ SL_eventsModule = {
     _.config.timer_noMouseMovement = Math.floor(_.config.timer_noMouseMovementDelta / 1000); // in seconds
     document.getElementById('debug-mouseInactiveTimer').textContent = _.config.timer_noMouseMovement;
   },
-
 };
 
 SL_siteDataModule = {
@@ -321,29 +236,50 @@ SL_siteDataModule = {
       slidesPerView: 1,
       grabCursor: true,
       spaceBetween: "0px",
-      direction: 'horizontal',
+      direction: 'vertical',
       centeredSlides: false,
       loop: false,
       //loopPreventsSlide: false,
+      //effect: "slide",
       effect: "creative",
       creativeEffect: {
         limitProgress: 2,
         prev: {
           translate: ["-80%", 0, -500],
+          //translate: [0, "-80%", -500],
+
           scale: 0.79,
         },
         next: {
           translate: ["80%", 0, -500],
+          //translate: [0, "80%", -500],
+
           scale: 0.79,
           rotate: [0, 0, 0],
         },
       },
       breakpoints:{
-        767: { //really 782??? wtf
-          slidesPerView: 3,
-          centeredSlides: true,
+        600: { //>=
+          //direction: 'vertical',
+          //slidesPerView: 3,
+          //centeredSlides: true,
+          creativeEffect: {
+            limitProgress: 2,
+            prev: {
+              //translate: ["-80%", 0, -500],
+              translate: [0, "-80%", -500],
+    
+              scale: 0.79,
+            },
+            next: {
+              //translate: ["80%", 0, -500],
+              translate: [0, "80%", -500],
+    
+              scale: 0.79,
+              rotate: [0, 0, 0],
+            },
+          },
         }
-
       },    
       keyboard: {
         enabled: true,
@@ -418,7 +354,7 @@ SL_siteDataModule = {
       .then(() => {
         //create swipers
         _.initJobSwipers();
-        SL_eventsModule.initAccordions(SL_sectionModule.config.jobSection)
+        SL_accordions.initAccordions(SL_sectionModule.config.jobSection);
       });
   },
   memoizeJson: async function(){
@@ -469,10 +405,10 @@ SL_siteDataModule = {
       let accordionNext = descNext?.querySelector('[data-accordion]');
 
       if(accordionPrev)
-        SL_eventsModule.toggleAccordion(accordionPrev, isOpen = false);
+        SL_accordions.toggleAccordion(accordionPrev, isOpen = false);
       
       if(accordionNext)
-        SL_eventsModule.toggleAccordion(accordionNext, isOpen = false);
+        SL_accordions.toggleAccordion(accordionNext, isOpen = false);
 
     }
 
@@ -520,6 +456,97 @@ SL_siteDataModule = {
   },
 }
 
+SL_accordions = {
+  config: {
+    accordionContainerSelector: '[data-accordion]',
+    accordions: [],
+  },
+  init: function(){
+    const _ = this;
+    _.initAccordions();
+  },
+  initAccordions(scope = null){
+    const _ = this;
+
+    if(scope == null){
+      scope = document.body;
+    }
+
+    console.log("init accordions in this section:", scope);
+
+    const accordions = scope.querySelectorAll(_.config.accordionContainerSelector);
+    accordions.forEach(accordion => {
+      const button = accordion.querySelector('[data-accordion-button]');
+      //setup: id="accordion-header-1" aria-expanded="true" aria-controls="accordion-panel-1"
+      const panel = accordion.querySelector('[data-accordion-panel]');
+      //setup: id="accordion-panel-1" aria-labelledby="accordion-header-1"
+
+      if(button == undefined || panel == undefined){
+        console.log("Accordion initialization failed for: ", {accordion, button, panel});
+        return;
+      }
+
+      //console.log("Accordion initialization for: ", {accordion, button, panel});
+      let accordionIndex = _.config.accordions.length;
+      let buttonId = `accordion-btn-${accordionIndex}`;
+      let panelId = `accordion-panel-${accordionIndex}`;
+
+      //set up panel
+      panel.setAttribute("aria-hidden", true);
+      panel.classList.remove("open");
+      panel.id = panelId;
+      panel.setAttribute("aria-labelledby", buttonId);
+      //panel.style.setProperty("--og-height", `${panel.getBoundingClientRect().height}px`);
+
+      //set up button
+      button.setAttribute("aria-expanded", false);
+      button.id = buttonId;
+      button.setAttribute("tabindex", "0");
+      button.setAttribute("aria-controls", panelId);
+      if(!button.classList.contains("btn")){
+        button.classList.add("btn");
+      }
+
+      button.addEventListener("click", SL_accordions.handleAccordionTrigger);
+
+      button.addEventListener("keydown", SL_accordions.handleAccordionTrigger);
+
+      //add to config for easy tracking/ debugging
+      _.config.accordions.push(accordion);
+      return;
+    });
+
+  },
+  toggleAccordion: function(accordion, isOpen = null){
+    const button = accordion.querySelector('[data-accordion-button]');
+    if(!button)
+      return;
+
+    const panel = accordion.querySelector(`#${button.getAttribute('aria-controls')}`);
+    //use supplied desired state, if null infer from button state
+    if(isOpen == null){
+      button.classList.toggle("expanded");
+      panel.classList.toggle("open");
+    }
+    isOpen = isOpen ?? button.classList.contains("expanded");
+    button.setAttribute("aria-expanded", isOpen);
+    panel.setAttribute("aria-hidden", !isOpen);
+    
+  },
+  handleAccordionTrigger: function(event){
+    //keypress wasn't a space or enter, ignore
+    if (event instanceof KeyboardEvent){
+      if(event.code !== "Enter" && event.code !== "Space"){
+        return;
+      }
+    }
+
+    const _ = SL_accordions;
+    let accordion = event.target.closest('[data-accordion]');
+    _.toggleAccordion(accordion);
+  },
+}
+
 MainModule = {
   config:{
     modules: [],
@@ -546,4 +573,3 @@ MainModule = {
   },
 };
 MainModule.init();
-//initAccordions(document.body);

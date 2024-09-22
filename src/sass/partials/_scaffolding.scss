@@ -45,144 +45,163 @@ html {
 
 body{
   font-size: 1rem;
-}
 
-main {
-  @include flex-center;
-  flex-direction: column;
-  width: calc(100vw - $scrollbar-width);
-  column-gap: 0px;
-  row-gap: 0px;
-  background-color: $color-page;
-  overflow: hidden;
-}
-
-// Sections =====
-section {
-  @include flex-center;
-  @include anim--in-and-up;
-
-  width: 100%;
-  min-height: 300px;
-  padding: 0px;
-  position: relative;
-  background-color: $color-page;
-  z-index: var(--layer-var);  
-
-  @include break-up('small'){
-    padding: 20px $main-content-padding;
+  header{
 
   }
 
-  // ::selection {
-  //   background: $color-theme-dark;
-  //   color: $color-theme;
-  // }
-
-  &.section--dark{
-    background-color: $color-theme-dark; 
-    color: white;
-
-    // ::selection {
-    //   background: $color-theme;
-    //   color: $color-theme-dark;
-    // }
-  }
-
-  .section-image {
-    position: absolute;
-    right: 0px;
-    left: auto;
-    top: 0px;
-    height: 100%;
-    max-height: 400px;
-    display: none;
-
-    &--hero {
-      position: fixed;
-      right: -20px;
-      left: auto;
-      top: auto !important;
-      transform: none !important;
-      width: 50%;
-      height: auto;
-      max-height: none;
-      opacity: 1;
-      display: block;
-    }
-  }
-
-  .container {
-    max-width: $max-content-width;
-    // background-image: url(https://picsum.photos/600/600);
-    border-radius: 15px;
-    position: relative;
+  main {
+    @include flex-center;
+    flex-direction: column;
+    width: calc(100vw - $scrollbar-width);
+    column-gap: 0px;
+    row-gap: 0px;
     overflow: hidden;
-    padding: 10px 5px;
+  }
 
-    @include break-up('small'){
-      padding: 10px 20px;
-
+  section {
+    @include flex-center;
+    position: sticky;
+    width: 100%;
+    min-height: 300px;
+    padding: 0px;
+    position: relative;
+    z-index: var(--layer-var);  
+  
+    // ::selection {
+    //   background: $color-theme-dark;
+    //   color: $color-theme;
+    // }
+  
+    &.section--dark{
+      background-color: $color-theme-dark; 
+      color: white;
+  
+      // ::selection {
+      //   background: $color-theme;
+      //   color: $color-theme-dark;
+      // }
     }
-    
-    &--hero {
-      background-image: none;
-      // background-color: transparent;
-      height: max(700px, 80dvh) !important;
+  
+    .section-image {
+      position: absolute;
+      right: 0px;
+      left: auto;
+      top: 0px;
+      height: 100%;
+      max-height: 400px;
+      display: none;
+  
+      &--hero {
+        position: fixed;
+        right: -20px;
+        left: auto;
+        top: auto !important;
+        transform: none !important;
+        width: 50%;
+        height: auto;
+        max-height: none;
+        opacity: 1;
+        display: block;
+      }
+    }
+  
+    .container {
       width: 100%;
-      max-width: none;
-      outline: none;
-      // border-bottom: 50px solid $color-theme;
-      border-radius: 0px;
-      padding: 0px;
-
-      // &:is(:focus, :hover, :focus-visible) {
-      //     outline: none;
-      // }
-
-      // @include break-up('large'){
-      //     background-position: top;
-      //     background-size: 75%;
-      //     background-position-x: right;
-      // }
-      .hero {
-        &__title {
-          position: fixed;
-          width: 100%;
-          top: 0px;
-          text-align: center;
-          flex-direction: column;
-          color: #333;
-
-          h1 {
-            font-family: Hiragino Maru Gothic ProN;
-            font-size: 60px;
-          }
-        }
-
-        &__hook-line {
-          color: $color-theme;
-          position: absolute;
-          width: 100%;
-          bottom: 0px;
-          left: 20px;
-
-          p {
+      max-width: $max-content-width;
+      // background-image: url(https://picsum.photos/600/600);
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      padding: $content-padding-small;
+  
+      @include break-up('small'){
+        padding: $content-padding-medium;
+      }
+      
+      @include break-up('large'){
+        padding: $content-padding-large;
+      }
+      
+      &--hero {
+        background-image: none;
+        // background-color: transparent;
+        height: max(700px, 80dvh) !important;
+        width: 100%;
+        max-width: none;
+        outline: none;
+        // border-bottom: 50px solid $color-theme;
+        border-radius: 0px;
+        padding: 0px;
+  
+        // &:is(:focus, :hover, :focus-visible) {
+        //     outline: none;
+        // }
+  
+        // @include break-up('large'){
+        //     background-position: top;
+        //     background-size: 75%;
+        //     background-position-x: right;
+        // }
+        .hero {
+          &__title {
+            position: fixed;
             width: 100%;
-            text-align: left;
-            font-size: 50px;
-            line-height: 50px;
-            text-transform: uppercase;
-            font-weight: bold;
+            top: 0px;
+            text-align: center;
+            flex-direction: column;
+            color: #333;
+  
+            h1 {
+              font-family: Hiragino Maru Gothic ProN;
+              font-size: 60px;
+            }
+          }
+  
+          &__hook-line {
+            color: $color-theme;
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 20px;
+  
+            p {
+              width: 100%;
+              text-align: left;
+              font-size: 50px;
+              line-height: 50px;
+              text-transform: uppercase;
+              font-weight: bold;
+            }
           }
         }
       }
+  
+      h2{
+        font-size: 2rem;
+        padding-bottom: 10px;
+      }
+  
+    }
+  }
+
+  footer{
+    background: linear-gradient(0deg, $color-theme-accent,transparent);
+    color: white;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-weight: bold;
+
+    a{
+      font-size: 2rem;
     }
 
-    h2{
-      font-size: 2rem;
-    
+    p{
+      font-size: 1.5rem;
+      font-style: italic;
     }
 
   }
 }
+

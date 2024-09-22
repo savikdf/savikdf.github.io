@@ -1,0 +1,303 @@
+#hero {
+  height: 90vh;
+  //padding: 0px!important;
+  background: url("/images/nicholas-cage.webp"), url("/images/temp01.png");
+  background-repeat: no-repeat;
+  background-position-y: 82vh, center;
+  background-position-x: 75vw, center;
+  background-size: 10vh, cover;
+  background-attachment: fixed, scroll;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: visible;
+    margin-bottom: 20vh;
+  }
+
+  h1 {
+    //display: contents;
+    font-family: dino;
+    font-size: 2.9rem;
+    overflow-wrap: anywhere;
+    text-align: center;
+    text-shadow: 2px 2px 4px $color-theme;
+    color: $color-theme-accent;
+
+    @include break-up("small") {
+      font-size: 5.8rem;
+    }
+
+    @include break-up("large") {
+      font-size: 10rem;
+    }
+    // animation: hover 2s infinite ease-in-out;
+    // @keyframes hover {
+    //     0%, 100% {
+    //         color: $color-theme-dark;
+    //         //transform: translateY(0);
+    //         text-shadow: 0 0 0 transparent;
+    //     }
+    //     50% {
+    //         color: transparent;
+    //         //transform: translateY(-10px);
+    //         text-shadow: 0 0 0 $color-theme;
+
+    //     }
+    // }
+  }
+
+  .head {
+    display: none !important;
+    width: 100%;
+    height: 30px;
+    outline: 1px solid blue;
+    overflow: visible;
+    display: flex;
+    justify-content: space-between;
+
+    .eye {
+      border: 1px solid red;
+      height: 50px;
+      width: 50px;
+      display: inline-block;
+      position: relative;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0px;
+        left: var(--hor-offset);
+        height: 50px;
+        width: 50px;
+        background-color: blue;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+#about {
+
+}
+
+#jobs {
+  .container {
+    &::after {
+      // line underneath section
+      content: "";
+      position: absolute;
+      display: block;
+      width: 70%;
+      height: 3px;
+      background-color: $color-theme;
+      left: 15%;
+    }
+  }
+
+  .job {
+    &__swiper-container{
+      // display: grid;
+      // grid-template-columns: repeat(2, 1fr);
+      // grid-template-rows: 1fr;
+      // grid-template-areas:  "controller" "viewer";
+
+      // @include break-up('small'){
+      //   grid-template-areas:  "controller viewer"
+      // }
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      @include break-up('small'){
+        flex-wrap: nowrap;
+      }
+    }
+
+    &__swiper {
+      overflow: hidden;
+      grid-area: controller;
+      width: 100%;
+      max-height: 200px;
+      
+      @include break-up('small'){
+        width: 33%;
+      }
+
+      &--desc {
+        grid-area: viewer;
+        width: 100%;
+
+        @include break-up('small'){
+          width: 67%;
+        }
+      }
+    }
+
+    &__slide {
+      position: relative;
+      overflow: visible;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      padding: 15px;
+      border: 5px solid $color-theme;
+      border-radius: 20px;
+      background-color: $color-page;
+      //transition: background-color 2000ms linear;
+
+      @include break-up("small") {
+        height: 150px;
+      }
+
+      &.swiper-slide-active {
+        background-color: $color-theme-light;
+        border: none;
+
+      }
+
+      //   @include break-up("small") {
+      //     &:first-of-type {
+      //         //background-color: green;
+
+      //       &::after {
+      //         content: "";
+      //         background-image: var(--bg-img);
+      //         background-position: right;
+      //         background-size: contain;
+      //         background-repeat: no-repeat;
+      //         display: block;
+      //         position: absolute;
+      //         inset: 0px;
+      //         transform: translateX(-70%);
+      //         opacity: 0;
+      //         transition: transform 1000ms ease-in-out, opacity 500ms ease-in-out;
+      //       }
+      //       &.swiper-slide-active::after {
+      //         opacity: 1;
+      //         transform: translateX(calc(-100% - 5px));
+      //       }
+      //     }
+      //   }
+    }
+
+    &__nav {
+      $diameter: 40px;
+
+      position: absolute;
+      background-color: $color-theme-dark;
+      top: auto;
+      bottom: 10px;
+      width: $diameter;
+      height: $diameter;
+      border-radius: 50%;
+      transition: 300ms;
+
+      &::after {
+        color: white;
+      }
+
+      &--next {
+        right: 10px;
+        &::after {
+          font: var(--fa-font-solid);
+          content: "\f061";
+        }
+      }
+      &--prev {
+        left: 10px;
+        box-shadow: 0 0 3px $color-page;
+        &::after {
+          font: var(--fa-font-solid);
+          content: "\f060";
+        }
+      }
+
+      &--disabled {
+        opacity: 0;
+      }
+    }
+
+    &__pagination {
+      position: absolute;
+      left: calc(50% - 25%);
+      bottom: 0px;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.6;
+
+      .swiper-pagination-bullet {
+        width: 20px;
+        height: 20px;
+
+        &-active {
+          background-color: $color-theme-dark;
+        }
+      }
+    }
+
+    &__header {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    &__position {
+      font-style: italic;
+      text-align: center;
+    }
+  }
+
+  .jobDesc {
+    //background-color: $color-page;
+    padding: 20px;
+
+    [class*="fa-"] {
+      font-size: 1.2rem;
+    }
+
+    &__header {
+      font-size: 1.4rem;
+
+      @include break-up("small") {
+        font-size: 2rem;
+      }
+    }
+
+    &__location {
+      margin-bottom: 10px;
+    }
+
+    &__dates {
+      margin-bottom: 20px;
+    }
+
+    &__list {
+      list-style: none;
+
+      li {
+        margin-left: 1.2rem;
+        margin-bottom: 10px;
+        position: relative;
+
+        &::before {
+          content: "\f058"; // Specify the content
+          font: var(--fa-font-solid); // Use the specific font
+          position: absolute;
+          left: -20px;
+          top: 4px;
+        }
+      }
+    }
+  }
+}
+
+#projects {
+}

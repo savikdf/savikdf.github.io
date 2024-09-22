@@ -72,13 +72,6 @@
 
                     <div class="col"> <!--col--stacked-->
                         <img src="/images/savik.jpg" class="col" loading="lazy" />
-                        <!-- <div class="name">
-                            <p><span>S</span>ome guy that knows a little about coding</p>
-                            <p><span>A</span>lso knows quite a bit about making games</p>
-                            <p><span>V</span>ery experienced at .NET</p>
-                            <p><span>I</span>nconspicuously good looking</p>
-                            <p><span>K</span>eep on scrolling to find out more!</p>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -87,7 +80,11 @@
         <section id="projects">
             <div class="container">
                 <h2>Projects</h2>
-                <div id="projects-container">
+                <div id="projects-container" class="card-grid">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
                     <!-- js inserts here -->
                 </div>
             </div>
@@ -96,31 +93,34 @@
         <section id="jobs">
             <div class="container">
                 <h2>History</h2>
-                <div id="job__swiper" class="job__swiper swiper"
-                    style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
+                <div class="job__swiper-container">
+                    <div id="job__swiper" class="job__swiper swiper" style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
 
-                    <div id="job__slide" class="swiper-wrapper">
-                        <!-- js inserts here -->
+                        <div id="job__slide" class="swiper-wrapper">
+                            <!-- js inserts here -->
+                        </div>
+
+                        <!-- If we need pagination -->
+                        <!-- <div class="job__pagination swiper-pagination"></div> -->
+
+                        <div class="job__nav job__nav--prev swiper-button-prev"></div>
+                        <div class="job__nav job__nav--next swiper-button-next"></div>
+
                     </div>
 
-                    <!-- If we need pagination -->
-                    <!-- <div class="job__pagination swiper-pagination"></div> -->
-
-                    <div class="job__nav job__nav--prev swiper-button-prev"></div>
-                    <div class="job__nav job__nav--next swiper-button-next"></div>
-
-                </div>
-
-                <div id="job__swiper--desc" class="job__swiper--desc swiper">
-                    <div id="job__slide--desc" class="swiper-wrapper">
-                        <!-- js inserts here-->
+                    <div id="job__swiper--desc" class="job__swiper--desc swiper">
+                        <div id="job__slide--desc" class="swiper-wrapper">
+                            <!-- js inserts here-->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-
     </main>
+    <footer>
+        <a href="./scripts/savik.json">Take a look at the <i>savik.json</i></a> <br/>
+        <p>the data used to build this website!</p>
+    </footer>
 
     <!-- <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script> -->
     <script src="/src/js/index.js"></script>

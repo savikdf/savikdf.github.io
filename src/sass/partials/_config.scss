@@ -1,10 +1,10 @@
-// Variables =====
+//General Variables =====
 $max-content-width: 1000px;
 $min-content-width: 350px;
-$main-content-padding: 10px;
-
-$scrollbar-width: 15px;
-
+$content-padding-small: 20px 5px;
+$content-padding-medium: 30px 20px;
+$content-padding-large: 40px 30px;
+$scrollbar-width: 10px;
 $anim-speed: 250ms;
 
 //breakpoints used for mixins
@@ -19,12 +19,16 @@ $breakpoints: (
   src: url(/src/dist/fonts/Dinofans-ARmlm.woff) format('woff');
 }
 
+// Scrollbar =====
+$scrollbar-width: 15px;
+
 // Colors =====
 // themes:
-$color-page: #fdfbf6;
-$color-theme: #ff9f00;
-$color-theme-dark: #2d2c2b;
-$color-theme-light: #ffd99c;
+$color-page: #F0F5F5;
+$color-theme: #008080;
+$color-theme-dark: #333;
+$color-theme-light: #66B2B2;
+$color-theme-accent: #FF6F61;
 
 // stuffs:
 $color-the-orange-stuff: #ff9f00;
@@ -45,4 +49,4 @@ $color-retro-red: #FF5B5B;
 $color-creamy-beige: #F6E4D5;
 $color-orange-crush: #FFA941;
 
-$color-work-boh: #1d2b93;
+// $color-work-boh: #1d2b93; 
