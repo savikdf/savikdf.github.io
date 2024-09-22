@@ -218,9 +218,28 @@
           content: "\f060";
         }
       }
-
       &--disabled {
         opacity: 0;
+      }
+
+      @include break-up('small'){
+        &--next {
+          bottom: 10px;
+          left: 10px;
+          right: auto!important;
+          &::after {
+            font: var(--fa-font-solid);
+            content: "\f063";
+          }
+        }
+        &--prev {
+          top: 30px;
+          box-shadow: 0 0 3px $color-page;
+          &::after {
+            font: var(--fa-font-solid);
+            content: "\f062";
+          }
+        }
       }
     }
 
