@@ -4,10 +4,12 @@ window.onload = () => {
 
 SL_sectionModule = {
   config: {
+    allSections: [],
     sectionInViewClass: "visible",
     sectionScrollStyleKey: "--scroll-val",
-    observer_even: null,
-    observer_odd: null,
+    observer_all: null,
+    // observer_even: null,
+    // observer_odd: null,
     visibleSections: [],
     aboutSection: document.getElementById("about"),
     jobSection: document.getElementById("jobs"),
@@ -15,39 +17,46 @@ SL_sectionModule = {
   },
 
   init: function() {
-    return;
-    let sections = [...document.querySelectorAll("main > section")];
-    if (sections == null && sections.length == 0) return;
+    const _ = this;
+    let sections = [...document.querySelectorAll("section")];
+    _.config.allSections = [...sections];
+    if (sections == null || sections.length == 0) 
+      return;
 
     //z-indexing
     //   sections.forEach((section, index) => {
     //     section.style.setProperty("--layer-var", (index + 1) * 5); //steps of 5
     //   });
 
-    initializeIntersectionObservers(sections);
-    initializeScrollObserver(sections);
+    //_.initializeIntersectionObservers(sections);
+    _.initializeScrollObserver(sections);
   },
   initializeIntersectionObservers: function(sections) {
+    const _ = this;
+    const observerAll = _.generateObserver();
+    // const observer_odd = generateObserver();
+    // const observer_even = generateObserver();
 
-    const observer_odd = generateObserver();
-    const observer_even = generateObserver();
-
-    sections.forEach((section, index) => {
-      if(index % 2 == 1){
-        observer_odd.observe(section);
-      }else{
-        observer_even.observe(section);
-      }
+    sections.forEach(section => {
+      observerAll.observe(section);
     });
+
+    // sections.forEach((section, index) => {
+    //   if(index % 2 == 1){
+    //     observer_odd.observe(section);
+    //   }else{
+    //     observer_even.observe(section);
+    //   }
+    // });
 
     config.observer_odd = observer_odd;
     config.observer_even = observer_even;
   },
   initializeScrollObserver: function(sections) {
-    window.addEventListener("scroll", onScroll);
-    sections.forEach(section =>{
-      section.style.setProperty("--total-height", section.offsetHeight);
-    })
+    document.addEventListener("scroll", SL_sectionModule.onScroll);
+    // sections.forEach(section =>{
+    //   section.style.setProperty("--total-section-height", section.offsetHeight);
+    // })
   },
 
   //handlers/callbacks
@@ -71,25 +80,31 @@ SL_sectionModule = {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // Element has entered the viewport
-          onEnter(entry.target);          
+          SL_sectionModule.onEnter(entry.target);          
         } else {
           // Element has exited the viewport
-          onExit(entry.target);          
+          SL_sectionModule.onExit(entry.target);          
         }
       });
     });
   },
-  onScroll: function() {
-    return;
-    const sections = config.visibleSections; 
+  onScroll: function(event) {
+    const _ = SL_sectionModule;
+    const sections = _.config.allSections; 
+    //const sections = config.visibleSections; 
     sections.forEach((section) => {
 
       const boundingBox = section.getBoundingClientRect();
+      const clampNumber = (num, a, b) =>
+        Math.max(Math.min(num, Math.max(a, b)), Math.min(a, b));
 
       // Calculate the percentage visible based on the position of the top and bottom edges
-      const topEdgePercentage = Math.max(0, boundingBox.top / window.innerHeight) * 100;
-      const bottomEdgePercentage = Math.min(100, (window.innerHeight - boundingBox.bottom / window.innerHeight) * 100);
-
+      const topEdgePercentage = clampNumber(-100, 100, (boundingBox.top / window.innerHeight) * 100);
+      //const topEdgePercentage = Math.max(0, boundingBox.top / window.innerHeight) * 100;
+      //const bottomEdgePercentage = Math.min(100, (window.innerHeight - boundingBox.bottom / window.innerHeight) * 100);
+      section.style.setProperty("--top-edge", `${Math.round((topEdgePercentage + Number.EPSILON) * 100) / 100}vh`);
+      //section.style.setProperty("--bottom-edge", Math.round((bottomEdgePercentage + Number.EPSILON) * 100) / 100);
+      return;
       // Set the percentage visible as the maximum between 0 and the calculated value
       const percentageVisible = 100 - Math.max(0, Math.min(topEdgePercentage,  bottomEdgePercentage));
       //const percentageVisible = 100 - Math.max(0, Math.min(100,  bottomEdgePercentage));
