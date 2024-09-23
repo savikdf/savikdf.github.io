@@ -6,11 +6,11 @@
 @import './partials/scaffolding';
 @import './partials/nav';
 @import './partials/scrollbar';
-@import './partials/accordions';
 
 // sections
 @import './components/uniqueSections';
 
 // blocks
 @import './components/2col';
-@import './components/cards'
+@import './components/cards';
+@import './components/accordions';

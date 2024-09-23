@@ -84,39 +84,32 @@
 }
 
 #jobs {
-  .container {
-    &::after {
-      // line underneath section
-      content: "";
-      position: absolute;
-      display: block;
-      width: 70%;
-      height: 3px;
-      background-color: $color-theme;
-      left: 15%;
+  .container {    
+
+    // &::after {
+    //   // line underneath section
+    //   content: "";
+    //   position: absolute;
+    //   display: block;
+    //   width: 70%;
+    //   height: 3px;
+    //   background-color: $color-theme;
+    //   left: 15%;
+    // }
+  }
+
+  .job-swiper-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    //align-items: center;
+
+    @include break-up('small'){
+      flex-wrap: nowrap;
     }
   }
 
   .job {
-    &__swiper-container{
-      // display: grid;
-      // grid-template-columns: repeat(2, 1fr);
-      // grid-template-rows: 1fr;
-      // grid-template-areas:  "controller" "viewer";
-
-      // @include break-up('small'){
-      //   grid-template-areas:  "controller viewer"
-      // }
-
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 20px 0px;
-
-      @include break-up('small'){
-        flex-wrap: nowrap;
-      }
-    }
 
     &__swiper {
       overflow: hidden;
@@ -147,10 +140,8 @@
       justify-content: center;
       height: auto;
       padding: 15px;
-      border: 5px solid $color-theme;
-      border-radius: 20px;
       background-color: $color-page;
-      //transition: background-color 2000ms linear;
+      border-top: 5px solid $color-theme;
 
       @include break-up("small") {
         height: 150px;
@@ -158,33 +149,7 @@
 
       &.swiper-slide-active {
         background-color: $color-theme-light;
-        border: none;
-
       }
-
-      //   @include break-up("small") {
-      //     &:first-of-type {
-      //         //background-color: green;
-
-      //       &::after {
-      //         content: "";
-      //         background-image: var(--bg-img);
-      //         background-position: right;
-      //         background-size: contain;
-      //         background-repeat: no-repeat;
-      //         display: block;
-      //         position: absolute;
-      //         inset: 0px;
-      //         transform: translateX(-70%);
-      //         opacity: 0;
-      //         transition: transform 1000ms ease-in-out, opacity 500ms ease-in-out;
-      //       }
-      //       &.swiper-slide-active::after {
-      //         opacity: 1;
-      //         transform: translateX(calc(-100% - 5px));
-      //       }
-      //     }
-      //   }
     }
 
     &__nav {
@@ -209,30 +174,29 @@
           font: var(--fa-font-solid);
           content: "\f061";
         }
-      }
-      &--prev {
-        left: 10px;
-        box-shadow: 0 0 3px $color-page;
-        &::after {
-          font: var(--fa-font-solid);
-          content: "\f060";
-        }
-      }
-      &--disabled {
-        opacity: 0;
-      }
 
-      @include break-up('small'){
-        &--next {
+        @include break-up('small'){
           bottom: 10px;
           left: 10px;
           right: auto!important;
+
           &::after {
             font: var(--fa-font-solid);
             content: "\f063";
           }
         }
-        &--prev {
+      }
+      
+      &--prev {
+        left: 10px;
+        box-shadow: 0 0 3px $color-page;
+
+        &::after {
+          font: var(--fa-font-solid);
+          content: "\f060";
+        }
+
+        @include break-up('small'){
           top: 30px;
           box-shadow: 0 0 3px $color-page;
           &::after {
@@ -240,6 +204,10 @@
             content: "\f062";
           }
         }
+      }
+
+      &--disabled {
+        opacity: 0;
       }
     }
 
@@ -276,11 +244,19 @@
   }
 
   .jobDesc {
-    //background-color: $color-page;
-    padding: 20px;
+    padding: 10px 20px;
+    border: 5px solid $color-theme-light;
+    border-top: none;
 
     [class*="fa-"] {
       font-size: 1.2rem;
+    }
+
+    @include break-up('small'){
+      // border-top-right-radius: 15px;
+      // border-bottom-right-radius: 15px;
+      border-bottom: 5px solid $color-theme;
+      border-left: 5px solid $color-theme;
     }
 
     &__header {
@@ -288,10 +264,14 @@
 
       @include break-up("small") {
         font-size: 2rem;
+  
       }
     }
 
     &__location {
+      // position: absolute;
+      // right: 20px;
+      // top: 20px;
       margin-bottom: 10px;
     }
 
@@ -320,4 +300,5 @@
 }
 
 #projects {
+  display: none;
 }

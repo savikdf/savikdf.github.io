@@ -236,9 +236,10 @@ SL_siteDataModule = {
       slidesPerView: 1,
       grabCursor: true,
       spaceBetween: "0px",
-      direction: 'vertical',
+      direction: 'horizontal',
       centeredSlides: false,
       loop: false,
+      spaceBetween: 100,
       //loopPreventsSlide: false,
       //effect: "slide",
       effect: "creative",
@@ -261,6 +262,7 @@ SL_siteDataModule = {
       breakpoints:{
         600: { //>=
           //direction: 'vertical',
+          direction: 'vertical',
           //slidesPerView: 3,
           //centeredSlides: true,
           creativeEffect: {
