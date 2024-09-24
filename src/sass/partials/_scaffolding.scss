@@ -122,60 +122,6 @@ body{
       @include break-up('large'){
         padding: $content-padding-large;
       }
-      
-      &--hero {
-        background-image: none;
-        // background-color: transparent;
-        height: max(700px, 80dvh) !important;
-        width: 100%;
-        max-width: none;
-        outline: none;
-        // border-bottom: 50px solid $color-theme;
-        border-radius: 0px;
-        padding: 0px;
-  
-        // &:is(:focus, :hover, :focus-visible) {
-        //     outline: none;
-        // }
-  
-        // @include break-up('large'){
-        //     background-position: top;
-        //     background-size: 75%;
-        //     background-position-x: right;
-        // }
-        .hero {
-          &__title {
-            position: fixed;
-            width: 100%;
-            top: 0px;
-            text-align: center;
-            flex-direction: column;
-            color: #333;
-  
-            h1 {
-              font-family: Hiragino Maru Gothic ProN;
-              font-size: 60px;
-            }
-          }
-  
-          &__hook-line {
-            color: $color-theme;
-            position: absolute;
-            width: 100%;
-            bottom: 0px;
-            left: 20px;
-  
-            p {
-              width: 100%;
-              text-align: left;
-              font-size: 50px;
-              line-height: 50px;
-              text-transform: uppercase;
-              font-weight: bold;
-            }
-          }
-        }
-      }
   
       h2{
         font-size: 2rem;

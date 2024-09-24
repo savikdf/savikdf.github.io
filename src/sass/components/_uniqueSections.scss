@@ -1,88 +1,90 @@
 #hero {  
+  $edge-offset: var(--top-edge);
+
   position: relative;
-  height: 80vh;
+  height: 70vh;
   background: url(../../../images/temp01.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: calc(-1 * var(--top-edge)/3);
+  overflow: hidden;
+  @include break-up('small'){
+    height: 95vh;
+  }
 
-  .bg{
-    display: none;
+  &::before{
+    content:'';
+    display: block;
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    top: var(--bottom-edge);
+    background-color: $color-theme-dark;
+    background: linear-gradient(0deg, transparent, $color-theme-dark);
+    z-index: 1;
+    transform: translateY(calc(-100% - calc($edge-offset * 2)));
   }
-  
+
+  &::after{
+    content:'';
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-color: $color-theme-accent;
+    background: linear-gradient(0deg, $color-theme-accent, transparent);
+
+    transform: translateY(calc(100% + calc($edge-offset * 0.5)));
+
+  }
 
   .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: visible;
-    margin-bottom: 20vh;
+    height: 100%;
+    position: relative;
   }
 
-  h1 {
-    //display: contents;
-    font-family: dino;
-    font-size: 2.9rem;
-    overflow-wrap: anywhere;
-    text-align: center;
-    text-shadow: 2px 2px 4px $color-theme;
-    color: $color-theme-accent;
+  .hero{
 
-    @include break-up("small") {
-      font-size: 5.8rem;
+    &__image{
+      display: none;
+      position: absolute;
+      width: auto;
+      height: 60%;
+      bottom: calc(var(--top-edge)/3);
+      left: $edge-offset;
+
+      @include break-up('small'){
+        width: 40vw;
+        height: auto;
+      }
+      @include break-up('large'){
+        width: 35vw;
+      }
+
     }
 
-    @include break-up("large") {
-      font-size: 10rem;
-    }
-    // animation: hover 2s infinite ease-in-out;
-    // @keyframes hover {
-    //     0%, 100% {
-    //         color: $color-theme-dark;
-    //         //transform: translateY(0);
-    //         text-shadow: 0 0 0 transparent;
-    //     }
-    //     50% {
-    //         color: transparent;
-    //         //transform: translateY(-10px);
-    //         text-shadow: 0 0 0 $color-theme;
-
-    //     }
-    // }
-  }
-
-  .head {
-    display: none !important;
-    width: 100%;
-    height: 30px;
-    outline: 1px solid blue;
-    overflow: visible;
-    display: flex;
-    justify-content: space-between;
-
-    .eye {
-      border: 1px solid red;
-      height: 50px;
-      width: 50px;
-      display: inline-block;
-      position: relative;
-
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        inset: 0px;
-        left: var(--hor-offset);
-        height: 50px;
-        width: 50px;
-        background-color: blue;
-        border-radius: 50%;
+    &__title{
+      font-family: dino;
+      font-size: 2.9rem;
+      overflow-wrap: anywhere;
+      text-align: center;
+      text-shadow: 2px 2px 4px $color-theme;
+      color: $color-theme-accent;
+      $offset: -40px;
+      transform: translateY(calc(-1 * var(--top-edge)/1.5 + $offset));
+  
+      @include break-up("small") {
+        transform: translateY(calc(-1 * var(--top-edge)/1.6 + $offset));
+        font-size: 5.8rem;
+      }
+  
+      @include break-up("large") {
+        transform: translateY(calc(-1 * var(--top-edge)/1.55 + $offset));
+        font-size: 10rem;
       }
     }
   }
