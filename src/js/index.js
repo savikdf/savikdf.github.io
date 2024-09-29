@@ -554,7 +554,7 @@ SL_templates = {
     <div class="jobDesc swiper-slide">
       <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
 
-      <div class="jobDesc__skills">
+      <div data-skills class="jobDesc__skills">
         <!--js inserts here-->
       </div>
 

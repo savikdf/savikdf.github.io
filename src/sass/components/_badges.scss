@@ -1,3 +1,13 @@
+.badge-list{
+    margin: 10px auto;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
 .badge{
     width: max-content;
     padding: $badge-padding;
@@ -10,5 +20,12 @@
 
     *{
         display: inline-block;
+    }
+
+    &--accent{
+        @extend .badge;
+        background-color: $color-theme-accent;
+        color: white;
+        box-shadow: -3px 3px 0px $color-theme-accent-dark;
     }
 }

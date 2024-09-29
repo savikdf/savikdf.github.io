@@ -79,23 +79,6 @@
           "Collaborated with cross-platform teams to provide feedback on product features in response to content updates."
         ]
       }
-    ],
-    "skills": {
-      "dotnet":{
-        "text":"DotNet",
-        "color":"#BF40BF",
-        "textColor":"#fff"
-      },
-      "golang":{
-        "text": "Go",
-        "color": "#33BCFF",
-        "textColor": "#000"
-      },
-      "sql":{
-        "text": "SQL",
-        "color": "#3d3d3d",
-        "textColor": "#000"
-      }
-    }
+    ]
   }
   
