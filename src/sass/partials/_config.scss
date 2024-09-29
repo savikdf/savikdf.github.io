@@ -7,6 +7,8 @@ $content-padding-large: 40px 30px;
 $scrollbar-width: 10px;
 $anim-speed: 250ms;
 
+$badge-padding: 5px 10px;
+
 //breakpoints used for mixins
 $breakpoints: (
   'small'  : 600px,
@@ -28,6 +30,7 @@ $color-page: #F0F5F5;
 $color-theme: #008080;
 $color-theme-dark: #333;
 $color-theme-light: #66B2B2;
+$color-theme-light-accent: #bee8e8;
 $color-theme-accent: #FF6F61;
 
 // stuffs:

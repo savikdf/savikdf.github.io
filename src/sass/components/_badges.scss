@@ -1,0 +1,14 @@
+.badge{
+    width: max-content;
+    padding: $badge-padding;
+    //border: 2px solid $color-theme;
+    border-radius: 20px;
+    background-color: $color-theme-light-accent;
+    white-space: nowrap;
+    color: $color-theme-dark;
+    box-shadow: -3px 3px 0px $color-theme;
+
+    *{
+        display: inline-block;
+    }
+}

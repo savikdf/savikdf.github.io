@@ -21,9 +21,9 @@
     width: 100%;
     height: 100%;
     background-color: $color-theme-dark;
-    background: linear-gradient(0deg, transparent, $color-theme-dark);
+    // background: linear-gradient(0deg, transparent, $color-theme-dark);
     z-index: 1;
-    transform: translateY(calc(-100% - calc($edge-offset * 2)));
+    transform: translateY(calc(-100% - calc($edge-offset * 1.5)));
   }
 
   &::after{
@@ -32,10 +32,9 @@
     position: absolute;
     inset: 0;
     background-color: $color-theme-accent;
-    background: linear-gradient(0deg, $color-theme-accent, transparent);
+    // background: linear-gradient(0deg, $color-theme-accent, transparent);
 
     transform: translateY(calc(100% + calc($edge-offset * 0.5)));
-
   }
 
   .container {
@@ -126,7 +125,7 @@
       overflow: hidden;
       grid-area: controller;
       width: 100%;
-      max-height: 200px;
+      max-height: 250px;
       
       @include break-up('small'){
         width: 33%;
@@ -152,9 +151,10 @@
       height: auto;
       padding: 15px;
       background-color: $color-page;
-      border-top: 5px solid $color-theme;
+      border: none;
 
       @include break-up("small") {
+        border-right: none;
         height: 150px;
       }
 
@@ -256,18 +256,18 @@
 
   .jobDesc {
     padding: 10px 20px;
-    border: 5px solid $color-theme-light;
+    border: 5px solid $color-theme;
     border-top: none;
+
+    @include break-up('small'){
+      border-bottom: 5px solid $color-theme;
+      border-left: 5px solid $color-theme;
+      border-top: 5px solid $color-theme;
+    }
 
     [class*="fa-"] {
       font-size: 1.2rem;
-    }
-
-    @include break-up('small'){
-      // border-top-right-radius: 15px;
-      // border-bottom-right-radius: 15px;
-      border-bottom: 5px solid $color-theme;
-      border-left: 5px solid $color-theme;
+      display: inline-block;
     }
 
     &__header {
@@ -280,14 +280,19 @@
     }
 
     &__location {
-      // position: absolute;
-      // right: 20px;
-      // top: 20px;
+      display: inline-block;
       margin-bottom: 10px;
+      margin-right: 5px;
     }
 
     &__dates {
-      margin-bottom: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    &__accordion{
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
 
     &__list {

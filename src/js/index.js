@@ -240,13 +240,6 @@ SL_siteDataModule = {
     jobSlideContainerSelector: "#job__slide",
     jobDescContainerSelector: "#job__slide--desc",
     // job swiper
-    jobSlideTemplate: `
-      <div class="job job__slide swiper-slide" data-img="{imageUrl}">
-        <a href="{website}" target="_blank" title="{company} Website">
-          <h3 class="job__header">{company}</h3>
-        </a>
-        <p class="job__position">{position}</p>
-      </div>`,
     jobSwiperConfig: {
       slidesPerView: 1,
       grabCursor: true,
@@ -314,24 +307,6 @@ SL_siteDataModule = {
     },
     jobSwiper: null,
     //job desc swiper
-    jobDescSlideTemplate:`
-      <div class="jobDesc swiper-slide">
-        <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
-        <p class="jobDesc__location swiper-no-swiping"><i class="fa-solid fa-location-dot"></i> {location}</p>
-        <div class="jobDesc__dates swiper-no-swiping">
-          <i class="fa-solid fa-calendar-days"></i> {startDate} <i class="fa-solid fa-arrow-right-long"></i> {endDate}
-        </div>
-        
-        <div data-accordion>
-          <h4 data-accordion-button>Responsibilities</h4>
-          <div data-accordion-panel>
-           <ul class="jobDesc__list">
-            {responsibilities}
-            </ul>
-          </div>
-        </div>
-       
-      </div>`,
     jobDescSwiperConfig: {
       slidesPerView: 1,
       allowSlideNext: false,
@@ -365,8 +340,8 @@ SL_siteDataModule = {
     _.memoizeJson()
       .then(() => {
         //create markup for swiper to use
-        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobSlideContainerSelector, _.config.jobSlideTemplate);
-        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobDescContainerSelector, _.config.jobDescSlideTemplate);
+        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobSlideContainerSelector, SL_templates.jobSlideTemplate);
+        _.createAndInsertSlides(_.config.jsonData.jobs, _.config.jobDescContainerSelector, SL_templates.jobDescSlideTemplate);
       })
       .then(() => {
         //create swipers
@@ -412,8 +387,12 @@ SL_siteDataModule = {
 
   //handlers
   handleSLideChange: function(swiper){
+    //removes ping
+    swiper.navigation.nextEl.classList.remove('anim__ping--border')
+
+    //collapses the accordions on the adjacent slides
     const _ = SL_siteDataModule;
-    const i = swiper.activeIndex; //can't get the index we were last at, so just do adjacents
+    const i = swiper.activeIndex;
     const descPrev = _.config.jobDescSwiper.slides[Math.max(0,i-1)];
     const descNext = _.config.jobDescSwiper.slides[Math.min(swiper.slides.length, i+1)];
 
@@ -562,6 +541,52 @@ SL_accordions = {
     let accordion = event.target.closest('[data-accordion]');
     _.toggleAccordion(accordion);
   },
+}
+SL_templates = {
+  jobSlideTemplate: `
+    <div class="job job__slide swiper-slide" data-img="{imageUrl}">
+      <a href="{website}" target="_blank" title="{company} Website">
+        <h3 class="job__header">{company}</h3>
+      </a>
+      <p class="job__position">{position}</p>
+    </div>`,
+  jobDescSlideTemplate:`
+    <div class="jobDesc swiper-slide">
+      <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
+
+      <div class="jobDesc__skills">
+        <!--js inserts here-->
+      </div>
+
+      <div class="jobDesc__location badge swiper-no-swiping">
+        <i class="fa-solid fa-location-dot"></i>  
+        <p>{location}</p>
+      </div>
+      
+      <div class="jobDesc__dates badge swiper-no-swiping">
+        <i class="fa-solid fa-calendar-days"></i>
+        <div>
+          <p>{startDate}</p> 
+          <i class="fa-solid fa-arrow-right-long"></i>
+          <p>{endDate}</p>
+        </div>
+      </div>
+      
+      <div data-accordion class="jobDesc__accordion">
+        <h4 data-accordion-button>Responsibilities</h4>
+        <div data-accordion-panel>
+         <ul class="jobDesc__list">
+          {responsibilities}
+          </ul>
+        </div>
+      </div>
+     
+    </div>`,
+  skillBadgeTemplate:`
+    <div>
+      <p>{text}</p>
+    </div>
+  `
 }
 
 MainModule = {

@@ -1,5 +1,5 @@
 .anim {
-  &--in-and-up {
+  &__in-and-up {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 250ms ease-in-out, transform 500ms ease-in-out;
@@ -7,6 +7,45 @@
     &.visible {
       opacity: 1;
       transform: translateY(0px);
+    }
+  }
+
+  &__ping{
+    $speed: 2s;
+
+    &::before {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: $color-theme-accent; /* Blue with some transparency */
+      //border: 3px solid $color-theme-accent;
+      border-radius: 50%; /* Makes the effect circular */
+      animation: ping $speed infinite; /* Ping effect repeats every 2 seconds */
+    }
+
+    &--border{
+      &:before{
+        z-index: -1;
+        content: '';
+        position: absolute;
+        inset: 0;
+        //background-color: $color-theme-accent; /* Blue with some transparency */
+        border: 3px solid $color-theme-accent;
+        border-radius: 50%; /* Makes the effect circular */
+        animation: ping $speed infinite; /* Ping effect repeats every 2 seconds */
+      }
+    }
+    
+    @keyframes ping {
+      0% {
+        transform: scale(1); /* Initial size */
+        opacity: 1; /* Fully visible */
+      }
+      100% {
+        transform: scale(2.5); /* Grows in size */
+        opacity: 0; /* Fades out */
+      }
     }
   }
 }
