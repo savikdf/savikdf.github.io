@@ -6,8 +6,8 @@
     padding: 1rem;
     border-radius: 0 0 15px 15px;
     transition: transform $anim-speed ease-out;
-    background-color: $color-theme;
-    color: $color-theme-dark;
+    background-color: $color-theme-accent;
+    color: white;
     font-weight: bold;
     text-decoration: underline;
 
@@ -27,4 +27,9 @@ button:is(:active, :focus, :focus-visible, :hover),
         inset: -5px;
         outline: 2px solid $color-theme-light;
     }
+}
+
+*:focus-visible{
+    outline: 2px dashed $color-theme-accent;
+    outline-offset: 2px;
 }

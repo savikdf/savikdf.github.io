@@ -48,4 +48,24 @@
       }
     }
   }
+
+  &__drawer{
+    // box-shadow: 0 0 0 $color-page;
+    // animation: drawer 2s infinite;
+    // transform: translate(0px, 0px);
+    // border: 1px solid $color-page-dark;
+    // border-radius: 15px;
+
+    // @keyframes drawer {
+    //   0%, 100%{
+    //     transform: translate(0px, 0px);
+    //   }
+    //   50% {
+    //     opacity: 1;
+    //     box-shadow: 3px 3px 0 $color-page-dark;
+    //     box-shadow: 10px 10px 0 $color-page-dark;
+    //     transform: translate(-10px, -10px);
+    //   }
+    // }
+  }
 }

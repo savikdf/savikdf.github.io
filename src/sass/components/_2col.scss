@@ -19,12 +19,18 @@
       justify-content: center;
       flex-direction: column;
       grid-area: col1;
+      padding: 5px;
+
+      @include break-up('small'){
+        padding: 20px 30px
+      }
 
       & + .col{
         grid-area: col2;
       }
   
       img{
+        padding: 0px;
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: 50%;
