@@ -20,10 +20,10 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background-color: $color-theme-dark;
+    background-color: $color-theme-accent;
     // background: linear-gradient(0deg, transparent, $color-theme-dark);
     z-index: 1;
-    transform: translateY(calc(-100% - calc($edge-offset * 1.5)));
+    transform: translateY(calc(-100% - calc($edge-offset * 1.1)));
   }
 
   &::after{
@@ -31,10 +31,10 @@
     display: block;
     position: absolute;
     inset: 0;
-    background-color: $color-theme-accent;
+    background-color: $color-theme-dark;
     // background: linear-gradient(0deg, $color-theme-accent, transparent);
 
-    transform: translateY(calc(100% + calc($edge-offset * 0.5)));
+    transform: translateY(calc(100% + calc($edge-offset * 0.1)));
   }
 
   .container {

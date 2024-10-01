@@ -57,6 +57,10 @@ body{
     column-gap: 0px;
     row-gap: 0px;
     overflow: hidden;
+
+    &.nav-offset{
+      margin-top: $nav-height;
+    }
   }
 
   section {
@@ -67,68 +71,37 @@ body{
     padding: 0px;
     position: relative;
     z-index: var(--layer-var);  
-  
-    // ::selection {
-    //   background: $color-theme-dark;
-    //   color: $color-theme;
-    // }
-  
+
     &.section--dark{
       background-color: $color-theme-dark; 
       color: white;
-  
-      // ::selection {
-      //   background: $color-theme;
-      //   color: $color-theme-dark;
-      // }
+
     }
   
-    .section-image {
-      position: absolute;
-      right: 0px;
-      left: auto;
-      top: 0px;
-      height: 100%;
-      max-height: 400px;
-      display: none;
-  
-      &--hero {
-        position: fixed;
-        right: -20px;
-        left: auto;
-        top: auto !important;
-        transform: none !important;
-        width: 50%;
-        height: auto;
-        max-height: none;
-        opacity: 1;
-        display: block;
-      }
+  }
+
+  .container {
+    width: 100%;
+    max-width: $max-content-width;
+    // background-image: url(https://picsum.photos/600/600);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    padding: $content-padding-small;
+
+    @include break-up('small'){
+      padding: $content-padding-medium;
     }
-  
-    .container {
-      width: 100%;
-      max-width: $max-content-width;
-      // background-image: url(https://picsum.photos/600/600);
-      border-radius: 15px;
-      position: relative;
-      overflow: hidden;
-      padding: $content-padding-small;
-  
-      @include break-up('small'){
-        padding: $content-padding-medium;
-      }
-      
-      @include break-up('large'){
-        padding: $content-padding-large;
-      }
-  
-      h2{
-        font-size: 2rem;
-        padding-bottom: 10px;
-      }
-  
+    
+    @include break-up('large'){
+      padding: $content-padding-large;
     }
+
+    h2{
+      font-size: 2rem;
+      padding-bottom: 10px;
+    }
+
   }
 
   footer{

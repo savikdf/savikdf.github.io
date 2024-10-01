@@ -33,3 +33,38 @@ button:is(:active, :focus, :focus-visible, :hover),
     outline: 2px dashed $color-theme-accent;
     outline-offset: 2px;
 }
+
+nav{
+    @include flex-center;
+    width: 100%;
+    height: $nav-height;
+    background-color: $color-theme-accent;
+
+    &.sticky{
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .container{
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    ol{
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 20px;
+        
+        li{
+            border: 2px solid $color-page;
+            padding: 8px 5px;
+            
+            a{
+                text-decoration: none;
+            }
+        }
+    }
+}

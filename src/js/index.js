@@ -4,12 +4,12 @@ window.onload = () => {
 
 SL_sectionModule = {
   config: {
-    allSections: [],
+    sections: [],
+    navBar: null,
+    navOgTop: 0,
     sectionInViewClass: "visible",
     sectionScrollStyleKey: "--scroll-val",
-    observer_all: null,
-    // observer_even: null,
-    // observer_odd: null,
+    sectionObserver: null,
     visibleSections: [],
     aboutSection: document.getElementById("about"),
     jobSection: document.getElementById("jobs"),
@@ -19,61 +19,50 @@ SL_sectionModule = {
   init: function() {
     const _ = this;
     let sections = [...document.querySelectorAll("section")];
-    _.config.allSections = [...sections];
-    if (sections == null || sections.length == 0) 
-      return;
+    _.config.sections = [...sections];
+    if (sections != null && sections.length == 0) 
+      _.initializeScrollObserver(sections);
 
+    const nav = document.querySelector('nav');
+    _.config.navBar = nav;
+    _.config.navOgTop = nav.offsetTop; //nav.getBoundingClientRect().top;
+
+    _.initializeIntersectionObservers(sections);
     //z-indexing
     //   sections.forEach((section, index) => {
     //     section.style.setProperty("--layer-var", (index + 1) * 5); //steps of 5
     //   });
 
-    //_.initializeIntersectionObservers(sections);
-    _.initializeScrollObserver(sections);
+    
   },
-  initializeIntersectionObservers: function(sections) {
+  initializeIntersectionObservers: function() {
     const _ = this;
-    const observerAll = _.generateObserver();
-    // const observer_odd = generateObserver();
-    // const observer_even = generateObserver();
-
-    sections.forEach(section => {
-      observerAll.observe(section);
+    const observer = _.generateObserver();
+    _.config.sections.forEach(section => {
+      observer.observe(section);
     });
-
-    // sections.forEach((section, index) => {
-    //   if(index % 2 == 1){
-    //     observer_odd.observe(section);
-    //   }else{
-    //     observer_even.observe(section);
-    //   }
-    // });
-
-    config.observer_odd = observer_odd;
-    config.observer_even = observer_even;
-  },
-  initializeScrollObserver: function(sections) {
-    document.addEventListener("scroll", SL_sectionModule.onScroll);
-    // sections.forEach(section =>{
-    //   section.style.setProperty("--total-section-height", section.offsetHeight);
-    // })
+    _.config.sectionObserver = observer;
   },
 
   //handlers/callbacks
   onEnter: function(section) {
+    const _ = SL_sectionModule;
+
     //console.log("just entered: ", section);
-    if (!section.classList.contains(config.sectionInViewClass)) {
-      section.classList.add(config.sectionInViewClass);
+    if (!section.classList.contains(_.config.sectionInViewClass)) {
+      section.classList.add(_.config.sectionInViewClass);
       section.dataset.visible = "";
-      config.visibleSections.push(section);
+      _.config.visibleSections.push(section);
     }
   },
   onExit: function(section) {
+    const _ = SL_sectionModule;
+
     //console.log("just exited: ", section);
-    section.classList.remove(config.sectionInViewClass);
+    section.classList.remove(_.config.sectionInViewClass);
     delete section.dataset.visible;
-    section.style.removeProperty(config.sectionScrollStyleKey);
-    removeElementFromArray(config.visibleSections, section);
+    section.style.removeProperty(_.config.sectionScrollStyleKey);
+    _.removeElementFromArray(_.config.visibleSections, section);
   },
   generateObserver: function(){
     return new IntersectionObserver((entries) => {
@@ -88,10 +77,14 @@ SL_sectionModule = {
       });
     });
   },
-  onScroll: function(event) {
+  //event reactions
+  handleSectionScroll: function(event){
     const _ = SL_sectionModule;
-    const sections = _.config.allSections; 
-    //const sections = config.visibleSections; 
+    const sections = _.config.visibleSections; 
+
+    if(sections == null || sections.length < 1)
+      return;
+
     sections.forEach((section) => {
 
       const boundingBox = section.getBoundingClientRect();
@@ -118,6 +111,22 @@ SL_sectionModule = {
       // Set the scroll percent as a CSS variable for the sections styling purposes
       section.style.setProperty(config.sectionScrollStyleKey, roundedStyleValue);
     });
+  },
+  handleNavScroll: function(event){
+    _ = SL_sectionModule;
+    const nav = _.config.navBar;
+    const main = document.querySelector('main');
+    let stickyClass = "sticky";
+    let navOffsetClass = "nav-offset";
+
+    const isSticky = window.scrollY >= _.config.navOgTop; // nav.getBoundingClientRect().top <= 0;
+    if(isSticky){
+      nav.classList.add(stickyClass);
+      main.classList.add(navOffsetClass);
+    }else{
+      nav.classList.remove(stickyClass);
+      main.classList.remove(navOffsetClass);
+    }
   },
 
   //helpers
@@ -151,7 +160,7 @@ SL_eventsModule = {
 
   init: function(){
     const _ = this;
-
+    document.addEventListener("scroll", SL_eventsModule.handleScroll);
     document.addEventListener("mousemove", SL_eventsModule.handleMouseMove);
     document.addEventListener("mouseenter", SL_eventsModule.handleMouseEnter);
     document.addEventListener("mouseleave", SL_eventsModule.handleMouseLeave);
@@ -167,6 +176,10 @@ SL_eventsModule = {
   },
 
   //handlers
+  handleScroll: function(event){
+    SL_sectionModule.handleSectionScroll(event);
+    SL_sectionModule.handleNavScroll(event);
+  },
   handleMouseMove: function(event) {
     const _ = SL_eventsModule;
     _.config.timer_noMouseMovement = 0;
@@ -235,6 +248,7 @@ SL_eventsModule = {
 SL_siteDataModule = {
   config : {
     jsonData: {},
+    navBar: null,
     jobSwiperSelector: "#job__swiper",
     jobDescSwiperSelector: "#job__swiper--desc",
     jobSlideContainerSelector: "#job__slide",
@@ -348,6 +362,8 @@ SL_siteDataModule = {
         _.initJobSwipers();
         SL_accordions.initAccordions(SL_sectionModule.config.jobSection);
       });
+
+    _.config.navbar = document.querySelector('nav');
   },
   memoizeJson: async function(){
     const _ = this;

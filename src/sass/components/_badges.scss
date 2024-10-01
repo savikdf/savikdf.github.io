@@ -7,6 +7,7 @@
     justify-content: flex-start;
     gap: 10px;
     padding: 0 5px;
+    width: 100%;
 }
 
 .badge{
@@ -25,8 +26,8 @@
 
     &--accent{
         @extend .badge;
-        background-color: $color-theme-accent;
-        color: white;
-        box-shadow: -3px 3px 0px $color-theme-accent-dark;
+        // background-color: $color-theme-accent;
+        // color: white;
+        // box-shadow: -3px 3px 0px $color-theme-accent-dark;
     }
 }
