@@ -10,7 +10,8 @@
   background-position-y: calc(-1 * var(--top-edge)/3);
   overflow: hidden;
   @include break-up('small'){
-    height: 95vh;
+    height: calc(100vh - calc(2*$nav-top-padding + $nav-height));
+
   }
 
   &::before{

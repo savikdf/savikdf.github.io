@@ -59,7 +59,7 @@ body{
     overflow: hidden;
 
     &.nav-offset{
-      margin-top: $nav-height;
+      margin-top: calc(2 * ($nav-top-padding) + $nav-height);
     }
   }
 
@@ -84,7 +84,7 @@ body{
     width: 100%;
     max-width: $max-content-width;
     // background-image: url(https://picsum.photos/600/600);
-    border-radius: 15px;
+    //border-radius: 15px;
     position: relative;
     overflow: hidden;
     padding: $content-padding-small;

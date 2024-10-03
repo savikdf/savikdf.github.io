@@ -151,6 +151,7 @@ SL_eventsModule = {
     mouseXPercent: 0.01,
     mouseYPercent: 0.01,
     scrollbarLenience: -15,
+    navLinks: [],
     
     isMouseOnPage: false,
     timer_noMouseMovement: 0.00,
@@ -173,6 +174,17 @@ SL_eventsModule = {
     document.addEventListener('touchend', SL_siteDataModule.handleTouchEvent);
     
     //setInterval(_.doTimer, 1000); // update about every second
+
+    //local anchor click offsets to combat sticky nav height
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      if(anchor.closest('nav')){
+        _.config.navLinks.push(anchor);
+      }
+      anchor.addEventListener('click', SL_eventsModule.handleLocalAnchorClick);
+    });
+    _.config.navLinks.forEach(navLink => {
+      navLink.addEventListener('click', SL_eventsModule.handleNavLinkClick);
+    });
   },
 
   //handlers
@@ -236,12 +248,62 @@ SL_eventsModule = {
     const activeTouches = event.touches.length;
     SL_siteDataModule.config.debugEnabled = activeTouches >= 3;
   },
+  handleLocalAnchorClick: function(event){
+    const _ = SL_eventsModule;
+    event.preventDefault();
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+    const offset = 70; //try match $nav-height scss var, right now nothing syncs these two
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - offset;
+
+    // const scrollDuration = 500; // Adjust the scroll duration in milliseconds (2000ms = 2 seconds)
+    // _.smoothScrollWithDuration(offsetPosition, scrollDuration);
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth' 
+    });
+  },
+  handleNavLinkClick: function(event){
+    const _ = SL_eventsModule;
+    const anchor = event.target;
+    _.config.navLinks.forEach(navLink => {
+      navLink.classList.remove('active');
+    });
+    anchor.classList.add('active');
+  },
   doTimer: function(){
     const _ = SL_eventsModule;
     //console.log("doing timer")
     _.config.timer_noMouseMovementDelta = Date.now() - _.config.timer_noMouseMovementStart; // milliseconds elapsed since start
     _.config.timer_noMouseMovement = Math.floor(_.config.timer_noMouseMovementDelta / 1000); // in seconds
     document.getElementById('debug-mouseInactiveTimer').textContent = _.config.timer_noMouseMovement;
+  },
+
+  //helpers
+  smoothScrollWithDuration: function(targetPosition, duration) {
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = ease(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    function ease(t, b, c, d) {
+        // Ease-in-out function: t = time, b = start position, c = change in position, d = duration
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    requestAnimationFrame(animation);
   },
 };
 

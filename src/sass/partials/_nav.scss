@@ -37,9 +37,9 @@ button:is(:active, :focus, :focus-visible, :hover),
 nav{
     @include flex-center;
     width: 100%;
-    height: $nav-height;
+    height: calc(2 * ($nav-top-padding) + $nav-height);
     background-color: $color-theme-accent;
-
+    overflow: visible;
     &.sticky{
         position: fixed;
         top: 0;
@@ -47,8 +47,9 @@ nav{
     }
 
     .container{
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        overflow: visible!important;
     }
 
     ol{
@@ -57,14 +58,61 @@ nav{
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 20px;
-        
+        overflow: visible;
+
         li{
-            border: 2px solid $color-page;
-            padding: 8px 5px;
-            
+            transition: calc($anim-speed/2) ease-in-out;
+            overflow: visible;
+
             a{
+                $heightToUse: calc($nav-height - 10px);
+                display: inline-block;
+                text-align: center;
+                line-height: $heightToUse;
                 text-decoration: none;
+                height: $heightToUse;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 5px;
+                border: 1px solid $color-theme-accent-dark;
+                transition: $anim-speed ease-in-out;
+
+                &:is(:hover, :focus){
+                    outline-color: $color-theme-dark!important;
+                }
+
+                &.active{
+                    box-shadow: 10px 10px 0px $color-theme-accent-dark;
+                    transform: translate3d(-10px, -10px, 0px);
+                }
+
+                // &:focus{
+                //     color: purple!important;
+                //     outline-color: black!important;
+                // }
+
+                // &:hover, &:focus{
+                //     background-color: $color-theme-accent-dark;
+                // }
+
+                // &.active, &:hover, &:focus{
+                //     box-shadow: 10px 10px 0px $color-theme-accent-dark;
+                //     transform: translate3d(-10px, -10px, 0px);
+                // }
+
+                // &.active{
+                //     color: white;
+                // }
             }
         }
+    }
+
+    .siteName{
+        font-family: dino;
+        font-size: 1.9rem;
+        overflow-wrap: anywhere;
+        text-align: center;
+        text-shadow: 2px 2px 4px $color-theme-accent-dark;
+        color: $color-theme;  
     }
 }
