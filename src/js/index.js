@@ -5,7 +5,6 @@ window.onload = () => {
 SL_sectionModule = {
   config: {
     sections: [],
-    navBar: null,
     navOgTop: 0,
     sectionInViewClass: "visible",
     sectionScrollStyleKey: "--scroll-val",
@@ -32,8 +31,6 @@ SL_sectionModule = {
     //   sections.forEach((section, index) => {
     //     section.style.setProperty("--layer-var", (index + 1) * 5); //steps of 5
     //   });
-
-    
   },
   initializeIntersectionObservers: function() {
     const _ = this;
@@ -54,6 +51,8 @@ SL_sectionModule = {
       section.dataset.visible = "";
       _.config.visibleSections.push(section);
     }
+
+    SL_nav.handleNavUpdate();
   },
   onExit: function(section) {
     const _ = SL_sectionModule;
@@ -63,6 +62,8 @@ SL_sectionModule = {
     delete section.dataset.visible;
     section.style.removeProperty(_.config.sectionScrollStyleKey);
     _.removeElementFromArray(_.config.visibleSections, section);
+
+    SL_nav.handleNavUpdate();
   },
   generateObserver: function(){
     return new IntersectionObserver((entries) => {
@@ -172,19 +173,7 @@ SL_eventsModule = {
     document.addEventListener('touchstart', SL_siteDataModule.handleTouchEvent);
     document.addEventListener('touchmove', SL_siteDataModule.handleTouchEvent);
     document.addEventListener('touchend', SL_siteDataModule.handleTouchEvent);
-    
-    //setInterval(_.doTimer, 1000); // update about every second
-
-    //local anchor click offsets to combat sticky nav height
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      if(anchor.closest('nav')){
-        _.config.navLinks.push(anchor);
-      }
-      anchor.addEventListener('click', SL_eventsModule.handleLocalAnchorClick);
-    });
-    _.config.navLinks.forEach(navLink => {
-      navLink.addEventListener('click', SL_eventsModule.handleNavLinkClick);
-    });
+  
   },
 
   //handlers
@@ -248,31 +237,6 @@ SL_eventsModule = {
     const activeTouches = event.touches.length;
     SL_siteDataModule.config.debugEnabled = activeTouches >= 3;
   },
-  handleLocalAnchorClick: function(event){
-    const _ = SL_eventsModule;
-    event.preventDefault();
-    const targetId = this.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
-    const offset = 70; //try match $nav-height scss var, right now nothing syncs these two
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - offset;
-
-    // const scrollDuration = 500; // Adjust the scroll duration in milliseconds (2000ms = 2 seconds)
-    // _.smoothScrollWithDuration(offsetPosition, scrollDuration);
-
-    window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth' 
-    });
-  },
-  handleNavLinkClick: function(event){
-    const _ = SL_eventsModule;
-    const anchor = event.target;
-    _.config.navLinks.forEach(navLink => {
-      navLink.classList.remove('active');
-    });
-    anchor.classList.add('active');
-  },
   doTimer: function(){
     const _ = SL_eventsModule;
     //console.log("doing timer")
@@ -310,7 +274,6 @@ SL_eventsModule = {
 SL_siteDataModule = {
   config : {
     jsonData: {},
-    navBar: null,
     jobSwiperSelector: "#job__swiper",
     jobDescSwiperSelector: "#job__swiper--desc",
     jobSlideContainerSelector: "#job__slide",
@@ -425,7 +388,6 @@ SL_siteDataModule = {
         SL_accordions.initAccordions(SL_sectionModule.config.jobSection);
       });
 
-    _.config.navbar = document.querySelector('nav');
   },
   memoizeJson: async function(){
     const _ = this;
@@ -620,6 +582,97 @@ SL_accordions = {
     _.toggleAccordion(accordion);
   },
 }
+
+SL_nav = {
+  config: {
+    navBar: null,
+    navLinks: [],
+    navHeight: 70,//try match $nav-height scss var, right now nothing syncs these two
+    navMobBreakpoint: 600,
+  },
+
+  init: function(){
+    const _ = this;
+
+    const navBar = document.querySelector('nav');
+    _.config.navBar = navBar;
+
+    navBar.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      _.config.navLinks.push(anchor);
+    });
+
+    //init events
+    _.config.navLinks.forEach(link => {
+      link.addEventListener('click', SL_nav.handleNavLinkClick);
+    });
+  },
+
+  handleNavLinkClick: function(event){
+    event.preventDefault();
+    const _ = SL_nav;
+
+    const anchor = event.target;
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+    const offset = SL_nav.config.navHeight;
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - offset;
+
+    _.config.navLinks.forEach(navLink => {
+      navLink.classList.remove('active');
+    });
+    anchor.classList.add('active');
+
+    // const scrollDuration = 500; // Adjust the scroll duration in milliseconds (2000ms = 2 seconds)
+    // _.smoothScrollWithDuration(offsetPosition, scrollDuration);
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth' 
+    });
+  },
+  handleNavUpdate: function(){
+    const _ = this;
+    if(window.innerWidth < _.config.navMobBreakpoint)
+      return;
+
+    const navLinks = _.config.navLinks;
+    if(!navLinks)
+      return;
+
+    //only sections with ids
+    const sectionsWithIds = SL_sectionModule.config.visibleSections.filter(section => section.id);
+    sectionsWithIds.reverse().forEach(section => {
+      let match = _.config.navLinks.filter(link => { return link.getAttribute('href').substring(1) == section.id });
+
+      if(match && match.length == 1){
+        console.log(match);
+        _.config.navLinks.forEach(navLink => {
+          navLink.classList.remove('active');
+        });
+        match[0].classList.add('active');
+      }
+    });
+  },
+
+  //helpers
+  // getHighestElement: function(elements) {
+  //   let highestElement = null;
+  //   let minTop = window.innerHeight; // Start with the bottom of the viewport
+
+  //   elements.forEach(el => {
+  //       const rect = el.getBoundingClientRect();
+
+  //       // Check if the element is within the viewport and has the smallest 'top' value
+  //       if (rect.top >= 0 && rect.top < minTop) {
+  //           minTop = rect.top;
+  //           highestElement = el;
+  //       }
+  //   })
+  // },
+
+}
+
 SL_templates = {
   jobSlideTemplate: `
     <div class="job job__slide swiper-slide" data-img="{imageUrl}">

@@ -40,6 +40,12 @@ nav{
     height: calc(2 * ($nav-top-padding) + $nav-height);
     background-color: $color-theme-accent;
     overflow: visible;
+    display: none;
+
+    @include break-up('small'){
+        display: unset;
+    }
+
     &.sticky{
         position: fixed;
         top: 0;
