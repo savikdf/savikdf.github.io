@@ -16,3 +16,25 @@
   justify-content: center;
   align-items: center;
 }
+
+@mixin multi-text-shadow($n, $color) {
+  $shadows: ();
+  
+  @for $i from 1 through $n {
+    $shadow: #{$i}px #{$i}px 0px $color;
+    $shadows: append($shadows, $shadow, comma);
+  }
+  
+  text-shadow: $shadows;
+}
+
+@mixin multi-box-shadow($n, $color) {
+  $shadows: ();
+  
+  @for $i from 1 through $n {
+    $shadow: #{$i}px #{$i}px 0px $color;
+    $shadows: append($shadows, $shadow, comma);
+  }
+  
+  box-shadow: $shadows;
+}

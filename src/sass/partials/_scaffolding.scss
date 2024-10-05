@@ -59,7 +59,7 @@ body{
     overflow: hidden;
 
     &.nav-offset{
-      margin-top: calc(2 * ($nav-top-padding) + $nav-height);
+      margin-top: calc($nav-top-padding + $nav-height);
     }
   }
 
@@ -67,7 +67,7 @@ body{
     @include flex-center;
     position: sticky;
     width: 100%;
-    min-height: 300px;
+    min-height: 50vh;
     padding: 0px;
     position: relative;
     z-index: var(--layer-var);  

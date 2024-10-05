@@ -44,36 +44,46 @@ SL_sectionModule = {
   //handlers/callbacks
   onEnter: function(section) {
     const _ = SL_sectionModule;
-
-    //console.log("just entered: ", section);
+    //console.log("just entered: ", {"section":section, "bounding top:": section.getBoundingClientRect().top, "navHeight": SL_nav.config.navHeight });
+    
     if (!section.classList.contains(_.config.sectionInViewClass)) {
       section.classList.add(_.config.sectionInViewClass);
       section.dataset.visible = "";
       _.config.visibleSections.push(section);
+      _.sortVisibleSections();
     }
 
     SL_nav.handleNavUpdate();
   },
   onExit: function(section) {
     const _ = SL_sectionModule;
+    //console.log('just exited:', section);
 
-    //console.log("just exited: ", section);
     section.classList.remove(_.config.sectionInViewClass);
     delete section.dataset.visible;
     section.style.removeProperty(_.config.sectionScrollStyleKey);
     _.removeElementFromArray(_.config.visibleSections, section);
+    _.sortVisibleSections()
 
     SL_nav.handleNavUpdate();
+  },
+  sortVisibleSections: function(){
+    const _ = this;
+    if(_.config.visibleSections.length > 1){
+      _.config.visibleSections.sort((a, b) => {
+        return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+      });
+    }
   },
   generateObserver: function(){
     return new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Element has entered the viewport
-          SL_sectionModule.onEnter(entry.target);          
+          // Element has entered the viewport and is past the navbar
+          SL_sectionModule.onEnter(entry.target);
         } else {
-          // Element has exited the viewport
-          SL_sectionModule.onExit(entry.target);          
+          // Element has exited the viewport or is behind the navbar
+          SL_sectionModule.onExit(entry.target);
         }
       });
     });
@@ -112,22 +122,6 @@ SL_sectionModule = {
       // Set the scroll percent as a CSS variable for the sections styling purposes
       section.style.setProperty(config.sectionScrollStyleKey, roundedStyleValue);
     });
-  },
-  handleNavScroll: function(event){
-    _ = SL_sectionModule;
-    const nav = _.config.navBar;
-    const main = document.querySelector('main');
-    let stickyClass = "sticky";
-    let navOffsetClass = "nav-offset";
-
-    const isSticky = window.scrollY >= _.config.navOgTop; // nav.getBoundingClientRect().top <= 0;
-    if(isSticky){
-      nav.classList.add(stickyClass);
-      main.classList.add(navOffsetClass);
-    }else{
-      nav.classList.remove(stickyClass);
-      main.classList.remove(navOffsetClass);
-    }
   },
 
   //helpers
@@ -179,7 +173,7 @@ SL_eventsModule = {
   //handlers
   handleScroll: function(event){
     SL_sectionModule.handleSectionScroll(event);
-    SL_sectionModule.handleNavScroll(event);
+    SL_nav.handleNavScroll(event);
   },
   handleMouseMove: function(event) {
     const _ = SL_eventsModule;
@@ -587,7 +581,7 @@ SL_nav = {
   config: {
     navBar: null,
     navLinks: [],
-    navHeight: 70,//try match $nav-height scss var, right now nothing syncs these two
+    navHeight: 60, //try match $nav-height scss var, right now nothing syncs these two
     navMobBreakpoint: 600,
   },
 
@@ -596,7 +590,7 @@ SL_nav = {
 
     const navBar = document.querySelector('nav');
     _.config.navBar = navBar;
-
+    _.config.navHeight = navBar.getBoundingClientRect().height;
     navBar.querySelectorAll('a[href^="#"]').forEach(anchor => {
       _.config.navLinks.push(anchor);
     });
@@ -607,6 +601,7 @@ SL_nav = {
     });
   },
 
+  //event handlers
   handleNavLinkClick: function(event){
     event.preventDefault();
     const _ = SL_nav;
@@ -616,7 +611,7 @@ SL_nav = {
     const targetElement = document.querySelector(targetId);
     const offset = SL_nav.config.navHeight;
     const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - offset;
+    const offsetPosition = elementPosition + window.scrollY;// + offset;
 
     _.config.navLinks.forEach(navLink => {
       navLink.classList.remove('active');
@@ -631,6 +626,25 @@ SL_nav = {
         behavior: 'smooth' 
     });
   },
+  handleNavScroll: function(event){
+    //return; //remove this if you want some sticky action
+
+    _ = SL_sectionModule;
+    const nav = _.config.navBar;
+    const main = document.querySelector('main');
+    let stickyClass = "sticky";
+    let navOffsetClass = "nav-offset";
+
+    const isSticky = window.scrollY >= _.config.navOgTop; // nav.getBoundingClientRect().top <= 0;
+    if(isSticky){
+      nav.classList.add(stickyClass);
+      main.classList.add(navOffsetClass);
+    }else{
+      nav.classList.remove(stickyClass);
+      main.classList.remove(navOffsetClass);
+    }
+    //_.handleNavUpdate();
+  },
   handleNavUpdate: function(){
     const _ = this;
     if(window.innerWidth < _.config.navMobBreakpoint)
@@ -642,34 +656,29 @@ SL_nav = {
 
     //only sections with ids
     const sectionsWithIds = SL_sectionModule.config.visibleSections.filter(section => section.id);
-    sectionsWithIds.reverse().forEach(section => {
-      let match = _.config.navLinks.filter(link => { return link.getAttribute('href').substring(1) == section.id });
+    let foundMatch = false;
 
+    sectionsWithIds.forEach(section => {
+      if(foundMatch)
+        return;
+
+      //man, this nav shit sucks
+      //todo: fix this garbage
+      // let boundingRect = section.getBoundingClientRect();
+      // let scrolledPastNav = boundingRect.bottom < _.config.navHeight;
+      // if(section.id != "hero" && scrolledPastNav)
+      //   return;
+
+      let match = _.config.navLinks.filter(link => { return link.getAttribute('href').substring(1) == section.id });
       if(match && match.length == 1){
-        console.log(match);
         _.config.navLinks.forEach(navLink => {
           navLink.classList.remove('active');
         });
         match[0].classList.add('active');
+        foundMatch = true;
       }
     });
   },
-
-  //helpers
-  // getHighestElement: function(elements) {
-  //   let highestElement = null;
-  //   let minTop = window.innerHeight; // Start with the bottom of the viewport
-
-  //   elements.forEach(el => {
-  //       const rect = el.getBoundingClientRect();
-
-  //       // Check if the element is within the viewport and has the smallest 'top' value
-  //       if (rect.top >= 0 && rect.top < minTop) {
-  //           minTop = rect.top;
-  //           highestElement = el;
-  //       }
-  //   })
-  // },
 
 }
 

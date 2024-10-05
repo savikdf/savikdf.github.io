@@ -36,20 +36,32 @@ button:is(:active, :focus, :focus-visible, :hover),
 
 nav{
     @include flex-center;
+    position: relative;
     width: 100%;
-    height: calc(2 * ($nav-top-padding) + $nav-height);
+    height: calc($nav-top-padding + $nav-height);
     background-color: $color-theme-accent;
     overflow: visible;
     display: none;
 
+    &::before{
+        content: '';
+        display: block;
+        position: absolute;
+        inset: 0;
+        background-color: $color-theme-accent;
+        opacity: 0.9;
+        filter: blur(0px);
+    }
+
     @include break-up('small'){
         display: unset;
     }
-
+   
     &.sticky{
         position: fixed;
         top: 0;
         z-index: 1000;
+        background-color: transparent;
     }
 
     .container{
@@ -88,8 +100,10 @@ nav{
                 }
 
                 &.active{
-                    box-shadow: 10px 10px 0px $color-theme-accent-dark;
-                    transform: translate3d(-10px, -10px, 0px);
+                    @include multi-box-shadow(5, $color-theme-accent-dark);
+                    //box-shadow: 5px 5px 0px $color-theme-accent-dark;
+                    transform: translate3d(-5px, -5px, 0px);
+                    background-color: $color-theme-accent;
                 }
 
                 // &:focus{
