@@ -106,7 +106,7 @@ SL_sectionModule = {
       const topEdgePercentage = clampNumber(-100, 100, (boundingBox.top / window.innerHeight) * 100);
       //const topEdgePercentage = Math.max(0, boundingBox.top / window.innerHeight) * 100;
       //const bottomEdgePercentage = Math.min(100, (window.innerHeight - boundingBox.bottom / window.innerHeight) * 100);
-      section.style.setProperty("--top-edge", `${Math.round((topEdgePercentage + Number.EPSILON) * 100) / 100}vh`);
+      section.style.setProperty("--top-edge", `${Math.round((topEdgePercentage + Number.EPSILON) * 100) / 100}`);
       //section.style.setProperty("--bottom-edge", Math.round((bottomEdgePercentage + Number.EPSILON) * 100) / 100);
       return;
       // Set the percentage visible as the maximum between 0 and the calculated value

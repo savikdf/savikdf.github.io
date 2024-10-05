@@ -1,4 +1,4 @@
-#hero {  
+#hero {
   $edge-offset: var(--top-edge);
 
   position: relative;
@@ -7,37 +7,46 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-y: calc(-1 * var(--top-edge)/3);
+  background-position-y: calc(-1 * var(--top-edge) / 3);
   overflow: hidden;
-  @include break-up('small'){
-    height: calc(100vh - calc(2*$nav-top-padding + $nav-height));
-
+  @include break-up("small") {
+    height: calc(100vh - calc(2 * $nav-top-padding + $nav-height));
   }
 
-  // &::before{
-  //   content:'';
-  //   display: block;
-  //   position: absolute;
-  //   inset: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-image: url(/images/IMG_0135.PNG);
-  //   background-repeat: repeat;
-  //   // background: linear-gradient(0deg, transparent, $color-theme-dark);
-  //   //z-index: 1;
-  //   transform: translateY(calc($edge-offset * 2));
-  // }
-
-  // &::after{
-  //   content:'';
-  //   display: block;
-  //   position: absolute;
-  //   inset: 0;
-  //   background-image: url(/images/IMG_0134.PNG);
-  //   background-repeat: repeat;
-  //   // background: linear-gradient(0deg, $color-theme-accent, transparent);
-  //   //transform: translateY(calc($edge-offset * 1));
-  // }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 150%;
+    height: 150%;
+    background-image: url(/images/IMG_0135.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background: linear-gradient(0deg, transparent, $color-theme-dark);
+    //z-index: 1;
+    transform: translateY(calc($edge-offset * -1vh))
+      scale(calc(-1.3 - $edge-offset/300));
+    opacity: .9;
+    //scale(calc($edge-offset));
+  }
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 150%;
+    height: 150%;
+    background-image: url(/images/IMG_0134.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background: linear-gradient(0deg, transparent, $color-theme-dark);
+    //z-index: 1;
+    transform: translateY(calc($edge-offset * -1.2vh))
+      scale(calc(-1.3 - $edge-offset/500));
+    opacity: 0.3;
+    //scale(calc($edge-offset));
+  }
 
   .container {
     display: flex;
@@ -48,27 +57,25 @@
     position: relative;
   }
 
-  .hero{
-
-    &__image{
+  .hero {
+    &__image {
       display: none;
       position: absolute;
       width: auto;
       height: 60%;
-      bottom: calc(var(--top-edge)/3);
+      bottom: calc(var(--top-edge) / 3);
       left: $edge-offset;
 
-      @include break-up('small'){
+      @include break-up("small") {
         width: 40vw;
         height: auto;
       }
-      @include break-up('large'){
+      @include break-up("large") {
         width: 35vw;
       }
-
     }
 
-    &__title{
+    &__title {
       @include multi-text-shadow(10, $color-theme);
 
       font-family: dino;
@@ -78,15 +85,15 @@
       //text-shadow: 2px 2px 4px $color-theme;
       color: $color-theme-accent;
       $offset: -40px;
-      transform: translateY(calc(-1 * var(--top-edge)/1.5 + $offset));
-  
+      transform: translateY(calc(-1 * var(--top-edge) / 1.5 + $offset));
+
       @include break-up("small") {
-        transform: translateY(calc(-1 * var(--top-edge)/1.6 + $offset));
+        transform: translateY(calc(-1 * var(--top-edge) / 1.6 + $offset));
         font-size: 5.8rem;
       }
-  
+
       @include break-up("large") {
-        transform: translateY(calc(-1 * var(--top-edge)/1.55 + $offset));
+        transform: translateY(calc(-1 * var(--top-edge) / 1.55 + $offset));
         font-size: 10rem;
       }
     }
@@ -96,15 +103,14 @@
 #about {
   $offset: var(--top-edge);
 
-  .profile-pic{
+  .profile-pic {
     border: 5px solid $color-theme-accent;
     //transform: translateY(calc($offset / 5));
   }
 }
 
 #jobs {
-  .container {    
-
+  .container {
     // &::after {
     //   // line underneath section
     //   content: "";
@@ -117,26 +123,25 @@
     // }
   }
 
-  .job-swiper-container{
+  .job-swiper-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     //align-items: center;
 
-    @include break-up('small'){
+    @include break-up("small") {
       flex-wrap: nowrap;
     }
   }
 
   .job {
-
     &__swiper {
       overflow: hidden;
       grid-area: controller;
       width: 100%;
       max-height: 250px;
-      
-      @include break-up('small'){
+
+      @include break-up("small") {
         width: 33%;
       }
 
@@ -144,7 +149,7 @@
         grid-area: viewer;
         width: 100%;
 
-        @include break-up('small'){
+        @include break-up("small") {
           width: 67%;
         }
       }
@@ -195,10 +200,10 @@
           content: "\f061";
         }
 
-        @include break-up('small'){
+        @include break-up("small") {
           bottom: 10px;
           left: 10px;
-          right: auto!important;
+          right: auto !important;
 
           &::after {
             font: var(--fa-font-solid);
@@ -216,7 +221,7 @@
           content: "\f060";
         }
 
-        @include break-up('small'){
+        @include break-up("small") {
           top: 30px;
           box-shadow: 0 0 3px $color-page;
           &::after {
@@ -268,7 +273,7 @@
     border: 5px solid $color-theme;
     border-top: none;
 
-    @include break-up('small'){
+    @include break-up("small") {
       border-bottom: 5px solid $color-theme;
       border-left: 5px solid $color-theme;
       border-top: 5px solid $color-theme;
@@ -284,7 +289,6 @@
 
       @include break-up("small") {
         font-size: 2rem;
-  
       }
     }
 
@@ -299,7 +303,7 @@
       margin-bottom: 10px;
     }
 
-    &__accordion{
+    &__accordion {
       margin-top: 10px;
       margin-bottom: 10px;
     }
