@@ -38,3 +38,18 @@
   
   box-shadow: $shadows;
 }
+
+@mixin multi-dark-box-shadow($n, $color) {
+  $shadows: ();
+  $prevCol: $color;
+
+  @for $i from 1 through $n {
+    // Darken the color slightly with each iteration
+    $darkerColor: darken($prevCol, $i * 0.02%); // Adjust the percentage as needed
+    $prevCol: $darkerColor;
+    $shadow: #{$i}px #{$i}px 0px $darkerColor;
+    $shadows: append($shadows, $shadow, comma);
+  }
+
+  box-shadow: $shadows;
+}

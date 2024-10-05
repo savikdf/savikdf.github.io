@@ -3,7 +3,7 @@
 
   position: relative;
   height: 70vh;
-  //background: url(../../../images/temp01.png);
+  background: url(/images/temp01.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,10 +21,11 @@
   //   inset: 0;
   //   width: 100%;
   //   height: 100%;
-  //   background-color: $color-theme-accent;
+  //   background-image: url(/images/IMG_0135.PNG);
+  //   background-repeat: repeat;
   //   // background: linear-gradient(0deg, transparent, $color-theme-dark);
-  //   z-index: 1;
-  //   transform: translateY(calc(-100% - calc($edge-offset * 1.1)));
+  //   //z-index: 1;
+  //   transform: translateY(calc($edge-offset * 2));
   // }
 
   // &::after{
@@ -32,10 +33,10 @@
   //   display: block;
   //   position: absolute;
   //   inset: 0;
-  //   background-color: $color-theme-dark;
+  //   background-image: url(/images/IMG_0134.PNG);
+  //   background-repeat: repeat;
   //   // background: linear-gradient(0deg, $color-theme-accent, transparent);
-
-  //   transform: translateY(calc(100% + calc($edge-offset * 0.1)));
+  //   //transform: translateY(calc($edge-offset * 1));
   // }
 
   .container {
