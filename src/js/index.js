@@ -729,6 +729,59 @@ SL_templates = {
   `
 }
 
+SL_hero = {
+  config:{
+    animActive: true,
+  },
+  init: function(){
+    const _ = this;
+    _.breakUpHeroTitle();
+    
+  },
+  breakUpHeroTitle: function(){
+    const _ = this;
+    const title = document.querySelector(".hero__title");
+    const text = title.textContent;
+    title.innerHTML = ""; // Clear the current content
+
+    // Wrap each letter in a span and add to the title
+    text.split("").forEach((letter, index) => {
+      const span = document.createElement("span");
+      span.textContent = letter;
+      span.style.zIndex = index * 20;
+      span.style.setProperty("--animDelay", `${index * 20}ms`);
+
+      // Add event listeners for hover behavior
+      function AnimInteract(event){
+        if(_.config.animActive){
+          _.config.animActive = false;
+          return;
+        }
+
+        if (!span.classList.contains("active")) {
+          span.classList.add("active");
+        }
+      }
+      span.addEventListener("mouseenter", AnimInteract);
+      span.addEventListener("click", AnimInteract);
+      span.addEventListener("touchStart", AnimInteract);
+
+      // Remove 'active' class when the animation ends
+      span.addEventListener("animationend", () => {
+        span.classList.remove("active");
+        if(_.config.animActive){
+          setTimeout(() => {
+            span.classList.add("active");
+          }, 200);
+        }
+      });
+
+      span.classList.add('active');
+      title.appendChild(span);
+    });
+  },
+}
+
 MainModule = {
   config:{
     modules: [],

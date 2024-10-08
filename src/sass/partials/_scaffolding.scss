@@ -105,12 +105,11 @@ body{
   }
 
   footer{
-    //background: linear-gradient(0deg, $color-theme-accent,transparent);
-    background: pink;
+    background: $color-page-dark;
     color: white;
     text-align: center;
     padding-top: 40px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     font-weight: bold;
     margin-top: 100px;
 

@@ -1,4 +1,48 @@
 .anim {
+  &__hero-title{
+    animation: hero-title 1.2s ease-in-out forwards;
+    //animation-delay: var(--animDelay, 0ms); // Default to 0ms if not specified
+    $offset: -20px;
+
+    @keyframes hero-title {
+      0%, 100% {
+        //color: inherit;
+        transform: translateX(0px) translateY(0px);
+        animation-timing-function: ease-out;
+        text-shadow: 0 0 2px $color-page-dark;
+      }
+      50% {
+        //color: black;
+        transform: translateX($offset) translateY($offset);
+        //animation-timing-function: ease-in;
+        animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
+        @include multi-dark-text-shadow(20, $color-theme-light);
+      }
+     
+    }
+
+
+
+
+    // //text-shadow: none;
+    // //transform: translate3d(0,0,0);
+    // animation: hero-title 5500ms infinite; 
+    // //transition: transform 2s ease-in-out, text-shadow 500ms ease-in-out;
+
+    // @keyframes hero-title {
+    //   0%, 100%{
+    //     color: $color-page;
+    //     text-shadow: 0 0 2px $color-page-dark;
+    //     //transform: translateX(0px) translateY(0px)
+    //   }
+    //   50% {
+    //     color: $color-theme-accent;
+    //     @include multi-dark-text-shadow(20, $color-page);
+    //     //transform: translateX(-20px) translateY(-20px)
+    //   }
+    // }
+  }
+
   &__in-and-up {
     opacity: 0;
     transform: translateY(50px);
@@ -68,4 +112,24 @@
       }
     }
   }
+
+  // &__popper{
+  //   animation-iteration-count: 1;
+
+  //   &:hover {
+  //     animation: pop 2s forwards;
+  //   }
+    
+  //   @keyframes pop {
+  //     0%, 100% {
+  //       color: white;
+  //       transform: scale(1), translateX(0px);
+  //     }
+  //     50% {
+  //       color: black;
+  //       transform: scale(1.2), translateX(50px);
+  //     }
+  //   }
+  // }
+
 }

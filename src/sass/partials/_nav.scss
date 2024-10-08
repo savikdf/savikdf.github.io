@@ -93,7 +93,7 @@ nav{
                 padding-right: 10px;
                 border-radius: 5px;
                 border: 1px solid $color-theme-accent-dark;
-                transition: $anim-speed ease-in-out;
+                transition: box-shadow 400ms ease-in-out, transform 500ms ease-in-out;
 
                 &:is(:hover, :focus){
                     //outline-color: $color-theme-dark!important;
@@ -107,6 +107,11 @@ nav{
                     background-color: $color-theme-accent;
                     color: white;
                     text-shadow: 0 0 2px white;
+                }
+
+                &:focus{
+                    outline: 2px dashed $color-theme-dark;
+                    outline-offset: -3px;
                 }
 
                 // &:focus{
