@@ -749,7 +749,7 @@ SL_hero = {
       const span = document.createElement("span");
       span.textContent = letter;
       span.style.zIndex = index * 20;
-      span.style.setProperty("--animDelay", `${index * 20}ms`);
+      //span.style.setProperty("--animDelay", `${index * 20}ms`);
 
       // Add event listeners for hover behavior
       function AnimInteract(event){
@@ -776,8 +776,10 @@ SL_hero = {
         }
       });
 
-      span.classList.add('active');
       title.appendChild(span);
+      setTimeout(() => {
+        span.classList.add('active');
+      }, index * 100);
     });
   },
 }

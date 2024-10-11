@@ -1,8 +1,7 @@
 .anim {
   &__hero-title{
-    animation: hero-title 1.2s ease-in-out forwards;
+    animation: hero-title 1.5s ease-in-out forwards;
     //animation-delay: var(--animDelay, 0ms); // Default to 0ms if not specified
-    $offset: -20px;
 
     @keyframes hero-title {
       0%, 100% {
@@ -13,7 +12,7 @@
       }
       50% {
         //color: black;
-        transform: translateX($offset) translateY($offset);
+        transform: translateX(-20px) translateY(-20px);
         //animation-timing-function: ease-in;
         animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
         @include multi-dark-text-shadow(20, $color-theme-light);
