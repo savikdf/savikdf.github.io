@@ -59,7 +59,11 @@ body{
     overflow: hidden;
 
     &.nav-offset{
-      margin-top: calc($nav-top-padding + $nav-height);
+      margin-top: 0;
+
+      @include break-up('small'){
+        margin-top: calc($nav-top-padding + $nav-height);
+      }
     }
   }
 

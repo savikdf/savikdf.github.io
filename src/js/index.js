@@ -627,9 +627,11 @@ SL_nav = {
     });
   },
   handleNavScroll: function(event){
-    //return; //remove this if you want some sticky action
-
     _ = SL_sectionModule;
+    
+    if(window.innerWidth < _.config.navMobBreakpoint)
+      return;
+
     const nav = _.config.navBar;
     const main = document.querySelector('main');
     let stickyClass = "sticky";
@@ -735,10 +737,9 @@ SL_hero = {
   },
   init: function(){
     const _ = this;
-    _.breakUpHeroTitle();
-    
+    _.animateTitle();
   },
-  breakUpHeroTitle: function(){
+  animateTitle: function(){
     const _ = this;
     const title = document.querySelector(".hero__title");
     const text = title.textContent;
