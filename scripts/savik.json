@@ -79,6 +79,14 @@
           "Collaborated with cross-platform teams to provide feedback on product features in response to content updates."
         ]
       }
+    ],
+    "projects":[
+      {
+        "Name":"example name",
+        "Date":"2024-9-01",
+        "Description":"example description",
+        "Tags":["Tag1", "Tag2"]
+      }
     ]
   }
   

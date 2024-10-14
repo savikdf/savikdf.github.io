@@ -75,6 +75,7 @@ body{
     padding: 0px;
     position: relative;
     z-index: var(--layer-var);  
+    background-color: $color-page;
 
     &.section--dark{
       background-color: $color-theme-dark; 

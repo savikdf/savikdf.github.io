@@ -78,6 +78,7 @@
     }
 
     &__title {
+      position: fixed;
       //@include multi-dark-text-shadow(20, $color-theme-light);
       text-shadow: 0 0 2px $color-page-dark;
       //transform: translateX(20px) translateY(20px);
@@ -103,9 +104,10 @@
         font-size: inherit;
         font-family: inherit;
 
-        &.active {
-          @extend .anim__hero-title;
-        }
+        @extend .anim__hero-title--3;
+        // &.active {
+        //   //@extend .anim__hero-title--3;
+        // }
       }
       
       // &::before{
@@ -130,6 +132,7 @@
 
   .profile-pic {
     border: 5px solid $color-theme-accent;
+    //@include multi-dark-box-shadow(20, $color-theme-accent-dark);
     //transform: translateY(calc($offset / 5));
   }
 }
@@ -354,5 +357,6 @@
 }
 
 #projects {
-  display: none;
+
+
 }

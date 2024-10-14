@@ -152,6 +152,7 @@ SL_eventsModule = {
     timer_noMouseMovement: 0.00,
     timer_noMouseMovementStart: null,
     timer_noMouseMovementDelta: null,
+    mouseListeners: [],
   },  
 
   init: function(){
@@ -167,9 +168,32 @@ SL_eventsModule = {
     document.addEventListener('touchstart', SL_siteDataModule.handleTouchEvent);
     document.addEventListener('touchmove', SL_siteDataModule.handleTouchEvent);
     document.addEventListener('touchend', SL_siteDataModule.handleTouchEvent);
-  
-  },
 
+    _.initConfigListeners();
+  },
+  initConfigListeners: function(scope = null){
+    const _ = this;
+
+    scope = scope??document;
+    // console.log('initializing on scope: ', scope);  
+
+    mouseListeners = [...scope.querySelectorAll('[data-supply-mouse]')]
+    // console.log('found mouse listeners: ', mouseListeners);
+
+    if(mouseListeners && mouseListeners.length > 0){
+      freshMouseListeners = mouseListeners.filter(listener => {
+        return !listener.getAttribute('data-supplied')
+      });
+      // console.log('found mouse listeners: ', freshMouseListeners);
+
+      freshMouseListeners.forEach(freshListener => {
+        _.config.mouseListeners.push(freshListener);
+        freshListener.setAttribute('data-supplied','');
+      });
+      
+      _.updateConfigListeners();
+    }
+  },
   //handlers
   handleScroll: function(event){
     SL_sectionModule.handleSectionScroll(event);
@@ -203,7 +227,7 @@ SL_eventsModule = {
     //saving percent vars into config
     _.config.mouseXPercent = Math.round(((event.pageX / (window.innerWidth + _.config.scrollbarLenience)) + Number.EPSILON) * 100) / 100;
     _.config.mouseYPercent = Math.round(((event.pageY / window.innerHeight) + Number.EPSILON) * 100) / 100;
-
+    _.updateConfigListeners();
     //debug ui
     document.getElementById('debug-mousePercent').textContent = `{X:${_.config.mouseXPercent}, Y:${_.config.mouseYPercent}}`;
   },
@@ -222,7 +246,6 @@ SL_eventsModule = {
     document.getElementById("debug-mouseOn").textContent = _.config.isMouseOnPage;
   },
   handleMouseLeave: function(event){
-    console.log("out")
     const _ = SL_eventsModule;
     _.config.isMouseOnPage = false;
     document.getElementById("debug-mouseOn").textContent = _.config.isMouseOnPage;
@@ -233,13 +256,25 @@ SL_eventsModule = {
   },
   doTimer: function(){
     const _ = SL_eventsModule;
-    //console.log("doing timer")
     _.config.timer_noMouseMovementDelta = Date.now() - _.config.timer_noMouseMovementStart; // milliseconds elapsed since start
     _.config.timer_noMouseMovement = Math.floor(_.config.timer_noMouseMovementDelta / 1000); // in seconds
     document.getElementById('debug-mouseInactiveTimer').textContent = _.config.timer_noMouseMovement;
   },
 
   //helpers
+  updateConfigListeners: function(){
+    const _ = this;
+    _.config.mouseListeners.forEach(listener => {
+      if(listener.hasAttribute('data-supply-style-mouse')){
+        listener.style.setProperty('--mouse-x', _.config.mouseXPercent);
+        listener.style.setProperty('--mouse-y', _.config.mouseYPercent);
+      }else{
+        listener.setAttribute('data-mouse-x-val', _.config.mouseXPercent);
+        listener.setAttribute('data-mouse-y-val', _.config.mouseYPercent);
+      }
+    })
+
+  },
   smoothScrollWithDuration: function(targetPosition, duration) {
     const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
@@ -502,7 +537,7 @@ SL_accordions = {
       scope = document.body;
     }
 
-    console.log("init accordions in this section:", scope);
+    // console.log("init accordions in this section:", scope);
 
     const accordions = scope.querySelectorAll(_.config.accordionContainerSelector);
     accordions.forEach(accordion => {
@@ -512,7 +547,7 @@ SL_accordions = {
       //setup: id="accordion-panel-1" aria-labelledby="accordion-header-1"
 
       if(button == undefined || panel == undefined){
-        console.log("Accordion initialization failed for: ", {accordion, button, panel});
+        // console.log("Accordion initialization failed for: ", {accordion, button, panel});
         return;
       }
 
@@ -750,6 +785,10 @@ SL_hero = {
       const span = document.createElement("span");
       span.textContent = letter;
       span.style.zIndex = index * 20;
+      span.setAttribute('data-content', letter); //for css pseudo animations to use
+      span.setAttribute('data-supply-mouse', ''); //for temp
+      span.setAttribute('data-supply-style-mouse', ''); //for css pseudo animations to use
+
       //span.style.setProperty("--animDelay", `${index * 20}ms`);
 
       // Add event listeners for hover behavior
@@ -782,6 +821,8 @@ SL_hero = {
         span.classList.add('active');
       }, index * 100);
     });
+    SL_eventsModule.initConfigListeners(title);
+
   },
 }
 
