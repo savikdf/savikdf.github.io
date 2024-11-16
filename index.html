@@ -21,16 +21,20 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     -->
 
-    <!-- Custom CSS -->
+    <!--Site Styles-->
     <link rel="stylesheet" href="/src/dist/main.css">
 
-    <!--SWIPER-->
+    <!--Swiper-->
     <script src="/src/dist/vendor/swiper/swiper.js"></script>
     <link href="/src/dist/vendor/swiper/swiper.css" rel="stylesheet">
 
-    <!--FA-->
+    <!--FontAwesome-->
     <script src="/src/dist/vendor/font-awesome/js/all.min.js"></script>
     <link href="/src/dist/vendor/font-awesome/css/all.min.css" rel="stylesheet">
+
+    <!--ViewerJS-->
+    <script src="/src/dist/vendor/viewer/viewer.js"></script>
+    <link href="/src/dist/vendor/viewer/viewer.css" rel="stylesheet">
 </head>
 
 <body>
@@ -39,8 +43,8 @@
         <a tabindex="0" class="skip-nav" href="#footer">Skip To Footer</a>
         <section id="hero" style="--top-edge: 0vh;">
             <div class="container">
-                <img class="hero__image" src="./images/landing-background-savik.webp"/ loading="lazy">
-                <h1 class="hero__title" data-supply-mouse>SAVIKLAND</h1>
+                <!-- <img class="hero__image" src="./images/landing-background-savik.webp"/ loading="lazy"> -->
+                <h1 class="hero__title" data-supply-mouse data-supply-style-mouse>SAVIKLAND</h1>
             </div>
         </section>
     </header>
@@ -60,6 +64,7 @@
                     <li><a class="active siteName" href="#hero">SavikLand</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#comics">Comics</a></li>
                     <li><a href="#jobs">History</a></li>
                 </ol>
             </div>
@@ -73,7 +78,6 @@
                 <div class="two-col">
                     <div class="col">
                         <p>
-                             <!-- <a id="easter-egg__onepiece" href="https://www.google.com/search?q=onepiece" target="_blank">D</a>  -->
                             Welcome to SavikLand! I'm your host, Savik-- a software engineer with a love for creating all kinds of software, from video games to business applications. I enjoy solving problems and making technology work better for everyone.
                         </p>
                         <ul class="badge-list">
@@ -99,6 +103,28 @@
                     <div class="card"></div>
                     <div class="card"></div>
                     <!-- js inserts here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="comics">
+            <div class="container">
+                <h2>Comics</h2>
+                <div class="comic" data-comic data-accordion>
+                    <h3 data-accordion-button>Chapter 1</h3>
+                    <ul data-accordion-panel>
+                        <li><img src="/images/cowboy.PNG"></li>
+                        <li><img src="/images/cowboy.PNG"></li>
+                        <li><img src="/images/cowboy.PNG"></li>
+                    </ul>
+                </div>
+                <div class="comic" data-comic data-accordion>
+                    <h3 data-accordion-button>Chapter 2</h3>
+                    <ul data-accordion-panel>
+                        <li><img src="/images/cowboy.PNG"></li>
+                        <li><img src="/images/cowboy.PNG"></li>
+                        <li><img src="/images/cowboy.PNG"></li>
+                    </ul>
                 </div>
             </div>
         </section>

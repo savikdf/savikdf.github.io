@@ -417,6 +417,7 @@ SL_siteDataModule = {
         SL_accordions.initAccordions(SL_sectionModule.config.jobSection);
       });
 
+    _.initViewerImages();
   },
   memoizeJson: async function(){
     const _ = this;
@@ -452,6 +453,30 @@ SL_siteDataModule = {
 
     let insertDiv = document.querySelector(insertElementSelector);
     insertDiv.innerHTML = slides.join('');  
+  },
+  initViewerImages: function(){
+    const _ = this;
+    //gallery images found using element.querySelectorAll('img')
+    const comics = [...document.querySelectorAll('[data-comic]')]
+    if(!comics || comics.length == 0)
+      return;
+
+    comics.forEach((comic, chapterIndex) => {
+      comic.setAttribute('id',`chapter_${chapterIndex+1}`)
+      let images = [...comic.querySelectorAll('img')]
+      images.forEach((image, pageIndex) => {
+        //set alt text on comic pages
+        image.setAttribute('alt', `chapter ${chapterIndex + 1}, page ${pageIndex + 1}`)
+      });
+
+      //create viewer
+      const comicGallery = new Viewer(comic);
+    });
+
+    const gallery = new Viewer(document.getElementById('chapter-1'));
+
+
+
   },
 
   //handlers
@@ -778,49 +803,50 @@ SL_hero = {
     const _ = this;
     const title = document.querySelector(".hero__title");
     const text = title.textContent;
-    title.innerHTML = ""; // Clear the current content
+    title.setAttribute('data-content', text);
+    // title.innerHTML = ""; // Clear the current content
 
-    // Wrap each letter in a span and add to the title
-    text.split("").forEach((letter, index) => {
-      const span = document.createElement("span");
-      span.textContent = letter;
-      span.style.zIndex = index * 20;
-      span.setAttribute('data-content', letter); //for css pseudo animations to use
-      span.setAttribute('data-supply-mouse', ''); //for temp
-      span.setAttribute('data-supply-style-mouse', ''); //for css pseudo animations to use
+    // // Wrap each letter in a span and add to the title
+    // text.split("").forEach((letter, index) => {
+    //   const span = document.createElement("span");
+    //   span.textContent = letter;
+    //   span.style.zIndex = index * 20;
+    //   span.setAttribute('data-content', letter); //for css pseudo animations to use
+    //   span.setAttribute('data-supply-mouse', ''); //for temp
+    //   span.setAttribute('data-supply-style-mouse', ''); //for css pseudo animations to use
 
-      //span.style.setProperty("--animDelay", `${index * 20}ms`);
+    //   //span.style.setProperty("--animDelay", `${index * 20}ms`);
 
-      // Add event listeners for hover behavior
-      function AnimInteract(event){
-        if(_.config.animActive){
-          _.config.animActive = false;
-          return;
-        }
+    //   // Add event listeners for hover behavior
+    //   function AnimInteract(event){
+    //     if(_.config.animActive){
+    //       _.config.animActive = false;
+    //       return;
+    //     }
 
-        if (!span.classList.contains("active")) {
-          span.classList.add("active");
-        }
-      }
-      span.addEventListener("mouseenter", AnimInteract);
-      span.addEventListener("click", AnimInteract);
-      span.addEventListener("touchStart", AnimInteract);
+    //     if (!span.classList.contains("active")) {
+    //       span.classList.add("active");
+    //     }
+    //   }
+    //   span.addEventListener("mouseenter", AnimInteract);
+    //   span.addEventListener("click", AnimInteract);
+    //   span.addEventListener("touchStart", AnimInteract);
 
-      // Remove 'active' class when the animation ends
-      span.addEventListener("animationend", () => {
-        span.classList.remove("active");
-        if(_.config.animActive){
-          setTimeout(() => {
-            span.classList.add("active");
-          }, 200);
-        }
-      });
+    //   // Remove 'active' class when the animation ends
+    //   span.addEventListener("animationend", () => {
+    //     span.classList.remove("active");
+    //     if(_.config.animActive){
+    //       setTimeout(() => {
+    //         span.classList.add("active");
+    //       }, 200);
+    //     }
+    //   });
 
-      title.appendChild(span);
-      setTimeout(() => {
-        span.classList.add('active');
-      }, index * 100);
-    });
+    //   title.appendChild(span);
+    //   setTimeout(() => {
+    //     span.classList.add('active');
+    //   }, index * 100);
+    // });
     SL_eventsModule.initConfigListeners(title);
 
   },

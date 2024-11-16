@@ -90,10 +90,35 @@
     $mouse-y: calc(var(--mouse-y) * 100%);
     $x-offset: 0dvw;
     $y-offset: 10dvh;
-
+    $follow-speed: 15%;
     //animation: hero-title-3 1.5s ease-in-out forwards;
     //opacity: $mouse-x!important;
-    transform: translateX(calc($mouse-x-raw * 10dvw - 50% + $x-offset)) translateY(calc($mouse-y-raw * 20dvh - 50% + $y-offset));
+    // $x-trans: calc((var(--mouse-x) - 0.5) * $follow-speed);
+    // $y-trans: calc((var(--mouse-y) - 0.5) * 50%);
+    // transform: translateX($x-trans) translateY($y-trans);
+    // background-position-x: calc(50% + $x-trans);
+    // background-position-y: calc(50% + $y-trans);
+    // background-repeat: no-repeat;
+
+    // background-image: url('/images/temp01.png');
+    // background-size: 200%;
+    //background-position: center;
+    // background-clip: text;
+    // -webkit-background-clip: text;
+    // color: transparent; // Make the text transparent
+    // -webkit-text-fill-color: transparent; // Required for WebKit browsers
+
+    &::before {
+      content: attr(data-content); // Use the same text as the element
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      color: black; // Set the shadow color
+      filter: blur(5px); // Adjust the blur for soft edges
+      opacity: 0.5; // Adjust the shadow opacity
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3); // Set the actual shadow
+    }
 
     // &::before{
     //   content: attr(data-content);
@@ -105,32 +130,32 @@
     //   z-index: -1;
     // }
 
-    @keyframes hero-title-3 {
-      0%, 100% {
-        transform: translateX(0px) translateY(0px);
-        animation-timing-function: ease-out;
-      }
-      50% {
-        transform: translateX(-20px) translateY(-20px);
-        animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
-      }
-    }
+    // @keyframes hero-title-3 {
+    //   0%, 100% {
+    //     transform: translateX(0px) translateY(0px);
+    //     animation-timing-function: ease-out;
+    //   }
+    //   50% {
+    //     transform: translateX(-20px) translateY(-20px);
+    //     animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
+    //   }
+    // }
 
-    @keyframes hero-title-3-before {
-      0%, 100% {
-        opacity: 0.9;
-        color: black;
-        filter: blur(0px);
-        animation-timing-function: ease-out;
-      }
-      50% {
-        opacity: .2;
-        transform: translateX(20px) translateY(20px);
-        animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
-        color: rgba(0,0,0, 0.6);
-        filter: blur(5px);
-      }
-    }
+    // @keyframes hero-title-3-before {
+    //   0%, 100% {
+    //     opacity: 0.9;
+    //     color: black;
+    //     filter: blur(0px);
+    //     animation-timing-function: ease-out;
+    //   }
+    //   50% {
+    //     opacity: .2;
+    //     transform: translateX(20px) translateY(20px);
+    //     animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
+    //     color: rgba(0,0,0, 0.6);
+    //     filter: blur(5px);
+    //   }
+    // }
   }
 
   &__in-and-up {
