@@ -316,15 +316,62 @@
       }
     }
 
+    &__skills{
+      ul{
+        background-color: green;
+
+        li{
+          background-color: lightgreen;
+        }
+      }
+    }
+
     &__location {
       display: inline-block;
       margin-bottom: 10px;
       margin-right: 5px;
+
+      &::after{
+        display: block;
+        position: absolute;
+        content: 'Where';
+        font-size: 1.2rem;
+        color: transparent;
+        margin-left: 10px;
+        font-style: bold;
+        transform: translateY(-45px) rotateX(90deg);
+        transition: transform 250ms ease-in-out, color 250ms ease-in-out;
+      }
+      &:hover{
+        &::after{
+          color: $color-page-dark;
+          transform: translateY(-52px) rotateX(0deg);
+        }
+      }
     }
 
     &__dates {
       display: inline-block;
       margin-bottom: 10px;
+
+      &::after{
+        display: block;
+        position: absolute;
+        content: 'When';
+        font-size: 1.2rem;
+        color: transparent;
+        margin-left: 10px;
+        font-style: bold;
+        transform: translateY(-45px) rotateX(90deg);
+        transition: transform 250ms ease-in-out, color 250ms ease-in-out;
+      }
+      &:hover{
+        &::after{
+          color: $color-page-dark;
+          transform: translateY(-52px) rotateX(0deg);
+        }
+      }
+    
     }
 
     &__accordion {

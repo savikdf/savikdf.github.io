@@ -11,8 +11,8 @@
         "location": "Honolulu, Hawaii",
         "startDate": "2024-9-01",
         "endDate": "PRESENT",
-        "linkedSkills":[
-          "go", "dotnet"
+        "skills":[
+          "Golang", "Dotnet"
         ],
         "responsibilities": [
           "TBD"

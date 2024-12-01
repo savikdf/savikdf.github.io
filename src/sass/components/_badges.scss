@@ -1,24 +1,33 @@
 .badge-list{
-    margin: 10px auto;
     list-style: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 10px;
-    padding: 0 5px;
     width: 100%;
+
+    &--dark{
+        .badge{
+            color: white;
+            background-color: $color-theme-dark;
+            border: 1px solid $color-theme-light;
+            @include multi-dark-box-shadow(5, $color-theme-light);
+        }
+    }
 }
 
 .badge{
+    margin-top: 10px;
     width: max-content;
     padding: $badge-padding;
-    //border: 2px solid $color-theme;
     border-radius: 20px;
-    background-color: $color-theme-light-accent;
+    background-color: $color-page;
     white-space: nowrap;
     color: $color-theme-dark;
-    box-shadow: -3px 3px 0px $color-theme;
+    border: 1px solid $color-page-dark;
+    box-shadow: -3px 3px 0px $color-page-dark;
+    @include multi-dark-box-shadow(5, $color-page-dark);
 
     *{
         display: inline-block;
@@ -26,8 +35,5 @@
 
     &--accent{
         @extend .badge;
-        // background-color: $color-theme-accent;
-        // color: white;
-        // box-shadow: -3px 3px 0px $color-theme-accent-dark;
     }
 }

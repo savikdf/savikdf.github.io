@@ -415,6 +415,14 @@ SL_siteDataModule = {
         //create swipers
         _.initJobSwipers();
         SL_accordions.initAccordions(SL_sectionModule.config.jobSection);
+
+        //skill badges
+        let allSkillLists = document.querySelector(_.config.jobDescContainerSelector).querySelectorAll('.jobDesc__badges');
+        allSkillLists.forEach((skillList, index) => {
+          _.initSkillBadges(skillList, _.config.jsonData.jobs[index].skills)
+        });
+        //end skill badges
+
       });
 
     _.initViewerImages();
@@ -477,6 +485,13 @@ SL_siteDataModule = {
 
 
 
+  },
+  initSkillBadges: function(listElement, skillsArray){
+    if(!skillsArray)
+      return;
+    skillsArray.forEach(skill => {
+      listElement.innerHTML += `<li class="badge">${skill}</li>`;
+    })
   },
 
   //handlers
@@ -755,25 +770,25 @@ SL_templates = {
   jobDescSlideTemplate:`
     <div class="jobDesc swiper-slide">
       <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
-
-      <div data-skills class="jobDesc__skills">
-        <!--js inserts here-->
-      </div>
-
+      
       <div class="jobDesc__location badge swiper-no-swiping">
         <i class="fa-solid fa-location-dot"></i>  
         <p>{location}</p>
       </div>
-      
+
       <div class="jobDesc__dates badge swiper-no-swiping">
         <i class="fa-solid fa-calendar-days"></i>
         <div>
-          <p>{startDate}</p> 
+          <p class="jobDesc__dates--start">{startDate}</p> 
           <i class="fa-solid fa-arrow-right-long"></i>
           <p>{endDate}</p>
         </div>
       </div>
-      
+
+      <ul class="jobDesc__badges badge-list badge-list--dark swiper-no-swiping">
+        <!--js inserts here-->
+      </ul>
+
       <div data-accordion class="jobDesc__accordion">
         <h4 data-accordion-button>Responsibilities</h4>
         <div data-accordion-panel>
@@ -784,7 +799,7 @@ SL_templates = {
       </div>
      
     </div>`,
-  skillBadgeTemplate:`
+  jobSkillBadgeTemplate:`
     <div>
       <p>{text}</p>
     </div>
