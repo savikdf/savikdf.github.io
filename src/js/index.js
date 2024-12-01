@@ -656,8 +656,9 @@ SL_nav = {
   config: {
     navBar: null,
     navLinks: [],
-    navHeight: 60, //try match $nav-height scss var, right now nothing syncs these two
+    navHeight: 70, //try match $nav-height scss var, right now nothing syncs these two
     navMobBreakpoint: 600,
+    doUpdate: true,
   },
 
   init: function(){
@@ -686,7 +687,7 @@ SL_nav = {
     const targetElement = document.querySelector(targetId);
     const offset = SL_nav.config.navHeight;
     const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY;// + offset;
+    const offsetPosition = elementPosition + window.scrollY + (-1 * offset) + 1;
 
     _.config.navLinks.forEach(navLink => {
       navLink.classList.remove('active');
@@ -700,6 +701,10 @@ SL_nav = {
         top: offsetPosition,
         behavior: 'smooth' 
     });
+    SL_nav.config.doUpdate = false;
+    setTimeout(() => {
+      SL_nav.config.doUpdate = true;
+    }, 400);
   },
   handleNavScroll: function(event){
     _ = SL_sectionModule;
@@ -720,11 +725,12 @@ SL_nav = {
       nav.classList.remove(stickyClass);
       main.classList.remove(navOffsetClass);
     }
-    //_.handleNavUpdate();
+    if(SL_nav.config.doUpdate)
+      SL_nav.handleNavUpdate();
   },
   handleNavUpdate: function(){
     const _ = this;
-    if(window.innerWidth < _.config.navMobBreakpoint)
+    if(!_.config.doUpdate || window.innerWidth < _.config.navMobBreakpoint)
       return;
 
     const navLinks = _.config.navLinks;
@@ -734,17 +740,17 @@ SL_nav = {
     //only sections with ids
     const sectionsWithIds = SL_sectionModule.config.visibleSections.filter(section => section.id);
     let foundMatch = false;
+    if(!sectionsWithIds)
+      return;
 
     sectionsWithIds.forEach(section => {
       if(foundMatch)
         return;
 
-      //man, this nav shit sucks
-      //todo: fix this garbage
-      // let boundingRect = section.getBoundingClientRect();
-      // let scrolledPastNav = boundingRect.bottom < _.config.navHeight;
-      // if(section.id != "hero" && scrolledPastNav)
-      //   return;
+      let boundingRect = section.getBoundingClientRect();
+      let visiblePastNav = section.id == "hero" ? true : boundingRect.bottom > _.config.navHeight;
+      if(!visiblePastNav)
+        return;
 
       let match = _.config.navLinks.filter(link => { return link.getAttribute('href').substring(1) == section.id });
       if(match && match.length == 1){

@@ -2,14 +2,14 @@
   $edge-offset: var(--top-edge);
 
   position: relative;
-  height: 70vh;
-  background: url(/images/temp01.png);
-  background-color: $color-theme;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 150%;
-  background-position-y: calc(-1 * var(--top-edge) / 3);
+  height: max(400px, 60vh);
   overflow: hidden;
+  // background: url(/images/temp01.png);
+  // background-color: $color-theme;
+  // background-repeat: no-repeat;
+  // background-position: center;
+  // background-size: 150%;
+  // background-position-y: calc(-1 * var(--top-edge) / 3);
 
   @include break-up("small") {
     //height: calc(100vh - calc(2 * $nav-top-padding + $nav-height));
@@ -79,7 +79,10 @@
     }
 
     &__title {
-      @extend .anim__hero-title--3;
+      // @extend .anim__hero-title--3;
+      @include multi-dark-text-shadow(20, $color-theme-accent);
+      letter-spacing: 0.8rem;
+      color: $color-page;
       position: fixed;
       font-family: dino;
       font-size: 2.9rem;
@@ -95,30 +98,12 @@
         font-size: 10rem;
       }
 
-      span{
-        display: inline-block;
-        font-size: inherit;
-        font-family: inherit;
-
-        // @extend .anim__hero-title--3;
-        // &.active {
-        //   //@extend .anim__hero-title--3;
-        // }
-      }
-      
-      // &::before{
-      //   content:'SavikLand';
-      //   display: block;
-      //   position: absolute;
-      //   inset: 0;
-      //   color: black;
-      //   transform: translate3d(20px,calc(20px + 5rem), 0);// scaleY(-1);
-      //   text-shadow: none;
-      //   //color: $color-theme-accent-dark;
-      //   color: black;
-      //   //filter: blur(15px)
-      //   //z-index: -1;
+      // span{
+      //   display: inline-block;
+      //   font-size: inherit;
+      //   font-family: inherit;
       // }
+      
     }
   }
 }
@@ -128,7 +113,7 @@
 
   .profile-pic {
     border: 5px solid $color-theme-accent;
-    //@include multi-dark-box-shadow(20, $color-theme-accent-dark);
+    // @include multi-dark-box-shadow(10, $color-theme-accent);
     //transform: translateY(calc($offset / 5));
   }
 }
