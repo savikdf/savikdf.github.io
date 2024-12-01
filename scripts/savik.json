@@ -12,7 +12,7 @@
         "startDate": "2024-9-01",
         "endDate": "PRESENT",
         "skills":[
-          "Golang", "Dotnet"
+          "Golang", ".NET"
         ],
         "responsibilities": [
           "TBD"
@@ -27,6 +27,9 @@
         "location": "Honolulu, Hawaii",
         "startDate": "2020-8-01",
         "endDate": "2024-8-01",
+        "skills":[
+          "Fullstack .NET", "UI/UX"
+        ],
         "responsibilities": [
           "Designed, developed, and maintained content for the company's main website utilizing Episerver CMS and the .NET Framework, enhancing site functionality and user experience.",
           "Established and enforced development and architecture standards for back-end unit testing with the Microsoft Fakes Framework, significantly improving code quality and reliability for .NET applications",
@@ -42,6 +45,9 @@
         "location": "Honolulu, Hawaii",
         "startDate": "2018-4-01",
         "endDate": "2022-7-01",
+        "skills":[
+          "Fullstack .NET", "SQL"
+        ],
         "responsibilities": [
           "Led agile development teams on multiple projects creating Full Stack .NET Web Applications, RESTful Web APIs, and SSIS Packages while practicing Test Driven Development.",
           "Developed solutions for Federal Compliance by creating a .NET MVC Web App with an internal Admin Portal, Reporting Feature, and Backend Automation using .NET Framework.",
@@ -59,6 +65,9 @@
         "location": "Minneapolis, Minnesota",
         "startDate": "2016-12-01",
         "endDate": "2017-9-01",
+        "skills":[
+          ".NET", "SQL"
+        ],
         "responsibilities": [
           "Performed Full Stack .NET duties on an agile team to maintain and upgrade existing MVC Web Applications and implement new clients on templated Web Applications.",
           "Developed internal C# pension calculator libraries using the .NET Framework on multiple client integrations.",
@@ -74,6 +83,9 @@
         "location": "Minneapolis, Minnesota",
         "startDate": "2016-5-01",
         "endDate": "2016-8-01",
+        "skills":[
+          "Gaming", "QA"
+        ],
         "responsibilities": [
           "Tested pre-release video games and verified functionality, data content, performance, 1st Party (Sony, Microsoft, Nintendo) compliance, usability/playability, and hardware/software compatibility.",
           "Collaborated with cross-platform teams to provide feedback on product features in response to content updates."
