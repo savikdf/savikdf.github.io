@@ -9,31 +9,31 @@
 
     &--dark{
         .badge{
-            color: white;
-            background-color: $color-theme-dark;
-            border: 1px solid $color-theme-light;
-            @include multi-dark-box-shadow(5, $color-theme-light);
+            @extend .badge--dark;  
         }
     }
 }
 
 .badge{
-    margin-top: 10px;
     width: max-content;
     padding: $badge-padding;
     border-radius: 20px;
-    background-color: $color-page;
     white-space: nowrap;
-    color: $color-theme-dark;
-    border: 1px solid $color-page-dark;
-    box-shadow: -3px 3px 0px $color-page-dark;
-    @include multi-dark-box-shadow(5, $color-page-dark);
+    margin: 15px 0px;
+
+    color: black;
+    background-color: $color-theme-light;
+    border: 1px solid $color-theme;
+    @include multi-dark-box-shadow(5, $color-theme);
 
     *{
         display: inline-block;
     }
 
-    &--accent{
-        @extend .badge;
+    &--dark{
+        color: black;
+        background-color: $color-page-dark;
+        border: 1px solid $color-theme-dark;
+        @include multi-dark-box-shadow(5, $color-theme-dark);
     }
 }

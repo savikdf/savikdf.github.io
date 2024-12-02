@@ -777,12 +777,12 @@ SL_templates = {
     <div class="jobDesc swiper-slide">
       <h3 class="jobDesc__header swiper-no-swiping">{companyLong}</h3>
       
-      <div class="jobDesc__location badge swiper-no-swiping">
+      <div class="jobDesc__location badge badge--dark swiper-no-swiping">
         <i class="fa-solid fa-location-dot"></i>  
         <p>{location}</p>
       </div>
 
-      <div class="jobDesc__dates badge swiper-no-swiping">
+      <div class="jobDesc__dates badge badge--dark swiper-no-swiping">
         <i class="fa-solid fa-calendar-days"></i>
         <div>
           <p class="jobDesc__dates--start">{startDate}</p> 
@@ -791,7 +791,7 @@ SL_templates = {
         </div>
       </div>
 
-      <ul class="jobDesc__badges badge-list badge-list--dark swiper-no-swiping">
+      <ul class="jobDesc__badges badge-list swiper-no-swiping">
         <!--js inserts here-->
       </ul>
 

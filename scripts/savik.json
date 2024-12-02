@@ -12,7 +12,7 @@
         "startDate": "2024-9-01",
         "endDate": "PRESENT",
         "skills":[
-          "Golang", ".NET"
+          "Golang", "Google Cloud Platform"
         ],
         "responsibilities": [
           "TBD"
@@ -66,7 +66,7 @@
         "startDate": "2016-12-01",
         "endDate": "2017-9-01",
         "skills":[
-          ".NET", "SQL"
+          "Fullstack .NET", "SQL"
         ],
         "responsibilities": [
           "Performed Full Stack .NET duties on an agile team to maintain and upgrade existing MVC Web Applications and implement new clients on templated Web Applications.",
