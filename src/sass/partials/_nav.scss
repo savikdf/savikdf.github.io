@@ -55,8 +55,6 @@ nav{
         filter: blur(0px);
     }
 
-  
-   
     &.sticky{
         position: fixed;
         top: 0;
@@ -142,5 +140,19 @@ nav{
         text-align: center;
         text-shadow: 2px 2px 4px $color-theme-accent-dark;
         color: $color-theme;  
+    }
+}
+
+.dark-mode-toggle{
+    display: none;
+    position: absolute;
+    right: 0;
+
+    input[type='checkbox']{
+        background-color: red;
+
+        &:checked{
+
+        }
     }
 }

@@ -2,10 +2,10 @@
   $edge-offset: var(--top-edge);
 
   position: relative;
-  height: max(400px, 60vh);
+  height: 60vh;
   overflow: hidden;
   // background: url(/images/temp01.png);
-  // background-color: $color-theme;
+  background-color: $color-theme-dark;
   // background-repeat: no-repeat;
   // background-position: center;
   // background-size: 150%;
