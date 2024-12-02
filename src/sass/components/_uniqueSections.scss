@@ -329,7 +329,7 @@
       }
       &:hover{
         &::after{
-          color: $color-page-dark;
+          color: $color-theme;
           transform: translateY(-52px) rotateX(0deg);
         }
       }
@@ -352,7 +352,7 @@
       }
       &:hover{
         &::after{
-          color: $color-page-dark;
+          color: $color-theme;
           transform: translateY(-52px) rotateX(0deg);
         }
       }

@@ -22,9 +22,9 @@
     margin: 15px 0px;
 
     color: black;
-    background-color: $color-theme-light;
-    border: 1px solid $color-theme;
-    @include multi-dark-box-shadow(5, $color-theme);
+    background-color: $color-page;
+    border: 1px solid $color-page-dark;
+    @include multi-dark-box-shadow(5, $color-page-dark);
 
     *{
         display: inline-block;
