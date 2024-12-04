@@ -183,6 +183,10 @@
       animation: ping $speed infinite; /* Ping effect repeats every 2 seconds */
     }
 
+    &--badge{
+      animation: ping $speed infinite; /* Ping effect repeats every 2 seconds */
+    }
+
     &--border{
       &:before{
         z-index: -1;
@@ -224,6 +228,23 @@
         box-shadow: 3px 3px 0 $color-page-dark;
         box-shadow: 10px 10px 0 $color-page-dark;
         transform: translate(-10px, -10px);
+      }
+    }
+  }
+
+  &__badge{
+    $speed: 1.5s;
+
+    animation: badge $speed infinite; 
+
+    @keyframes badge {
+      0%,100% {
+        transform: scale(1.05); /* Initial size */
+        filter: blur(0px);
+      }
+      50% {
+        transform: scale(1.05); /* Grows in size */
+        filter: blur(2px);
       }
     }
   }

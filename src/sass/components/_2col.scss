@@ -18,7 +18,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      grid-area: col1;
+      grid-area: col1;  
       padding: 5px;
 
       @include break-up('small'){
@@ -28,15 +28,7 @@
       & + .col{
         grid-area: col2;
       }
-  
-      img{
-        padding: 0px;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        border-radius: 50%;
-        outline-offset: 5px;
-        width: min(250px, 100%);
-      }
+      
     }
   
 }

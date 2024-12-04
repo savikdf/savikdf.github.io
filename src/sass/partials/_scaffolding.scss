@@ -1,10 +1,11 @@
 // Content Area =====
 html {
   scroll-behavior: smooth;
-  background-color: $color-page;
+  background-color: $color-dark-page-dark;
   width: 100% !important;
   overflow-x: hidden;
   font-family: "Futura", monospace;
+  color: white;
 
   &[data-debug-enabled="true"]{
     #debug-menu{
@@ -75,9 +76,9 @@ body{
     padding: 0px;
     position: relative;
     z-index: var(--layer-var);  
-    background-color: $color-page;
+    background-color: $color-dark-page-dark;
 
-    &.section--dark{
+    &.section--light{
       background-color: $color-theme-dark; 
       color: white;
 

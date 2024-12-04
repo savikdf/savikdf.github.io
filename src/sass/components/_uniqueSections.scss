@@ -5,7 +5,7 @@
   height: 60vh;
   overflow: hidden;
   // background: url(/images/temp01.png);
-  background-color: $color-theme-dark;
+  background-color: $color-dark-page;
   // background-repeat: no-repeat;
   // background-position: center;
   // background-size: 150%;
@@ -113,24 +113,16 @@
 
   .profile-pic {
     border: 5px solid $color-theme-accent;
-    // @include multi-dark-box-shadow(10, $color-theme-accent);
-    //transform: translateY(calc($offset / 5));
+    padding: 0px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 15px;
+    outline-offset: 5px;
+    width: min(250px, 100%);
   }
 }
 
 #jobs {
-  .container {
-    // &::after {
-    //   // line underneath section
-    //   content: "";
-    //   position: absolute;
-    //   display: block;
-    //   width: 70%;
-    //   height: 3px;
-    //   background-color: $color-theme;
-    //   left: 15%;
-    // }
-  }
 
   .job-swiper-container {
     display: flex;
@@ -173,7 +165,8 @@
       justify-content: center;
       height: auto;
       padding: 15px;
-      background-color: $color-page;
+      // background-color: $color-dark-page-dark;
+      background: radial-gradient($color-dark-page-dark, $color-theme-light);
       border: none;
 
       @include break-up("small") {
@@ -182,7 +175,7 @@
       }
 
       &.swiper-slide-active {
-        background-color: $color-theme-light;
+        background: $color-theme-light;;
       }
     }
 
@@ -385,7 +378,7 @@
 }
 
 #projects {
-
+  display: none;
 
 }
 
