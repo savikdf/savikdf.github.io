@@ -1,28 +1,29 @@
 .anim {
   &__hero-title{
-    animation: hero-title 1.5s ease-in-out forwards;
-    //animation-delay: var(--animDelay, 0ms); // Default to 0ms if not specified
+    animation: hero-title 1.5s linear forwards;
+    animation-iteration-count: infinite;
+    // animation-delay: var(--animDelay, 0ms); // Default to 0ms if not specified
 
+    $circle-radius: 50px; // Define the radius of the circle
+    $steps: 360; // Define the number of steps for smoothness (higher = smoother)
+    
     @keyframes hero-title {
-      0%, 100% {
-        //color: inherit;
-        transform: translateX(0px) translateY(0px);
-        animation-timing-function: ease-out;
-        text-shadow: 0 0 2px $color-page-dark;
+      0%{
+        transform:rotate(0deg)
+                  translate(-10px)
+                  rotate(0deg);
+      
       }
-      50% {
-        //color: black;
-        transform: translateX(-20px) translateY(-20px);
-        //animation-timing-function: ease-in;
-        animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); // Slow descent
-        @include multi-dark-text-shadow(20, $color-theme-light);
+      100%{
+        transform:rotate(360deg)
+                  translate(-10px)
+                  rotate(-360deg);
       }
-     
     }
 
 
 
-
+    //OLD
     // //text-shadow: none;
     // //transform: translate3d(0,0,0);
     // animation: hero-title 5500ms infinite; 
@@ -158,6 +159,52 @@
     // }
   }
 
+  &__hero-title--4{
+    animation: hero-title--4 2s linear infinite;
+    background-color: $color-page;
+    position: relative;
+    // @include multi-dark-text-shadow(5, $color-theme-light);
+
+    &::before{
+      // content: attr(data-content);
+      content: '';
+      inset: 0;
+      display: block;
+      position: absolute;
+      font-size: inherit;
+      font-family: inherit;
+      color: transparent;
+
+      animation: hero-title--4-before 2s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes hero-title--4 {
+      0%, 100%{
+        // transform: translateX(10px), translateY(10px);
+        @include multi-dark-box-shadow(30, blue);
+        // text-shadow: 10px 10px 0px green;
+      }
+      50%{
+        // transform: translateX(0px), translateY(0px);
+        @include multi-dark-box-shadow(10, blue);
+        // text-shadow: 5px 5px 0px green;
+      }
+    }
+    @keyframes hero-title--4-before {
+      0%, 100%{
+        top: 10px;
+        left: 10px;
+        @include multi-dark-box-shadow(10, yellow);
+      }
+      50%{
+        top: 5px;
+        left: 5px;
+        @include multi-dark-box-shadow(30, yellow);
+      }
+    }
+  }
+
   &__in-and-up {
     opacity: 0;
     transform: translateY(50px);
@@ -236,7 +283,7 @@
     $speed: 1.5s;
 
     animation: badge $speed infinite; 
-
+    
     @keyframes badge {
       0%,100% {
         transform: scale(1.05); /* Initial size */

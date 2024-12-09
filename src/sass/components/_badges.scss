@@ -7,15 +7,15 @@
     gap: 10px;
     width: 100%;
 
-    &--dark{
+    &--dark-red{
         .badge{
-            @extend .badge--dark;  
+            @extend .badge--dark-red;  
         }
     }
 }
 
 .badge{
-    $badge-depth: 15px;
+    $badge-depth: 10px;
     position: relative; 
     overflow: visible;
     width: max-content;
@@ -25,33 +25,37 @@
     margin: 15px 0px;
 
     color: black;
-    background-color: $color-page;
-    border: 1px solid $color-page-dark;
-    @include multi-dark-box-shadow($badge-depth, $color-page-dark);
+    background-color: $color-page-dark;
+    border: 1px solid $color-theme-dark;
+    @include multi-dark-box-shadow(5, $color-theme-dark);
 
     *{
         display: inline-block;
     }
 
-    &--dark{
+    &--dark-red{
         // color: black;
         // background-color: $color-page-dark;
         // border: 1px solid $color-theme-dark;
         // @include multi-dark-box-shadow(5, $color-theme-dark);
+        color: white;
+        background-color: $color-dark-page;
+        border: 1px solid $color-page-dark;
+        @include multi-dark-box-shadow($badge-depth, $color-theme-accent);
     }
 
-    &::before{
-        //@extend .anim__badge;
-        content: '';
-        display: block;
-        position: absolute;
-        // inset: 0;
-        inset: $badge-depth calc(-1 * $badge-depth) calc(-1 * $badge-depth) $badge-depth;
-        border-radius: 20px;
-        outline: 2px solid $color-theme-accent;
-        //filter: blur(5px);
-        background: transparent;
-    }
+    // &::before{
+    //     //@extend .anim__badge;
+    //     content: '';
+    //     display: block;
+    //     position: absolute;
+    //     // inset: 0;
+    //     inset: $badge-depth calc(-1 * $badge-depth) calc(-1 * $badge-depth) $badge-depth;
+    //     border-radius: 20px;
+    //     outline: 2px solid $color-theme-accent;
+    //     //filter: blur(5px);
+    //     background: transparent;
+    // }
 
 
 }

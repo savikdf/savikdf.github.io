@@ -814,7 +814,7 @@ SL_templates = {
 
 SL_hero = {
   config:{
-    animActive: true,
+    animActive: true, 
   },
   init: function(){
     const _ = this;
@@ -825,49 +825,56 @@ SL_hero = {
     const title = document.querySelector(".hero__title");
     const text = title.textContent;
     title.setAttribute('data-content', text);
-    // title.innerHTML = ""; // Clear the current content
+    title.innerHTML = ""; // Clear the current content
 
-    // // Wrap each letter in a span and add to the title
-    // text.split("").forEach((letter, index) => {
-    //   const span = document.createElement("span");
-    //   span.textContent = letter;
-    //   span.style.zIndex = index * 20;
-    //   span.setAttribute('data-content', letter); //for css pseudo animations to use
-    //   span.setAttribute('data-supply-mouse', ''); //for temp
-    //   span.setAttribute('data-supply-style-mouse', ''); //for css pseudo animations to use
+    // Wrap each letter in a span and add to the title
+    text.split("").forEach((letter, index) => {
+      const span = document.createElement("span");
+      span.textContent = letter;
+      // span.style.zIndex = index * 20;
+      span.setAttribute('data-content', letter); //for potential css animations to use
+      //THESE AREN'T NEEDED FOR NOW, ADD WHEN YOU WANT TO EMBARK ON THE 'MAKE THE TITLE REACT TO THE MOUSE' QUEST
+      // span.setAttribute('data-supply-mouse', ''); //for temp
+      // span.setAttribute('data-supply-style-mouse', ''); //for css pseudo animations to use
 
-    //   //span.style.setProperty("--animDelay", `${index * 20}ms`);
+      //CASCADING/DELAYED ANIMATION EFFECT? NOT SURE REALLY
+      // span.style.setProperty("--animDelay", `${index * 20}ms`);
 
-    //   // Add event listeners for hover behavior
-    //   function AnimInteract(event){
-    //     if(_.config.animActive){
-    //       _.config.animActive = false;
-    //       return;
-    //     }
+      // Add event listeners for hover behavior
+      // function AnimInteract(event){
+      //   console.log("anim interact!");
+      //   //turn off initial anim
+      //   if(SL_hero.config.animActive){
+      //     SL_hero.config.animActive = false;
+      //     return;
+      //   }
 
-    //     if (!span.classList.contains("active")) {
-    //       span.classList.add("active");
-    //     }
-    //   }
-    //   span.addEventListener("mouseenter", AnimInteract);
-    //   span.addEventListener("click", AnimInteract);
-    //   span.addEventListener("touchStart", AnimInteract);
+      //   if (!span.classList.contains("active")) {
+      //     span.classList.add("active");
+      //   }
+      // }
+      // span.addEventListener("mouseenter", AnimInteract);
+      // span.addEventListener("click", AnimInteract);
+      // span.addEventListener("touchStart", AnimInteract);
 
-    //   // Remove 'active' class when the animation ends
-    //   span.addEventListener("animationend", () => {
-    //     span.classList.remove("active");
-    //     if(_.config.animActive){
-    //       setTimeout(() => {
-    //         span.classList.add("active");
-    //       }, 200);
-    //     }
-    //   });
+      // Remove 'active' class when the animation ends
+      // span.addEventListener("animationend", () => {
+      //   span.classList.remove("active");
+      //   if(SL_hero.config.animActive){
+      //     setTimeout(() => {
+      //       span.classList.add("active");
+      //     }, 200);
+      //   }
+      // });
 
-    //   title.appendChild(span);
-    //   setTimeout(() => {
-    //     span.classList.add('active');
-    //   }, index * 100);
-    // });
+      //add active class on index affected delay
+      setTimeout(() => {
+        span.classList.add('active');
+      }, index * 100);
+
+      title.appendChild(span);
+ 
+    });
     SL_eventsModule.initConfigListeners(title);
 
   },

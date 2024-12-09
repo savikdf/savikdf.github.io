@@ -39,13 +39,94 @@
 
 <body>
     <header>
-        <!-- Skip Link -->
+        <!-- A11Y Skip Link -->
         <a tabindex="0" class="skip-nav" href="#footer">Skip To Footer</a>
+
         <section id="hero" style="--top-edge: 0vh;">
+            <canvas id="hero__canvas"></canvas>
+            <script>
+                const canvas = document.getElementById('hero__canvas');
+const ctx = canvas.getContext('2d');
+
+// Resize canvas to fill the screen
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Star properties
+const stars = [];
+const starCount = 300; // Number of stars
+const speed = 4; // Speed of stars
+
+// Canvas center
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+
+// Initialize stars
+for (let i = 0; i < starCount; i++) {
+  stars.push({
+    x: Math.random() * canvas.width - centerX, // Centered position
+    y: Math.random() * canvas.height - centerY, // Centered position
+    z: Math.random() * canvas.width, // Depth for perspective
+    size: Math.random() * 2 + 1, // Star size
+  });
+}
+
+// Animation loop
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+  // Update and draw each star
+  for (const star of stars) {
+    // Move the star toward the viewer
+    star.z -= speed;
+
+    // Calculate perspective scaling
+    const perspective = canvas.width / (canvas.width + star.z);
+    const x = centerX + star.x * perspective; // Adjust to canvas center
+    const y = centerY + star.y * perspective; // Adjust to canvas center
+    const size = star.size * perspective;
+
+    // Check if the star is outside the visible canvas
+    if (
+      star.z <= 0 || // Too close to the viewer
+      x < 0 ||       // Out of the left boundary
+      x > canvas.width || // Out of the right boundary
+      y < 0 ||       // Out of the top boundary
+      y > canvas.height   // Out of the bottom boundary
+    ) {
+      // Reset the star to the background with a new random position
+      star.x = Math.random() * canvas.width - centerX;
+      star.y = Math.random() * canvas.height - centerY;
+      star.z = canvas.width;
+      continue;
+    }
+
+    // Draw the star
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(1, perspective * 2)})`; // Adjust brightness
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate); // Loop the animation
+}
+
+// Handle window resizing
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Start the animation
+animate();
+
+            </script>
+            <span class="hero__first"></span>
             <div class="container">
                 <!-- <img class="hero__image" src="./images/landing-background-savik.webp"/ loading="lazy"> -->
                 <h1 class="hero__title" data-supply-mouse data-supply-style-mouse>SavikSpace</h1>
             </div>
+            <span class="hero__second"></span>
         </section>
     </header>
 
@@ -61,7 +142,7 @@
         <nav>
             <div class="container">
                 <div class="dark-mode-toggle">
-                    <label for="dark-mode-toggle">Dark Mode</label>            
+                    <label for="dark-mode-toggle">Dark Mode</label>
                     <input type="checkbox" id="dark-mode-toggle" name="Dark Mode Toggle" />
                 </div>
                 <ol>
@@ -71,10 +152,10 @@
                     <li><a href="#comics">Comics</a></li>
                     <li><a href="#jobs">History</a></li>
                 </ol>
-                
+
             </div>
         </nav>
-   
+
         <section id="about">
             <div class="container">
                 <h2>About</h2>
@@ -82,9 +163,11 @@
                 <div class="two-col">
                     <div class="col">
                         <p>
-                            Welcome to SavikLand! I'm your host, Savik-- a software engineer with a love for creating all kinds of things, from video games to business applications. I enjoy solving problems and making technology work better for everyone.
+                            Welcome to SavikLand! I'm your host, Savik-- a software engineer with a love for creating
+                            all kinds of things, from video games to business applications. I enjoy solving problems and
+                            making technology work better for everyone.
                         </p>
-                        <ul class="badge-list badge-list--dark">
+                        <ul class="badge-list badge-list--dark-red">
                             <li class="badge">Games</li>
                             <li class="badge">Apps</li>
                             <li class="badge">Art</li>
@@ -92,7 +175,7 @@
                     </div>
 
                     <div class="col"> <!--col--stacked-->
-                        <img src="/images/savik.jpg" class="col profile-pic" loading="lazy" />
+                        <img src="/images/landing-background-savik-flip.webp" class="profile-pic" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -122,7 +205,8 @@
             <div class="container">
                 <h2>Comics</h2>
                 <p>
-                    I'm cooking up a little story. Its still a work in progress so there's nothing to look at right now, but I'll be posting it here when it's ready to go!
+                    I'm cooking up a little story. Its still a work in progress so there's nothing to look at right now,
+                    but I'll be posting it here when it's ready to go!
                 </p>
                 <div class="comic" data-comic data-accordion>
                     <h3 data-accordion-button>Chapter 1</h3>
@@ -155,11 +239,13 @@
             <div class="container">
                 <h2>History</h2>
                 <p style="margin-bottom:15px;">
-                    An interactable showcase of my previous work experience, A.K.A. <i>"Resume Lite"</i>. For a full download of my Resume, 
+                    An interactable showcase of my previous work experience, A.K.A. <i>"Resume Lite"</i>. For a full
+                    download of my Resume,
                     <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">click here</a>.
                 </p>
                 <div class="job-swiper-container">
-                    <div id="job__swiper" class="job__swiper swiper" style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
+                    <div id="job__swiper" class="job__swiper swiper"
+                        style="--bg-img: url(/images/landing-background-savik.webp);"> <!--in js: swiper.el-->
 
                         <div id="job__slide" class="swiper-wrapper">
                             <!-- js inserts here -->
@@ -185,7 +271,7 @@
     </main>
     <footer id="footer">
         <div class="container">
-            <a href="./scripts/savik.json">Take a look at the <i>savik.json</i></a> <br/>
+            <a href="./scripts/savik.json">Take a look at the <i>savik.json</i></a> <br />
             <p>the data used to build this website!</p>
         </div>
     </footer>
